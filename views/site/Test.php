@@ -7,4 +7,4 @@
  */
 use yii\helpers\Html;
 ?>
-<?= Html::encode(Yii::$app->user->identity->username) ?>
+<?= Html::encode($status) ?>

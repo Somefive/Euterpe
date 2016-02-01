@@ -27,7 +27,18 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false, //若要发送邮件 将其置为false
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.sina.com',
+                'username' => 'thu_euterpe@sina.com',
+                'password' => 'QbR5L8M6nXw85EBY',
+                'port' => '25',
+            ],
+            'messageConfig'=>[
+                'charset'=>'UTF-8',
+                'from'=>['thu_euterpe@sina.com'=>'admin']
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
