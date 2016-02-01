@@ -15,8 +15,6 @@ class LoginForm extends Model
     public $rememberMe = true;
 
     private $_user = false;
-    private $_account = false;
-
 
     /**
      * @return array the validation rules.
@@ -43,16 +41,11 @@ class LoginForm extends Model
     public function validatePassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
-//            $user = $this->getUser();
-            $account = $this->getAccount();
+            $user = $this->getUser();
 
-            if (!$account || !$account->validatePassword(md5($this->password))){
+            if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Incorrect username or password.');
             }
-
-//            if (!$user || !$user->validatePassword($this->password)) {
-//                $this->addError($attribute, 'Incorrect username or password.');
-//            }
         }
     }
 
@@ -82,17 +75,4 @@ class LoginForm extends Model
         return $this->_user;
     }
 
-    /**
-     * Finds account by [[username]]
-     *
-     * @return array|bool|null|\yii\db\ActiveRecord
-     */
-    public function getAccount()
-    {
-        if ($this->_account === false) {
-            $this->_account = Account::find()->where(['Username' => $this->username])->one();
-        }
-
-        return $this->_account;
-    }
 }

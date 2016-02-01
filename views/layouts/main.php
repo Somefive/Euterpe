@@ -46,6 +46,7 @@ AppAsset::register($this);
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ],
+            ['label' => 'Test', 'url' => ['/site/test']],
         ],
     ]);
     NavBar::end();
