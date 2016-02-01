@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\RegisterForm;
 use app\models\ContactForm;
 
 class SiteController extends Controller
@@ -109,5 +110,28 @@ class SiteController extends Controller
         else
             $msg = 'Fail...';
         return $this->render('test',['status' => $msg]);
+    }
+
+    public function actionRegister()
+    {
+        if (!\Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new RegisterForm();
+        if($model->load(Yii::$app->request->post())){
+            if($model->Register()){
+               $msg = '注册成功！';
+            }
+            else
+                $msg = '注册失败……';
+            return $this->render('say', [
+                'message' => $msg
+            ]);
+        }
+
+        return $this->render('register', [
+            'model' => $model,
+        ]);
     }
 }
