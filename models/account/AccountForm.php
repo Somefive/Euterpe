@@ -1,27 +1,27 @@
 <?php
-
-namespace app\models;
-
-use yii\base\Model;
-use Yii;
-
 /**
  * Created by PhpStorm.
  * User: Somefive
- * Date: 2016/2/1
- * Time: 19:57
+ * Date: 2016/2/2
+ * Time: 16:53
  */
 
-class RegisterForm extends Model
+namespace app\models\account;
+
+use Yii;
+use yii\base\Model;
+use app\models\User;
+
+class AccountForm extends Model
 {
     public $username;
     public $password;
     public $repassword;
     public $email;
 
-    /**
-     * @return array the validation rules.
-     */
+    public $oldemail;
+    public $id;
+
     public function rules()
     {
         return [
@@ -29,7 +29,6 @@ class RegisterForm extends Model
             ['password','match','pattern'=>'/^[0-9a-zA-Z]{6,32}$/','message'=>'{attribute}必须为6-32位数字或字母组成'],
             ['repassword','compare','compareAttribute'=>'password','message'=>'{attribute}两次密码不一致'],
             ['email','email','message'=>'邮箱格式不正确'],
-            ['username', 'validateUsername', 'message'=>'该用户名已经存在']
         ];
     }
 
@@ -43,19 +42,13 @@ class RegisterForm extends Model
         ];
     }
 
-    public function validateUsername()
+    public function Modify()
     {
-        return !(User::findByUsername($this->username));
-    }
-
-    public function Register(){
-        if($this->validate() && $this->validateUsername()){
-            $user = new User();
-            $user->username = $this->username;
-            $user->password = $this->password;
-            $user->email = $this->email;
-            return $user->save();
-        }
-        return false;
+        $user = User::findOne($this->id);
+        if(!$user || !$this->validate())
+            return false;
+        $user->password = $this->password;
+        $user->email = $this->email;
+        return $user->save();
     }
 }
