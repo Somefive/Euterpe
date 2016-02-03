@@ -8,7 +8,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Account Index';
+$this->title = '账户中心 Account Index';
 ?>
 <div class="account-index">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -24,7 +24,14 @@ $this->title = 'Account Index';
             </div>
             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
-
+                    <table class="table table-striped table-bordered" style="text-align: center;">
+                        <thead>
+                            <tr><td style="width: 200px;">课程名称 Course Name</td><td>课程简介 Course Introduction</td></tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($studentcourses as $course){ echo('<tr class="tr-enter-course" style="cursor:pointer;" courseid="'.$course->id.'"><td>'.$course->name.'</td><td>'.$course->description.'</td></tr>'); } ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -22,4 +22,12 @@ $(function(){
         $('#accountform-repassword').val('');
         $('#accountform-email').val($('#accountform-oldemail').val());
     });
+    $('.tr-enter-course').hover(function(){
+        $(this).addClass('success');
+    }, function(){
+        $(this).removeClass('success');
+    });
+    $('.tr-enter-course').click(function(){
+        alert('进入课程'+$(this).attr('courseid'));
+    });
 });

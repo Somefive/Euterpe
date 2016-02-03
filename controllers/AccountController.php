@@ -13,6 +13,7 @@ use app\models\account\StudentBasicInformationForm;
 use app\models\account\LoginForm;
 use app\models\account\RegisterForm;
 use app\models\account\User;
+use app\models\course\Course;
 use Yii;
 use yii\web\Controller;
 
@@ -42,9 +43,13 @@ class AccountController extends Controller
         $accountform->email = \Yii::$app->user->identity->email;
         $studentbasicinformationform = StudentBasicInformationForm::findOne(User::getAppUser()->id);
         if(!$studentbasicinformationform) $studentbasicinformationform = new StudentBasicInformationForm();
+
+        $studentcourses = Course::getCourses(User::getAppUser()->id);
+
         return $this->render('index',[
             'accountform' => $accountform,
             'studentbasicinformationform' => $studentbasicinformationform,
+            'studentcourses' => $studentcourses,
         ]);
     }
 
