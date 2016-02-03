@@ -1,6 +1,11 @@
 <?php
-
-namespace app\models;
+/**
+ * Created by PhpStorm.
+ * User: Somefive
+ * Date: 2016/2/3
+ * Time: 17:24
+ */
+namespace app\models\account;
 
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -45,5 +50,19 @@ class User extends ActiveRecord implements IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === $password;
+    }
+
+    public function isStudent()
+    {
+        return $this->type == 'Student';
+    }
+
+    public function isTeacher()
+    {
+        return $this->type == 'Teacher';
+    }
+
+    public static function getAppUser(){
+        return \Yii::$app->user->identity;
     }
 }

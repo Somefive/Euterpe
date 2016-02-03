@@ -38,7 +38,36 @@ $this->title = 'Account Index';
             </div>
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
-                    个人信息修改内容
+                    <p>Please fill out the following fields to modify:</p>
+
+                    <?php $form = ActiveForm::begin([
+                        'id' => 'studentbasicinformation-form',
+                        'action' => '/account/studentbasicinformationmodify/',
+                        'options' => ['class' => 'form-horizontal'],
+                        'fieldConfig' => [
+                            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+                            'labelOptions' => ['class' => 'col-lg-1 control-label'],
+                        ],
+                    ]); ?>
+
+                    <?= $form->field($studentbasicinformationform, 'school')->dropDownList(['Tsinghua'=>'Tsinghua University 清华大学','Other'=>'Other 其他']); ?>
+
+                    <?= $form->field($studentbasicinformationform, 'schoolid') ?>
+
+                    <?= $form->field($studentbasicinformationform, 'chname') ?>
+
+                    <?= $form->field($studentbasicinformationform, 'enname') ?>
+
+                    <?= $form->field($studentbasicinformationform, 'gender')->dropDownList(['male'=>'male 男','female'=>'female 女','robot'=>'robot 机器人']); ?>
+
+                    <?= $form->field($studentbasicinformationform, 'tel') ?>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-1 col-lg-11">
+                            <?= Html::Submitbutton('Modify', ['class' => 'btn btn-primary E-studentbasicinformationmodify', 'name' => 'studentbasicinformationmodify-button']) ?>
+                        </div>
+                    </div>
+                    <?php ActiveForm::end(); ?>
                 </div>
             </div>
         </div>

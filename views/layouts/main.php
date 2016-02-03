@@ -39,12 +39,12 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index']],
             //['label' => 'About', 'url' => ['/site/about']],
             //['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? ['label' => 'Register', 'url' => ['/site/register']] : ['label'=> Yii::$app->user->identity->username, 'url' => ['/account/'] ],
+            Yii::$app->user->isGuest ? ['label' => 'Register', 'url' => ['/account/register']] : ['label'=> Yii::$app->user->identity->username, 'url' => ['/account/'] ],
             Yii::$app->user->isGuest ?
-                ['label' => 'Login', 'url' => ['/site/login']] :
+                ['label' => 'Login', 'url' => ['/account/login']] :
                 [
                     'label' => 'Logout',
-                    'url' => ['/site/logout'],
+                    'url' => ['/account/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ],
             ['label' => 'Test', 'url' => ['/site/test']],

@@ -10,7 +10,6 @@ namespace app\models\account;
 
 use Yii;
 use yii\base\Model;
-use app\models\User;
 
 class AccountForm extends Model
 {

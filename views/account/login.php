@@ -2,22 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: Somefive
- * Date: 2016/2/1
- * Time: 17:19
+ * Date: 2016/2/3
+ * Time: 17:14
  */
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Register';
+$this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-register">
+<div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to register:</p>
+    <p>Please fill out the following fields to login:</p>
 
     <?php $form = ActiveForm::begin([
-        'id' => 'register-form',
+        'id' => 'login-form',
         'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
             'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
@@ -29,16 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'password')->passwordInput() ?>
 
-    <?= $form->field($model, 'repassword')->passwordInput() ?>
-
-    <?= $form->field($model, 'email')->textInput() ?>
+    <?= $form->field($model, 'rememberMe')->checkbox([
+        'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+    ]) ?>
 
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
-            <?= Html::Button('Register', ['class' => 'btn btn-primary E-register', 'name' => 'register-button']) ?>
+            <?= Html::Button('Login', ['class' => 'btn btn-primary E-login', 'name' => 'login-button']) ?>
         </div>
     </div>
     <?php ActiveForm::end(); ?>
     <?=Html::jsFile('@web/js/jquery-2.2.0.min.js')?>
-    <?=Html::jsFile('@web/js/register.js')?>
+    <?=Html::jsFile('@web/js/login.js')?>
 </div>
