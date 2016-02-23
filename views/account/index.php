@@ -29,7 +29,7 @@ $this->title = '账户中心 Account Index';
                             <tr><td style="width: 200px;">课程名称 Course Name</td><td>课程简介 Course Introduction</td></tr>
                         </thead>
                         <tbody>
-                            <?php foreach($studentcourses as $course){ echo('<tr class="tr-enter-course" style="cursor:pointer;" courseid="'.$course->id.'"><td>'.$course->name.'</td><td>'.$course->description.'</td></tr>'); } ?>
+                            <?php foreach($studentcourses as $course){ echo('<tr class="tr-enter-course" data-toggle="tooltip" title="enter the course 进入该课程" style="cursor:pointer;" courseid="'.$course->id.'"><td>'.$course->name.'</td><td>'.$course->description.'</td></tr>'); } ?>
                         </tbody>
                     </table>
                 </div>

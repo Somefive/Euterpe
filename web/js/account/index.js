@@ -28,6 +28,7 @@ $(function(){
         $(this).removeClass('success');
     });
     $('.tr-enter-course').click(function(){
-        alert('进入课程'+$(this).attr('courseid'));
+        location.href = '/course/entercourse?courseid='+$(this).attr('courseid');
     });
+    $('[data-toggle="tooltip"]').tooltip();
 });

@@ -11,6 +11,8 @@ use yii\db\ActiveRecord;
 
 class Course extends ActiveRecord
 {
+    public $enrolled;
+
     //返回该课程的所有学生ID[array of INT]
     public function getStudents()
     {
@@ -33,4 +35,5 @@ class Course extends ActiveRecord
         }
         return $courses;
     }
+
 }

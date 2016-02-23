@@ -33,13 +33,41 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
+    $Nav_courseitem = [
+        '<li class="dropdown-header">General</li>',
+        ['label' => 'Courses List', 'url' => '/course/list'],
+    ];
+    if($_COOKIE['courseid']){
+        $course = \app\models\course\Course::findOne(['id'=>$_COOKIE['courseid']]);
+        if($course){
+            array_push($Nav_courseitem,'<li class="divider"></li>');
+            array_push($Nav_courseitem,'<li class="dropdown-header">'.$course->name.'</li>');
+            array_push($Nav_courseitem,['label' => 'Class', 'url' => '/course/class']);
+            array_push($Nav_courseitem,['label' => 'Composer', 'url' => '/course/composer/index']);
+            array_push($Nav_courseitem,['label' => 'Disscussion', 'url' => '/course/discussion']);
+            array_push($Nav_courseitem,['label' => 'Wiki', 'url' => '/course/wiki']);
+            array_push($Nav_courseitem,['label' => 'Share', 'url' => '/course/share']);
+        }
+    }
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
+            Yii::$app->user->isGuest ?
+                ['label' => 'Home', 'url' => ['/site/index']] :
+                [
+                    'label' => 'Course',
+                    'items' => $Nav_courseitem,
+                ],
+
             //['label' => 'About', 'url' => ['/site/about']],
             //['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? ['label' => 'Register', 'url' => ['/account/register']] : ['label'=> Yii::$app->user->identity->username, 'url' => ['/account/'] ],
+
+            Yii::$app->user->isGuest ?
+                ['label' => 'Register', 'url' => ['/account/register']] :
+                ['label'=> Yii::$app->user->identity->username, 'url' => ['/account/'] ],
+
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/account/login']] :
                 [
@@ -47,6 +75,7 @@ AppAsset::register($this);
                     'url' => ['/account/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ],
+
             ['label' => 'Test', 'url' => ['/site/test']],
         ],
     ]);

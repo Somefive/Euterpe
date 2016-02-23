@@ -1,0 +1,83 @@
+@font-face { 
+    font-family: Banda;
+    src: url('src/Banda.otf');
+}
+@font-face { 
+    font-family: Muli;
+    src: url('src/Muli.ttf');
+}
+@font-face {
+    font-family: Sketch_Block;
+    src: url('src/Sketch_Block.ttf');
+}
+
+div.composer{
+    margin-left: auto;
+    margin-right: auto;
+    width:85%;
+    min-width: 750px;
+    text-align: center;
+    border: 1px solid #FFFFFF;
+    border-radius: 15px;
+    font-size: 24px;
+    font-family: Banda;
+    background: #EEEEEE;
+}
+
+div.composer-topbar{
+    width: 100%;
+    height: 60px;
+    text-align: left;
+    border-radius: 15px 15px 0px 0px;
+    background: #DDDDDD;
+    padding: 15px;
+}
+
+div.composer-bottombar{
+    width: 100%;
+    height: 50px;
+    text-align: left;
+    border-radius: 0px 0px 15px 15px;
+    background: #DDDDDD;
+    padding: 5px 15px 15px 15px;
+}
+
+div.composer-textedit{
+    border: 5px solid #DDDDDD;
+    padding: 20px;
+    outline: none;
+    text-align: left;
+    min-height: 400px;
+    font-size: 16px;
+}
+
+input.composition-title{
+    outline: none;
+    background: #EEEEEE;
+}
+
+span.composition-fulltitle{
+    font-size: 24px;
+    font-family: Sketch_Block;
+}
+
+div.btn-group{
+    margin: 0px 5px 0px 5px;
+}
+
+
+/*span.emphasis{*/
+    /*border-radius: 5px;*/
+/*}*/
+
+/*div.popup {*/
+    /*display: none;*/
+    /*background-color: white;*/
+    /*padding-left: 15px;*/
+    /*padding-right: 15px;*/
+    /*padding-top: 1px;*/
+    /*padding-bottom: 3px;*/
+    /*border:2px dotted;*/
+    /*font-size: 20px;*/
+    /*font-family: Muli;*/
+/*}*/

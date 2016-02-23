@@ -65,4 +65,16 @@ class User extends ActiveRecord implements IdentityInterface
     public static function getAppUser(){
         return \Yii::$app->user->identity;
     }
+
+    public static function getAppUserID(){
+        return \Yii::$app->user->identity->id;
+    }
+
+    public static function IsAppUserTeacher(){
+        return \Yii::$app->user->identity->isTeacher();
+    }
+
+    public static function IsAppUserStudent(){
+        return \Yii::$app->user->identity->isStudent();
+    }
 }
