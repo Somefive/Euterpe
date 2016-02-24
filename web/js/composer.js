@@ -32,6 +32,8 @@
             var composer = $(this).parents('.composer');
             composer.find('.composer-textedit').html(backup);
             composer.find('.switch[status="on"]').click();
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="popover"]').popover();
         });
 
         $(this).find('.btn-cancel').click(function(){
