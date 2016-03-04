@@ -38,7 +38,8 @@ AppAsset::register($this);
         '<li class="dropdown-header">General</li>',
         ['label' => 'Courses List', 'url' => '/course/list'],
     ];
-    if($_COOKIE['courseid']){
+    //if($_COOKIE['courseid']){
+	if(in_array("courseid",$_COOKIE)){
         $course = \app\models\course\Course::findOne(['id'=>$_COOKIE['courseid']]);
         if($course){
             array_push($Nav_courseitem,'<li class="divider"></li>');
