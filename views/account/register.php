@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'repassword')->passwordInput() ?>
 
 
-    <?= $form->field($model, 'email')->widget(\yii\redactor\widgets\Redactor::className()) ?>
+    <?= $form->field($model, 'email') ?>
 
 
     <div class="form-group">

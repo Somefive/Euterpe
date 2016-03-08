@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost_3306
-Source Server Version : 50628
+Source Server Version : 50624
 Source Host           : localhost:3306
 Source Database       : euterpe
 
 Target Server Type    : MYSQL
-Target Server Version : 50628
+Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-03-09 00:25:30
+Date: 2016-03-09 00:40:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -72,6 +72,7 @@ INSERT INTO `courseenrollment` VALUES ('2', '2', null);
 INSERT INTO `courseenrollment` VALUES ('1', '1', null);
 INSERT INTO `courseenrollment` VALUES ('1', '4', null);
 INSERT INTO `courseenrollment` VALUES ('1', '5', null);
+INSERT INTO `courseenrollment` VALUES ('1', '9', null);
 
 -- ----------------------------
 -- Table structure for post
@@ -88,12 +89,11 @@ CREATE TABLE `post` (
   `simpleInfo` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`postId`),
   KEY `postId` (`postId`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of post
 -- ----------------------------
-INSERT INTO `post` VALUES ('0', '5', '2016-03-08 20:44:43', '测试精简信息', '<p><i><tt>string</tt></i></p><dd><p>输入字符串。</p></dd><dt><span class=\"term\"><i><tt>start</tt></i></span></dt><dd><p>如果 <i><tt>start</tt></i> 是非负数，返回的字符串将从 <i><tt>string</tt></i> 的 <i><tt>start</tt></i> 位置开始，从 0 开始计算。例如，在字符串 “<i>abcdef</i>” 中，在位置 <i>0</i> 的字符是 “<i>a</i>”，位置 <i>2</i> 的字符串是 “<i>c</i>” 等等。</p><p>如果 <i><tt>start</tt></i> 是负数，返回的字符串将从 <i><tt>string</tt></i> 结尾处向前数第 <i><tt>start</tt></i> 个字符开始。</p><p>如果 <i><tt>string</tt></i> 的长度小于或等于</p></dd>', '1|2|3', null, '5|吴行行|测试精简信息|<p><i><tt>string</tt></i></p><dd><p>输入字符串。</p></dd><dt><span class=\"term\"><i><tt>start</tt></i></span></dt><dd><p>如果 <i><tt>start</tt></i> 是非负数，返回的字符串将从 <i><tt>string</tt></i> 的 <i><tt>start</tt></i> 位置开始，从 0 开始计算。例如，在字符串 “<i>abcdef</i>” 中，在位置 <i>0</i> 的字符是 “<i>a</i>”，位置 <i>2</i> 的字符串是 “<i>c</i>” 等等。</p><p>如果 <i><tt>start</tt></i> 是负数，返回的字符串将从 <i><tt>string</tt></i> 结尾处向前数第 <i><tt>start</tt></i> 个字符开始。</p><p>如果 <i><tt>string</tt></i> 的长度小于或等于</p></dd>|2016-03-08');
 INSERT INTO `post` VALUES ('22', '5', '2016-03-08 21:09:43', '测试主键的递增', '<p>会不会递增呀好伤心。</p><p>下面是乱写的。。。</p><p>123456</p>', null, null, '5|吴行行|测试主键的递增|<p>会不会递增呀好伤心。</p><p>下面是乱写的。。。</p><p>123456</p>|2016-03-08');
 INSERT INTO `post` VALUES ('23', '5', '2016-03-08 21:11:10', '测试图片上传', '<p>来个图片</p><p>来个图片<br></p><p>来个图片<span class=\"redactor-invisible-space\"><br></span></p><p><span class=\"redactor-invisible-space\">来个图片<span class=\"redactor-invisible-space\"><br></span></span></p><p><span class=\"redactor-invisible-space\"><span class=\"redactor-invisible-space\"><img src=\"/uploads/5/7a07e25c31-u-98798092877674487fm-116gp-0.jpg\"><span class=\"redactor-invisible-space\"><br></span></span></span></p>', '1|5', null, '5|吴行行|测试图片上传|<p>来个图片</p><p>来个图片<br></p><p>来个图片<span class=\"redactor-invisible-space\"><br></span></p><p><span class=\"redactor-invisible-space\">来个图片<span class=\"redactor-invisible-space\"><br></span></span></p><p><span class=\"redactor-invisible-space\"><span class=\"redactor-invisible-space\"><img src=\"/uploads/5/7a07e25c31-u-98798092877674487fm-116gp-0.jpg\"><span class=\"redactor-invisible-space\"><br></span></span></span></p>|2016-03-08');
 INSERT INTO `post` VALUES ('24', '5', '2016-03-08 21:20:30', '第4个帖子', '<p>为啥写这个帖子，不知道</p>', null, null, '5|吴行行|第4个帖子|<p>为啥写这个帖子，不知道</p>|2016-03-08');
@@ -101,6 +101,8 @@ INSERT INTO `post` VALUES ('25', '5', '2016-03-08 21:52:20', '马上要出操了
 INSERT INTO `post` VALUES ('26', '5', '2016-03-08 22:49:17', '再来一个帖子', '<ul><li>能够看到滚动条的效果了！好开心好开心！<a href=\"http://localhost:8080/course/discussion/discussion\">我的地址！</a></li></ul>', null, null, '5|吴行行|再来一个帖子|<ul><li>能够看到滚动条的效果了！好开心好开心！<a href=\"http://localhost:8080/course/discussion/discussion\">我的地址！</a></li></ul>|2016-03-08');
 INSERT INTO `post` VALUES ('27', '5', '2016-03-08 23:19:10', '测试', '<p><img src=\"/uploads/5/0ec2ae1d04-u-98798092877674487fm-116gp-0.jpg\"></p>', null, null, '5|吴行行|测试|<p><img src=\"/uploads/5/0ec2ae1d04-u-98798092877674487fm-116gp-0.jpg\"></p>|2016-03-08');
 INSERT INTO `post` VALUES ('28', '5', '2016-03-09 00:14:59', '最后测试一次！', '<p>明天就要给老师展示了好紧张，最后测试一次！</p><p>我先测试一个图片哈</p><p><img src=\"/uploads/5/086c98cd8f-imgfortest.jpg\"></p><hr><p>再来一个链接，点击它会跳转<a href=\"http://localhost:8080/course/discussion/discussion\" target=\"_blank\">我的讨论区！</a></p><p>换个颜色！<span style=\"color: rgb(192, 80, 77);\">这是红色!</span></p>', null, null, '5|吴行行|最后测试一次！|<p>明天就要给老师展示了好紧张，最后测试一次！</p><p>我先测试一个图片哈</p><p><img src=\"/uploads/5/086c98cd8f-imgfortest.jpg\"></p><hr><p>再来一个链接，点击它会跳转<a href=\"http://localhost:8080/course/discussion/discussion\" target=\"_blank\">我的讨论区！</a></p><p>换个颜色！<span style=\"color: rgb(192, 80, 77);\">这是红色!</span></p>|2016-03-09');
+INSERT INTO `post` VALUES ('29', '5', '2016-03-08 20:44:43', '测试精简信息', '<p><i><tt>string</tt></i></p><dd><p>输入字符串。</p></dd><dt><span class=\"term\"><i><tt>start</tt></i></span></dt><dd><p>如果 <i><tt>start</tt></i> 是非负数，返回的字符串将从 <i><tt>string</tt></i> 的 <i><tt>start</tt></i> 位置开始，从 0 开始计算。例如，在字符串 “<i>abcdef</i>” 中，在位置 <i>0</i> 的字符是 “<i>a</i>”，位置 <i>2</i> 的字符串是 “<i>c</i>” 等等。</p><p>如果 <i><tt>start</tt></i> 是负数，返回的字符串将从 <i><tt>string</tt></i> 结尾处向前数第 <i><tt>start</tt></i> 个字符开始。</p><p>如果 <i><tt>string</tt></i> 的长度小于或等于</p></dd>', '1|2|3', null, '5|吴行行|测试精简信息|<p><i><tt>string</tt></i></p><dd><p>输入字符串。</p></dd><dt><span class=\"term\"><i><tt>start</tt></i></span></dt><dd><p>如果 <i><tt>start</tt></i> 是非负数，返回的字符串将从 <i><tt>string</tt></i> 的 <i><tt>start</tt></i> 位置开始，从 0 开始计算。例如，在字符串 “<i>abcdef</i>” 中，在位置 <i>0</i> 的字符是 “<i>a</i>”，位置 <i>2</i> 的字符串是 “<i>c</i>” 等等。</p><p>如果 <i><tt>start</tt></i> 是负数，返回的字符串将从 <i><tt>string</tt></i> 结尾处向前数第 <i><tt>start</tt></i> 个字符开始。</p><p>如果 <i><tt>string</tt></i> 的长度小于或等于</p></dd>|2016-03-08');
+INSERT INTO `post` VALUES ('31', '9', '2016-03-09 00:40:22', '学习学习', '<p>深夜党学习大神代码</p>', null, null, '9|ykd|学习学习|<p>深夜党学习大神代码</p>|2016-03-09');
 
 -- ----------------------------
 -- Table structure for studentbasicinformation
@@ -138,7 +140,7 @@ CREATE TABLE `user` (
   `email` varchar(45) NOT NULL DEFAULT '',
   `type` varchar(45) NOT NULL DEFAULT 'Student',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
@@ -151,3 +153,4 @@ INSERT INTO `user` VALUES ('5', '吴行行', 'e807f1fcf82d132f9bb018ca6738a19f',
 INSERT INTO `user` VALUES ('6', 'test', 'e10adc3949ba59abbe56e057f20f883e', '', '', '123@dwq.com', 'Student');
 INSERT INTO `user` VALUES ('7', 'test2', 'e10adc3949ba59abbe56e057f20f883e', '', '', '213@da.com', 'Student');
 INSERT INTO `user` VALUES ('8', '吴行行1', 'e10adc3949ba59abbe56e057f20f883e', '', '', '12@312.com', 'Student');
+INSERT INTO `user` VALUES ('9', 'ykd', 'e10adc3949ba59abbe56e057f20f883e', '', '', '123@qq.com', 'Student');
