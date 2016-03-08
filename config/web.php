@@ -4,6 +4,10 @@ $params = require(__DIR__ . '/params.php');
 $aliases = require(__DIR__ . '/aliases.php');
 
 $config = [
+    'modules' => [
+        'redactor' => 'yii\redactor\RedactorModule',
+        'imageAllowExtensions'=>['jpg','png','gif'],
+    ],
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -45,7 +49,15 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning','info','trace'],
+                ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['info'],
+                    'categories' => ['rhythmk'],
+                    'logFile' => '@app/runtime/logs/app.log',
+                    'maxFileSize' => 1024 * 2,
+                    'maxLogFiles' => 20,
                 ],
             ],
         ],

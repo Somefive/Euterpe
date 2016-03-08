@@ -31,7 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'repassword')->passwordInput() ?>
 
-    <?= $form->field($model, 'email')->textInput() ?>
+
+    <?= $form->field($model, 'email')->widget(\yii\redactor\widgets\Redactor::className()) ?>
+
 
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
