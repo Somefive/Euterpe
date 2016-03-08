@@ -26,8 +26,8 @@ class NewPostForm extends Model
     /*public function attributeLabels()
     {
         return [
-            'title' => '���� title',
-            'content' => '���� content'
+            'title' => 'title',
+            'content' => 'content'
         ];
     }*/
 
@@ -43,7 +43,7 @@ class NewPostForm extends Model
             $postManName = User::getAppUser()->getUserName();
             $simpleTime = substr($post->time,0,10);
 
-            $post->simpleInfo =$post->postManId.'|'. $postManName.'|'.$this->title."|".$this->content.'|'.$simpleTime;
+            $post->simpleInfo =$post->postManId.'|'. $postManName.'|'.$this->title."|".substr($this->content,0,60).'|'.$simpleTime;
 
             return $post->save();
         }

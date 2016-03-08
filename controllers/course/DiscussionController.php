@@ -30,40 +30,28 @@ class DiscussionController extends Controller
     public function actionIndex()
     {
     }
-
+//讨论区的主页面
     public function actionDiscussion()
     {
-        $appointedPost = new Post();
-        $selectedPost = $appointedPost->getPostByPostId(0);
-        Yii::warning($selectedPost);
-
-
-        $allPost = new Post();
-        $simplePosts = $allPost->getSimplePosts();
+        $simplePosts = Post::getSimplePosts();
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
         ]);
     }
-
+//用来显示页面右侧的帖子的完整信息
     public function actionShowWholePost()
     {
-        $appointedPost = new Post();
         if (Yii::$app->request->isAjax) {
             $postId = Yii::$app->request->post();
-            $selectedPost = $appointedPost->getPostByPostId($postId);
+            $selectedPost = Post::getPostByPostId($postId);
 
-            Yii::warning($selectedPost);
-
-            //$originReadList = ArrayHelper::getValue($selectedPost,'readMenList');
-            //$newReadList = ($originReadList.'|'.User::getAppUserID() );
-            //$selectedPost['readMenList'] = $newReadList;
-
+            Post::addReadList($postId);
             return $this->renderPartial('showWholePost.php',[
                 'selectedPost' => $selectedPost,
             ],false,true);
         }
     }
-
+//发新帖子
     public function actionEditNewPost()
     {
         //if (Yii::$app->request->isAjax) {
