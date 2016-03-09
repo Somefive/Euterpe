@@ -23,15 +23,27 @@ use app\controllers\course\DiscussionController;
                                         </div>');
         if(!ArrayHelper::getValue($simplePost,'isRead'))
             echo('<img id="unreadDot_'.$postId.'" src="https://piazza.com/images/piazza/dashboard/icon-unread-dot.png"  width="10" height="10" style="position:absolute;left:8px;top:40px;"></img>');
-        echo(
-            '<div class="content" style="position:absolute;left:32px;top:5px;right:7px">
-                                            <div class="title ellipses">
-                                                <div class="title_text" style="max-width: 235px;"><b>['. ArrayHelper::getValue($simplePost,'postManName').']:'.ArrayHelper::getValue($simplePost,'title').'</b></div>
-                                            </div>
-                                            <div class="snippet">'.ArrayHelper::getValue($simplePost,'content').'</div>
+
+        if(ArrayHelper::getValue($simplePost,'anoymous')==1)
+            echo(
+                ' <div class="content" style= "position:absolute;left:32px;top:5px;right:7px">
+                                        <div class="title ellipses">
+                                            <div class="title_text" style="max-width: 235px;"><b>['.'Anoymous'.']:'.ArrayHelper::getValue($simplePost,'title').'</b></div>
                                         </div>
-                                    </div></li>'
-        );
+                                        <div class="snippet">'.ArrayHelper::getValue($simplePost,'content').'</div>
+                                    </div>
+                                </div></li>'
+            );
+        else
+            echo(
+                ' <div class="content" style= "position:absolute;left:32px;top:5px;right:7px">
+                                        <div class="title ellipses">
+                                            <div class="title_text" style="max-width: 235px;"><b>['. ArrayHelper::getValue($simplePost,'postManName').']:'.ArrayHelper::getValue($simplePost,'title').'</b></div>
+                                        </div>
+                                        <div class="snippet">'.ArrayHelper::getValue($simplePost,'content').'</div>
+                                    </div>
+                                </div></li>'
+            );
     }
     ?>
 </ul>
