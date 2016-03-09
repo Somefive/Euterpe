@@ -40,6 +40,8 @@ class Post extends ActiveRecord
         $simpleInfos =  explode('|',ArrayHelper::getValue($post,'simpleInfo'));
         $indexArray = array("postManId","postManName","title","content","time","anoymous","sheildteacher");
         $simpleInfos = array_combine($indexArray,$simpleInfos);
+        if( User::getAppUserID() == ArrayHelper::getValue($simpleInfos,'postManId') )
+            $simpleInfos['anoymous'] = 0 ;
 
         $readMenIds = explode('|',ArrayHelper::getValue($post,'readMenList'));
         if(in_array(User::getAppUserID(),$readMenIds))  $isRead = true ;

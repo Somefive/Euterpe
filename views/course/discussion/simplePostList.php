@@ -25,7 +25,7 @@ use app\models\account\User;
         if(!ArrayHelper::getValue($simplePost,'isRead'))
             echo('<img id="unreadDot_'.$postId.'" src="https://piazza.com/images/piazza/dashboard/icon-unread-dot.png"  width="10" height="10" style="position:absolute;left:8px;top:40px;"></img>');
 
-        if(ArrayHelper::getValue($simplePost,'anoymous')==1 && User::getAppUserID() != ArrayHelper::getValue($simplePost,'postManId'))
+        if(ArrayHelper::getValue($simplePost,'anoymous')==1)
             echo(
                 ' <div class="content" style= "position:absolute;left:32px;top:5px;right:7px">
                                         <div class="title ellipses">
