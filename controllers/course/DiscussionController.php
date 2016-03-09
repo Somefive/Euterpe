@@ -15,6 +15,14 @@ use yii\data\ActiveDataProvider;
 
 class DiscussionController extends Controller
 {
+    private static $orderRule = "";//储存列表排序的规则
+
+    private static $showRules = array();//储存列表可显示的规则
+    /*
+     * $showRules中elements声明：
+     * unread=>只显示未读的信息
+     */
+
     public function actions()
     {
         return [
@@ -30,15 +38,16 @@ class DiscussionController extends Controller
     public function actionIndex()
     {
     }
-//讨论区的主页面
+    //讨论区的主页面
     public function actionDiscussion()
     {
         $simplePosts = Post::getSimplePosts();
+        //Yii::warning($simplePosts);
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
         ]);
     }
-//用来显示页面右侧的帖子的完整信息
+    //用来显示页面右侧的帖子的完整信息
     public function actionShowWholePost()
     {
         if (Yii::$app->request->isAjax) {
@@ -51,26 +60,31 @@ class DiscussionController extends Controller
             ],false,true);
         }
     }
-//发新帖子
+    //发新帖子
     public function actionEditNewPost()
     {
-        //if (Yii::$app->request->isAjax) {
             $model = new NewPostForm;
-            if($model->load(Yii::$app->request->post())){
-                //Yii::warning($model);
-                if($model->addPost()){
-                    $msg = '发帖成功';
-                }
-                else
-                    $msg = '发帖失败';
-                return $this->render('say', [
-                    'message' => $msg
-                ]);
+            if($model->load(Yii::$app->request->post()))    {
+                if($model->addPost())   $msg = '发帖成功';
+                else    $msg = '发帖失败';
+                return $this->render('say', ['message' => $msg]);
             }
             return $this->renderAjax('editNewPost.php',[
                 'model' => $model,
             ]);
-        //}
+    }
+
+    public function actionModifyShowRule()
+    {
+            if (Yii::$app->request->isAjax) {
+            $rule = Yii::$app->request->post();
+            $simplePosts = Post::getSimplePosts();
+            //Yii::warning($simplePosts);
+            $msg = "更改成功";
+            return $this->render('say', [
+                'message' => $msg
+            ]);
+        }
     }
 
     public function beforeAction($action)
@@ -89,8 +103,8 @@ class DiscussionController extends Controller
         return parent::beforeAction($action);
     }
 
-    public function actionTest()
+    public static function isPostDisplayable($post)
     {
-
+        Yii::warning($post);
     }
 }

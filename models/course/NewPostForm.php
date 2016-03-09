@@ -43,7 +43,7 @@ class NewPostForm extends Model
             $postManName = User::getAppUser()->getUserName();
             $simpleTime = substr($post->time,0,10);
 
-            $post->simpleInfo =$post->postManId.'|'. $postManName.'|'.$this->title."|".substr($this->content,0,60).'|'.$simpleTime;
+            $post->simpleInfo =$post->postManId.'|'. $postManName.'|'.$this->title.'|'.substr($this->content,0,100).'|'.$simpleTime;
 
             return $post->save();
         }

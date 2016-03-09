@@ -50,6 +50,7 @@ class Post extends ActiveRecord
             'postId' => ArrayHelper::getValue($post,'postId'),
             'isRead' => $isRead
             );
+        //最终的数组keys："postManId","postManName","title","content","time"，"postId","isRead"
         return array_merge($newElements,$simpleInfos);
     }
     //解析帖子的likeMenList和readMenList信息
