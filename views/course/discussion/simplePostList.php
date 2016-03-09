@@ -16,7 +16,7 @@ use app\controllers\course\DiscussionController;
         //call_user_func(array("app\controllers\course\DiscussionController", "isPostDisplayable"),$simplePost);
         $postId = ArrayHelper::getValue($simplePost,'postId');
         echo(
-            '<li class="'.(ArrayHelper::getValue($simplePost,'isRead')?hasread:unread).'" style="min-height: 100px; max-height: 100px; overflow: hidden;" onclick="showWholePost('.$postId.')"><div style="position: relative; ">
+            '<li class="'.(ArrayHelper::getValue($simplePost,'isRead')?hasread:unread).' postManId_'.ArrayHelper::getValue($simplePost,'postManId').' simplePost" id="li_postId_'.ArrayHelper::getValue($simplePost,'postId').'" style="min-height: 100px; max-height: 100px; overflow: hidden;" onclick="showWholePost('.$postId.')"><div style="position: relative; ">
                                         <hr size="5" color="#202020"/>
                                         <div class="metadata" style="position:absolute;right:10px;top:10px;">
                                             <div class="timestamp">'. ArrayHelper::getValue($simplePost,'time').'</div>

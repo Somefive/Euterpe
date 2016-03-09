@@ -42,15 +42,19 @@ class Post extends ActiveRecord
         $simpleInfos = array_combine($indexArray,$simpleInfos);
 
         $readMenIds = explode('|',ArrayHelper::getValue($post,'readMenList'));
-        if(in_array(User::getAppUserID(),$readMenIds))
-            $isRead = true ;
+        if(in_array(User::getAppUserID(),$readMenIds))  $isRead = true ;
         else $isRead = false ;
+
+
+        $likeMenIds = explode('|',ArrayHelper::getValue($post,'likeMenList'));
+        $likeMenCount = count($likeMenIds);
 
         $newElements = array(
             'postId' => ArrayHelper::getValue($post,'postId'),
-            'isRead' => $isRead
+            'isRead' => $isRead,
+            'likeMenCount' => $likeMenCount
             );
-        //最终的数组keys："postManId","postManName","title","content","time"，"postId","isRead"
+        //最终的数组keys："postManId","postManName","title","content","time"，"postId","isRead,likeMenCount"
         return array_merge($newElements,$simpleInfos);
     }
     //解析帖子的likeMenList和readMenList信息
@@ -71,4 +75,19 @@ class Post extends ActiveRecord
         return array_merge($post,$newElements);
     }
 
+
+    public static function orderByTime()
+    {
+        $wholePostList = static::find()->asArray()->all();
+        ArrayHelper::multisort($wholePostList,'time',SORT_DESC);
+        return array_map("static::parseSimpleInfo",$wholePostList);
+        return $lastestPosts;
+    }
+
+    public static function orderByHot()
+    {
+        $simplePostList = Post::getSimplePosts();
+        ArrayHelper::multisort($simplePostList,'likeMenCount',SORT_DESC);
+        return $simplePostList;
+    }
 }

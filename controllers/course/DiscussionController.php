@@ -9,8 +9,10 @@ use app\models\account\User;
 use app\models\course\Courseenrollment;
 use app\models\course\NewPostForm;
 use app\models\course\Post;
+
 use yii\web\Controller;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\data\ActiveDataProvider;
 
 class DiscussionController extends Controller
@@ -28,9 +30,6 @@ class DiscussionController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-            ],
-            'Kupload' => [
-                'class' => 'pjkui\kindeditor\KindEditorAction',
             ]
         ];
     }
@@ -42,7 +41,7 @@ class DiscussionController extends Controller
     public function actionDiscussion()
     {
         $simplePosts = Post::getSimplePosts();
-        //Yii::warning($simplePosts);
+        Yii::warning($simplePosts);
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
         ]);
@@ -55,6 +54,7 @@ class DiscussionController extends Controller
             $selectedPost = Post::getPostByPostId($postId);
 
             Post::addReadList($postId);
+
             return $this->renderPartial('showWholePost.php',[
                 'selectedPost' => $selectedPost,
             ],false,true);
@@ -76,13 +76,31 @@ class DiscussionController extends Controller
 
     public function actionModifyShowRule()
     {
-            if (Yii::$app->request->isAjax) {
+        if (Yii::$app->request->isAjax) {
             $rule = Yii::$app->request->post();
             $simplePosts = Post::getSimplePosts();
             //Yii::warning($simplePosts);
             $msg = "更改成功";
             return $this->render('say', [
                 'message' => $msg
+            ]);
+        }
+    }
+
+    public function actionModifyOrderRule()
+    {
+
+        if (Yii::$app->request->isAjax) {
+            $ajaxInfo = Yii::$app->request->post();
+            $orderRule = ArrayHelper::getValue($ajaxInfo,'orderRule');
+
+            $msg = call_user_func(array("app\models\course\Post", $orderRule));
+
+
+            $simplePosts = Post::getSimplePosts();
+            Yii::warning($simplePosts);
+            return $this->renderPartial('simplePostList.php',[
+                'simplePosts' => $msg,
             ]);
         }
     }

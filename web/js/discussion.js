@@ -10,7 +10,8 @@ function showWholePost(postId)
         dataType : 'text',
         success: function (data) {
             $("#areaShowInfo").html(data);
-            document.getElementById("unreadDot_"+postId).style.visibility="hidden";
+            $("#unreadDot_"+postId).hide();
+            $("#li_postId_"+postId).removeClass("unread").addClass("hasread");
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
@@ -34,7 +35,7 @@ function editNewPost()
 }
 
 /*
- * ajax传来的rule定义:
+ * ajax传给控制器的rule定义:
  * "rule:unread"=>只显示未读的
  * "rule:all"=>显示所有
  */
@@ -54,4 +55,28 @@ function getUnreadList()
             alert(XMLHttpRequest.statusText);
         }
     });*/
+}
+function getSpecificManList(Id)
+{
+    $("li.simplePost").hide();
+    $("li.postManId_"+Id).show();
+}
+
+/*
+*处理simplePost的排序问题
+ */
+function modifyOrderRule(orderRule)
+{
+    $.ajax({
+        type: "POST",
+        url: 'http://localhost:8080/course/discussion/modify-order-rule',
+        data: {orderRule:orderRule},
+        success: function (data) {
+            $("#simplePostList").empty();
+            $("#simplePostList").html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.statusText);
+        }
+    });
 }

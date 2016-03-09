@@ -39,6 +39,7 @@ class NewPostForm extends Model
             $post->title = $this->title;
             $post->content = $this->content;
             $post->time = date("Y-m-d H:i:s", time());
+            $post->readMenList = $post->postManId;
 
             $postManName = User::getAppUser()->getUserName();
             $simpleTime = substr($post->time,0,10);
