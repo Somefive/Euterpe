@@ -25,7 +25,7 @@ use yii\bootstrap\ActiveForm;
             ]
         ]
     ) ?>
-
+    <?= $form->field($model,'option')->checkboxList(['1' => '匿名 ', '2' => '屏蔽',]);?>
     <div class="form-group">
         <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
     </div>

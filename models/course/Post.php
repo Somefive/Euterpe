@@ -38,7 +38,7 @@ class Post extends ActiveRecord
     private static function parseSimpleInfo($post)
     {
         $simpleInfos =  explode('|',ArrayHelper::getValue($post,'simpleInfo'));
-        $indexArray = array("postManId","postManName","title","content","time");
+        $indexArray = array("postManId","postManName","title","content","time","anoymous","sheildteacher");
         $simpleInfos = array_combine($indexArray,$simpleInfos);
 
         $readMenIds = explode('|',ArrayHelper::getValue($post,'readMenList'));
