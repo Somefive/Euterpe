@@ -66,15 +66,34 @@ class DiscussionController extends Controller
     //发新帖子
     public function actionEditNewPost()
     {
-            $model = new NewPostForm;
-            if($model->load(Yii::$app->request->post()))    {
-                if($model->addPost())   $msg = '发帖成功';
-                else    $msg = '发帖失败';
-                return $this->render('say', ['message' => $msg]);
-            }
-            return $this->renderAjax('editNewPost.php',[
+        $model = new NewPostForm;
+        if($model->load(Yii::$app->request->post()))    {
+            if($model->addPost())   $msg = '发帖成功';
+            else    $msg = '发帖失败';
+            return $this->render('say', ['message' => $msg]);
+        }
+        return $this->renderAjax('editNewPost.php',[
+            'model' => $model,
+        ]);
+    }
+
+    //回复帖子
+    public function actionReplyPost()
+    {
+        $model = new NewPostForm;
+        if($model->load(Yii::$app->request->post()))    {
+            if($model->addPost())   $msg = '发帖成功';
+            else    $msg = '发帖失败';
+            return $this->render('say', ['message' => $msg]);
+        }
+        if (Yii::$app->request->isAjax) {
+            $fatherPostId = ArrayHelper::getValue(Yii::$app->request->post(),'fatherPostId');
+            $msg = "更改成功";
+            return $this->renderAjax('replyPost.php', [
                 'model' => $model,
             ]);
+            //$this->render('say', ['message' => $msg]);
+        }
     }
 
     public function actionModifyShowRule()

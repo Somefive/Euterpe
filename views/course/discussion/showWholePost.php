@@ -28,5 +28,22 @@ use yii\helpers\ArrayHelper;
             <p>&nbsp;</p>
             <p><?php echo(ArrayHelper::getValue($selectedPost,'time'));?></p>
         </div>
+    </div>
+</div>
+<!--回复-->
+<div id="clarifying_discussion" class="post_region_box clarifying_discussion dashboard_element">
+    <div class="post_region_header clearFix">
+        <div class="post_title">followup discussions</div>
+        <div class="post_subtitle">for lingering questions and comments</div>
+    </div>
+
+    <div class="post_region_content clarifying_discussion">
+
+        <h5 id="start_new_followup_header">Start a new followup discussion</h5>
+        <?php echo(
+            '<div class="compose_discussion" onclick="replyPost('.ArrayHelper::getValue($selectedPost,'postId').')" id="create_new_followup">Compose a new followup discussion</div>'
+        );?>
+        <div id="create_new_followup_div"></div>
+    </div>
 </div>
 

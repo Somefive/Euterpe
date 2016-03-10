@@ -80,3 +80,22 @@ function modifyOrderRule(orderRule)
         }
     });
 }
+/*
+回复主贴的帖子
+ */
+function replyPost(fatherPostId)
+{
+    //alert(fatherPostId);
+    $.ajax({
+        type: "POST",
+        url: 'http://localhost:8080/course/discussion/reply-post',
+        data: {fatherPostId:fatherPostId},
+        success: function (data) {
+            $("#create_new_followup").hide();
+            $("#create_new_followup_div").html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.statusText);
+        }
+    });
+}
