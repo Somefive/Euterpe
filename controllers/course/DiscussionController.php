@@ -41,7 +41,10 @@ class DiscussionController extends Controller
     public function actionDiscussion()
     {
         $simplePosts = Post::getSimplePosts();
-        Yii::warning($simplePosts);
+        //Yii::warning($simplePosts);
+        $selectedPost = Post::getPostByPostId(24);
+        $nextPosts = Post::getnextPosts($selectedPost);
+        Yii::warning($nextPosts);
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
         ]);

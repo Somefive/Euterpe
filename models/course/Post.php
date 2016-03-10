@@ -92,4 +92,18 @@ class Post extends ActiveRecord
         ArrayHelper::multisort($simplePostList,'likeMenCount',SORT_DESC);
         return $simplePostList;
     }
+    //解析回帖
+    //需要优化!
+    public static function  getnextPosts($post)
+    {
+        $nextPostIds=explode('|',ArrayHelper::getValue($post,'nextPostId'));
+        $nextPosts=array();
+        foreach( $nextPostIds as $nextpostid)
+        {
+            $nextPosts[]=static::find()->where(['postId'=>intval($nextpostid)])->asArray()->one();
+        }
+        $nextPosts=array_map("static::parseSimpleInfo",$nextPosts);
+        //Yii::warning($nextPosts);
+        return $nextPosts;
+    }
 }
