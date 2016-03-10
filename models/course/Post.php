@@ -102,7 +102,7 @@ class Post extends ActiveRecord
         {
             $nextPosts[]=static::find()->where(['postId'=>intval($nextpostid)])->asArray()->one();
         }
-        $nextPosts=array_map("static::parseSimpleInfo",$nextPosts);
+        //$nextPosts=array_map("static::parseSimpleInfo",$nextPosts);
         //Yii::warning($nextPosts);
         return $nextPosts;
     }
