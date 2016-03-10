@@ -8,6 +8,7 @@
 namespace app\models\account;
 
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 
 class User extends ActiveRecord implements IdentityInterface
@@ -28,7 +29,8 @@ class User extends ActiveRecord implements IdentityInterface
     }
     public static function getAllUsername()
     {
-
+        $allUser = static::find()->asArray()->all();
+        return ArrayHelper::getColumn($allUser,'username');
     }
     public function getId()
     {

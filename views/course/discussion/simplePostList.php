@@ -14,10 +14,10 @@ use app\models\account\User;
 <ul>
     <?php
     foreach ($simplePosts as $simplePost) {
-        //call_user_func(array("app\controllers\course\DiscussionController", "isPostDisplayable"),$simplePost);
         $postId = ArrayHelper::getValue($simplePost,'postId');
+        //li class="hasread/unread postManName_$postManName anoymous/canview simplePost" id="li_postId_$postId" onclick="showWholePost($postId)"
         echo(
-            '<li class="'.(ArrayHelper::getValue($simplePost,'isRead')?hasread:unread).' postManId_'.ArrayHelper::getValue($simplePost,'postManId').' simplePost" id="li_postId_'.ArrayHelper::getValue($simplePost,'postId').'" style="min-height: 100px; max-height: 100px; overflow: hidden;" onclick="showWholePost('.$postId.')"><div style="position: relative; ">
+            '<li class="'.(ArrayHelper::getValue($simplePost,'isRead')?hasread:unread).' postManName_'.ArrayHelper::getValue($simplePost,'postManName').' '.((ArrayHelper::getValue($simplePost,'anoymous')==1)?anoymous:canview).' simplePost" id="li_postId_'.ArrayHelper::getValue($simplePost,'postId').'" style="min-height: 100px; max-height: 100px; overflow: hidden;" onclick="showWholePost('.$postId.')"><div style="position: relative; ">
                                         <hr size="5" color="#202020"/>
                                         <div class="metadata" style="position:absolute;right:10px;top:10px;">
                                             <div class="timestamp">'. ArrayHelper::getValue($simplePost,'time').'</div>

@@ -41,9 +41,12 @@ class DiscussionController extends Controller
     //讨论区的主页面
     public function actionDiscussion()
     {
+        $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
+        //Yii::warning($simplePosts);
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
+            'allUsername' => $allUsername,
         ]);
     }
     //用来显示页面右侧的帖子的完整信息
@@ -91,12 +94,6 @@ class DiscussionController extends Controller
         return $this->renderAjax('replyPost.php', [
             'model' => $model,
         ]);
-    }
-
-    public function actionD()
-    {
-        //self::$fatherPostId = 2;
-        //return $this->render('say', ['message' => $fatherPostId]);
     }
 
     public function actionModifyShowRule()

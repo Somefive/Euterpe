@@ -18,15 +18,18 @@ $this->registerCssFile('/css/discussion.css');
     <div class="row">
         <div class="col-md-4">
             <button class="btn btn-primary" onclick="editNewPost()">New Post</button>
-            <button class="btn btn-primary" onclick="getUnreadList()">unread</button>
+            <button class="btn btn-primary" id="unreadBtn" onclick="getUnreadList()">unread</button>
             <!--只看某个人帖子的下拉框-->
             <ul class="nav">
                 <li class="dropdown" id="accountmenu">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Only View<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li onclick="getSpecificManList(6)"><a>test</a></li>
-                        <li onclick="getSpecificManList(5)"><a>吴行行</a></li>
-                        <li onclick="getSpecificManList(4)"><a>陈光斌</a></li>
+                        <li onclick="getAllList()"><a>ALL POST</a></li>
+                        <?php
+                        foreach($allUsername as $username) {
+                            echo('<li onclick="getSpecificManList(\''.$username.'\')"><a>'.$username.'</a></li>');
+                            }
+                        ?>
                     </ul>
                 </li>
             </ul>
@@ -46,6 +49,13 @@ $this->registerCssFile('/css/discussion.css');
                     ]); ?>
             </div>
         </div>
+
         <div id="areaShowInfo" class="col-md-8"></div>
+
     </div>
 </div>
+
+<!--script src="/js/discussion.js"></script>
+<script type="text/javascript">
+    $('#unreadBtn').click();
+</script-->

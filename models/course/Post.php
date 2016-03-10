@@ -40,8 +40,11 @@ class Post extends ActiveRecord
         $simpleInfos =  explode('|',ArrayHelper::getValue($post,'simpleInfo'));
         $indexArray = array("postManId","postManName","title","content","time","anoymous","sheildteacher");
         $simpleInfos = array_combine($indexArray,$simpleInfos);
+        //处理匿名,判断登陆者是否是作者，若是作者则不在匿名
+        //匿名状态下，更改发帖人名字为ANOYMOUS
         if( User::getAppUserID() == ArrayHelper::getValue($simpleInfos,'postManId') )
             $simpleInfos['anoymous'] = 0 ;
+        if($simpleInfos['anoymous'] == 1)   $simpleInfos['postManName'] = "ANOYMOUS";
 
         $readMenIds = explode('|',ArrayHelper::getValue($post,'readMenList'));
         if(in_array(User::getAppUserID(),$readMenIds))  $isRead = true ;
@@ -80,7 +83,7 @@ class Post extends ActiveRecord
 
     public static function orderByTime()
     {
-        $wholePostList = static::find()->asArray()->all();
+        $wholePostList = static::find()->where(['isPost'=>0])->asArray()->all();
         ArrayHelper::multisort($wholePostList,'time',SORT_DESC);
         return array_map("static::parseSimpleInfo",$wholePostList);
         return $lastestPosts;
