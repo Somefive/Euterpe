@@ -9,6 +9,7 @@ use app\models\account\User;
 use app\models\course\Courseenrollment;
 use app\models\course\NewPostForm;
 use app\models\course\Post;
+use app\models\course\ReplyPostForm;
 
 use yii\web\Controller;
 use Yii;
@@ -41,10 +42,6 @@ class DiscussionController extends Controller
     public function actionDiscussion()
     {
         $simplePosts = Post::getSimplePosts();
-        //Yii::warning($simplePosts);
-        $selectedPost = Post::getPostByPostId(24);
-        $nextPosts = Post::getnextPosts($selectedPost);
-        Yii::warning($nextPosts);
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
         ]);
@@ -80,20 +77,26 @@ class DiscussionController extends Controller
     //回复帖子
     public function actionReplyPost()
     {
-        $model = new NewPostForm;
+        if (Yii::$app->request->isAjax) {
+            $session = Yii::$app->session;
+            $session->open();
+            $session['fatherPostId'] = ArrayHelper::getValue(Yii::$app->request->get(), 'fatherPostId');
+        }
+        $model = new ReplyPostForm();
         if($model->load(Yii::$app->request->post()))    {
-            if($model->addPost())   $msg = '发帖成功';
-            else    $msg = '发帖失败';
+            if($model->addReplyPost(Yii::$app->session->get('fatherPostId')))   $msg = "发帖成功";
+            else    $msg = "发帖失败,";
             return $this->render('say', ['message' => $msg]);
         }
-        if (Yii::$app->request->isAjax) {
-            $fatherPostId = ArrayHelper::getValue(Yii::$app->request->post(),'fatherPostId');
-            $msg = "更改成功";
-            return $this->renderAjax('replyPost.php', [
-                'model' => $model,
-            ]);
-            //$this->render('say', ['message' => $msg]);
-        }
+        return $this->renderAjax('replyPost.php', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionD()
+    {
+        //self::$fatherPostId = 2;
+        //return $this->render('say', ['message' => $fatherPostId]);
     }
 
     public function actionModifyShowRule()

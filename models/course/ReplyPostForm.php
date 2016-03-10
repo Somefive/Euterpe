@@ -10,6 +10,7 @@ namespace app\models\course;
 
 
 use yii\base\Model;
+use app\models\account\User;
 
 class ReplyPostForm extends Model
 {
@@ -21,10 +22,9 @@ class ReplyPostForm extends Model
             [[ 'content'], 'required'],
         ];
     }
-    public function addReplyPost($oldPostId)
+    public function addReplyPost($fatherPostId)
     {
         if ($this->validate()) {
-
             $post = new Post();
             $post->postManId = User::getAppUserID();
             $post->content = $this->content;
@@ -38,13 +38,29 @@ class ReplyPostForm extends Model
 
             $postManName = User::getAppUser()->getUserName();
             $post->simpleInfo = $postManName;
+/*
+        $selectedPost = Post::findOne($postId);
+        if(User::getAppUserID() == $selectedPost->postManId)
+            return;
+        $selectedPost->readMenList = ($selectedPost->readMenList.'|'.User::getAppUserID());
+        $selectedPost->save();
+*/
+            if($post->save())   {
+                $fatherPost = Post::findOne($fatherPostId);
+                $fatherPost->nextPostId = ($fatherPost->nextPostId.'|'.$post->postId);
+                return $fatherPost->save();
+            }
+            else return false;
 
-            $oldPost=Post::findOne($oldPostId);
-            $oldPost->nextPostId=($oldPost->nextPostId.'|'.$post->postId);
-
-            return $post->save();
         }
         return false;
+    }
+    public function dealFatherPost($fatherPostId)
+    {
+        $fatherPost=Post::findOne($fatherPostId);
+        \Yii::warning($fatherPostId);
+        if($fatherPost == null) return false;
+        $fatherPost->nextPostId=($fatherPost->nextPostId.'|'.'121');
     }
 
 }

@@ -87,7 +87,7 @@ function replyPost(fatherPostId)
 {
     //alert(fatherPostId);
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: 'http://localhost:8080/course/discussion/reply-post',
         data: {fatherPostId:fatherPostId},
         success: function (data) {

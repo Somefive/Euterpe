@@ -39,6 +39,7 @@ class NewPostForm extends Model
             $post->title = $this->title;
             $post->content = $this->content;
             $post->time = date("Y-m-d H:i:s", time());
+            //初始化阅读者列表
             $post->readMenList = $post->postManId;
             $post->isPost=0;
 
