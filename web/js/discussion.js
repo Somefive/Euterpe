@@ -1,15 +1,17 @@
 /**
  * Created by Administrator on 2016/3/6.
  */
+
 /**
- **TODO:
- * 已经测试：先点击onlyview 再点击unread
- * 需要测试先unread 在onlyview
- * 以及改变orderby之后的状态，
- * 想一个好的方法
+ * 储存所有已经选择的筛选规则，用来被后续遍历调用，
+ * 避免已选择的筛选因为刷新而丢失
+ * 根据覆盖是否存在问题 排序规则
+ * selectedRulesArray[0] = "getAllNorUnreadList('callByFunction')" ;
+ * selectedRulesArray[1] = "getSpecificManList('name','callByFunction')"
+ * selectedRulesArray[2] = "getUnreadList('callByFunction')"
  */
-var viewUnreadOrAll = "";
-var viewManName = "";
+var indexOfFunction = {"getAllNorUnreadList":0, "getSpecificManList":1, "getUnreadList":2};
+var selectedRulesArray = new Array("","","");
 
 function showWholePost(postId)
 {
@@ -44,39 +46,71 @@ function editNewPost()
     });
 }
 
-/*
- * 得到未读的帖子列表
+/**
+ * 取消unread筛选，显示所有的帖子
+ * 被调用在views\course\discussion\discussion.php
+ * 若是内部的其它函数调用，则增加arguments[0]
  */
-function getUnreadList()
+function getAllNorUnreadList()
 {
-    $("li.hasread").hide();
-    viewUnreadOrAll = "unread";
-}
+    if(!arguments[0])   { //是view页面调用的本函数
+        functionIndex = indexOfFunction["getAllNorUnreadList"];
+        selectedRulesArray[functionIndex] = "getAllNorUnreadList('callByFunction')";
 
-/*
-  显示全部精简帖子列表
- （被调用在views\course\discussion\discussion.php）
- */
-function getAllList()
-{
+        unreadFunctionIndex = indexOfFunction["getUnreadList"];
+        selectedRulesArray[unreadFunctionIndex] = "";
+
+        keepAllSelectedRules();
+        return;
+    }
     $("li.simplePost").show();
-    viewUnreadOrAll = "all";
 }
 
 /*
  * 只显示某人的精简帖子列表,
  * 只显示name的帖子，并且隐藏所有匿名的帖子（被调用在views\course\discussion\simplePostList.php）
+ * 如果name是var@ALL，则显示全部的帖子
+ * 若是内部的其它函数调用，则增加arguments[1]
  */
 function getSpecificManList(name)
 {
+    if(!arguments[1])   { //是view页面调用的本函数
+        functionIndex = indexOfFunction["getSpecificManList"];
+        selectedRulesArray[functionIndex] = "getSpecificManList('"+name+"','callByFunction')";
+        keepAllSelectedRules();
+        return;
+    }
+
     $("li.simplePost").hide();
-    $("li.postManName_" + name).show();
-    $("li.anoymous").hide();
-    viewManName = name;
-    if(viewUnreadOrAll == "unread") getUnreadList();
+    if(name == 'var@ALL')   {
+        $("li.simplePost").show();
+    }
+    else {
+        $("li.postManName_" + name).show();
+        $("li.anoymous").hide();
+    }
 }
 
+/*
+ * 得到未读的帖子列表
+ * 被调用在views\course\discussion\discussion.php
+ * 若是内部的其它函数调用，则增加arguments[0]
+ */
+function getUnreadList()
+{
 
+    if(!arguments[0])   { //是view页面调用的本函数
+        functionIndex = indexOfFunction["getUnreadList"];
+        selectedRulesArray[functionIndex] = "getUnreadList('callByFunction')";
+
+        cancelUnreadFunctionIndex = indexOfFunction["getAllNorUnreadList"];
+        selectedRulesArray[cancelUnreadFunctionIndex] = "";
+
+        keepAllSelectedRules();
+        return;
+    }
+    $("li.hasread").hide();
+}
 
 /*
  *处理simplePost的排序问题
@@ -90,16 +124,7 @@ function modifyOrderRule(orderRule)
         success: function (data) {
             $("#simplePostList").empty();
             $("#simplePostList").html(data);
-            //alert(viewUnreadOrAll);
-            //alert(viewManName);
-            if(viewUnreadOrAll == "all")
-                getAllList();
-            else {
-                if(viewUnreadOrAll == "unread")
-                    getUnreadList();
-                if(viewManName != "")
-                    getSpecificManList(viewManName);
-            }
+            keepAllSelectedRules();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
@@ -107,7 +132,16 @@ function modifyOrderRule(orderRule)
     });
 }
 
-
+/**
+ * 根据数组selectedRulesArray里面储存的规则，逐一调用
+ * ruleIndexNotNeedCall是不需要进行call的函数
+ */
+function keepAllSelectedRules()
+{
+    for(var index = 0;index<selectedRulesArray.length; index++)  {
+        eval(selectedRulesArray[index]);
+    }
+}
 
 
 /*

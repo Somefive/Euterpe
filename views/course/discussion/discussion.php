@@ -13,36 +13,48 @@ $this->params['breadcrumbs'] = [
 ];
 $this->registerJsFile('/js/discussion.js');
 $this->registerCssFile('/css/discussion.css');
+$this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
 ?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
-            <button class="btn btn-primary" onclick="editNewPost()">New Post</button>
-            <button class="btn btn-primary" id="unreadBtn" onclick="getUnreadList()">unread</button>
-            <!--只看某个人帖子的下拉框-->
-            <ul class="nav">
-                <li class="dropdown" id="accountmenu">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Only View<b class="caret"></b></a>
+
+            <div>
+                <!--只看unread或者all的下拉框-->
+                <div class="btn-group">
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
+                        Unread<span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li onclick="getAllList()"><a>ALL POST</a></li>
+                        <li onclick="getAllNorUnreadList()"><a>ALL POST</a></li>
+                        <li onclick="getUnreadList()"><a>unread</a></li>
+                    </ul>
+                </div>
+                <!--只看某人帖子的下拉框-->
+                <div class="btn-group">
+                    <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
+                        View<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li onclick="getSpecificManList('var@ALL')"><a>ALL POST</a></li>
                         <?php
                         foreach($allUsername as $username) {
                             echo('<li onclick="getSpecificManList(\''.$username.'\')"><a>'.$username.'</a></li>');
-                            }
+                        }
                         ?>
                     </ul>
-                </li>
-            </ul>
-            <!--选择排序方法的下拉框-->
-            <ul class="nav">
-                <li class="dropdown" id="accountmenu">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">OrderBy<b class="caret"></b></a>
+                </div>
+                <!--选择排序方法的下拉框-->
+                <div class="btn-group">
+                    <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
+                        Order By<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li onclick="modifyOrderRule('orderByTime')"><a>Time</a></li>
                         <li onclick="modifyOrderRule('orderByHot')"><a>Hot</a></li>
                     </ul>
-                </li>
-            </ul><br/>
+                </div>
+                <!--发帖-->
+                <button class="btn btn-info" onclick="editNewPost()">New Post</button>
+            </div><br/>
+
             <div id = "simplePostList" style="height:500px; overflow:auto;border:	#A0A0A0 solid thin;">
                     <?php echo \Yii::$app->view->renderFile('@app/views/course/discussion/simplePostList.php', [
                         'simplePosts' => $simplePosts,
