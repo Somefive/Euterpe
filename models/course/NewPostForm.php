@@ -42,10 +42,10 @@ class NewPostForm extends Model
             //初始化阅读者列表
             $post->readMenList = $post->postManId;
             $post->isPost=0;
-
+            Yii::warning($_POST['NewPostForm']);
             if($_POST['NewPostForm']['option']['0']==1) $post->anoymous=1;
             else $post->anoymous=0;
-            if($_POST['NewPostForm']['option']['1']==2) $post->shieldteacher=2;
+            if($_POST['NewPostForm']['option']['0']==2 or $_POST['NewPostForm']['option']['1']==2) $post->shieldteacher=2;
             else $post->shieldteacher=0;
             $postManName = User::getAppUser()->getUserName();
             $simpleTime = substr($post->time,0,10);

@@ -14,6 +14,7 @@ use app\models\account\User;
 <ul>
     <?php
     foreach ($simplePosts as $simplePost) {
+        if(!User::IsAppUserTeacher() or (User::IsAppUserTeacher()&&ArrayHelper::getValue($simplePost,'shieldteacher')!=2)) {
         $postId = ArrayHelper::getValue($simplePost,'postId');
         //li class="hasread/unread postManName_$postManName anoymous/canview simplePost" id="li_postId_$postId" onclick="showWholePost($postId)"
         echo(
@@ -25,26 +26,28 @@ use app\models\account\User;
         if(!ArrayHelper::getValue($simplePost,'isRead'))
             echo('<img id="unreadDot_'.$postId.'" src="https://piazza.com/images/piazza/dashboard/icon-unread-dot.png"  width="10" height="10" style="position:absolute;left:8px;top:40px;"></img>');
 
-        if(ArrayHelper::getValue($simplePost,'anoymous')==1)
-            echo(
-                ' <div class="content" style= "position:absolute;left:32px;top:5px;right:7px">
+
+            if (ArrayHelper::getValue($simplePost, 'anoymous') == 1)
+                echo(
+                    ' <div class="content" style= "position:absolute;left:32px;top:5px;right:7px">
                                         <div class="title ellipses">
-                                            <div class="title_text" style="max-width: 235px;"><b>['.'Anoymous'.']:'.ArrayHelper::getValue($simplePost,'title').'</b></div>
+                                            <div class="title_text" style="max-width: 235px;"><b>[' . 'Anoymous' . ']:' . ArrayHelper::getValue($simplePost, 'title') . '</b></div>
                                         </div>
-                                        <div class="snippet">'.ArrayHelper::getValue($simplePost,'content').'</div>
+                                        <div class="snippet">' . ArrayHelper::getValue($simplePost, 'content') . '</div>
                                     </div>
                                 </div></li>'
-            );
-        else
-            echo(
-                ' <div class="content" style= "position:absolute;left:32px;top:5px;right:7px">
+                );
+            else
+                echo(
+                    ' <div class="content" style= "position:absolute;left:32px;top:5px;right:7px">
                                         <div class="title ellipses">
-                                            <div class="title_text" style="max-width: 235px;"><b>['. ArrayHelper::getValue($simplePost,'postManName').']:'.ArrayHelper::getValue($simplePost,'title').'</b></div>
+                                            <div class="title_text" style="max-width: 235px;"><b>[' . ArrayHelper::getValue($simplePost, 'postManName') . ']:' . ArrayHelper::getValue($simplePost, 'title') . '</b></div>
                                         </div>
-                                        <div class="snippet">'.ArrayHelper::getValue($simplePost,'content').'</div>
+                                        <div class="snippet">' . ArrayHelper::getValue($simplePost, 'content') . '</div>
                                     </div>
                                 </div></li>'
-            );
+                );
+        }
     }
     ?>
 </ul>

@@ -38,7 +38,7 @@ class Post extends ActiveRecord
     private static function parseSimpleInfo($post)
     {
         $simpleInfos =  explode('|',ArrayHelper::getValue($post,'simpleInfo'));
-        $indexArray = array("postManId","postManName","title","content","time","anoymous","sheildteacher");
+        $indexArray = array("postManId","postManName","title","content","time","anoymous","shieldteacher");
         $simpleInfos = array_combine($indexArray,$simpleInfos);
         //处理匿名,判断登陆者是否是作者，若是作者则不在匿名
         //匿名状态下，更改发帖人名字为ANOYMOUS
