@@ -41,9 +41,10 @@ class DiscussionController extends Controller
     //讨论区的主页面
     public function actionDiscussion()
     {
+        //Yii::warning(User::findIdentity(5)->getUserName());
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
-        //Yii::warning($simplePosts);
+
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
             'allUsername' => $allUsername,
@@ -55,9 +56,8 @@ class DiscussionController extends Controller
         if (Yii::$app->request->isAjax) {
             $postId = Yii::$app->request->post();
             $selectedPost = Post::getPostByPostId($postId);
-
             Post::addReadList($postId);
-
+            Yii::warning( $selectedPost);
             return $this->renderPartial('showWholePost.php',[
                 'selectedPost' => $selectedPost,
             ],false,true);

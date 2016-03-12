@@ -33,7 +33,7 @@ class ReplyPostForm extends Model
 
             if($_POST['NewPostForm']['option']['0']==1) $post->anoymous=1;
             else $post->anoymous=0;
-            if($_POST['NewPostForm']['option']['1']==2) $post->shieldteacher=2;
+            if($_POST['NewPostForm']['option']['0']==2 or$_POST['NewPostForm']['option']['1']==2) $post->shieldteacher=2;
             else $post->shieldteacher=0;
 
             $postManName = User::getAppUser()->getUserName();

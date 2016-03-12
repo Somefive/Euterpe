@@ -15,6 +15,7 @@ class Post extends ActiveRecord
     public static function getPostByPostId($id)
     {
         $post = static::find()->where(['postId' => $id])->asArray()->all();
+       // Yii::warning(array_map("static::parseList",$post));
         return array_map("static::parseList",$post)[0];
     }
     //得到页面左侧渲染的帖子列表的精简信息
@@ -33,6 +34,14 @@ class Post extends ActiveRecord
         $selectedPost->readMenList = ($selectedPost->readMenList.'|'.User::getAppUserID());
         $selectedPost->save();
         return;
+    }
+
+    public static function changeLikemenList($postId)
+    {
+        $selectedPost = Post::findOne($postId);
+        $selectedPost->likeMenList=($selectedPost->likeMenList.'|'.User::getAppUserID());
+        $selectedPost->save();
+        return ;
     }
     //把帖子变成精简信息
     private static function parseSimpleInfo($post)
@@ -57,7 +66,7 @@ class Post extends ActiveRecord
         $newElements = array(
             'postId' => ArrayHelper::getValue($post,'postId'),
             'isRead' => $isRead,
-            'likeMenCount' => $likeMenCount
+            'likeMenCount' => $likeMenCount,
             );
         //最终的数组keys："postManId","postManName","title","content","time"，"postId","isRead,likeMenCount"
         return array_merge($newElements,$simpleInfos);
@@ -66,7 +75,17 @@ class Post extends ActiveRecord
     private static function parseList($post)
     {
         $likeMenIds = explode('|',ArrayHelper::getValue($post,'likeMenList'));
+        $likeMenName=array();
         $likeMenCount = count($likeMenIds);
+        if($likeMenCount == 1&&$likeMenIds[0] == '') {
+            $likeMenCount = 0;
+        }
+        else {
+            foreach ($likeMenIds as $likeMenId) {
+                array_push($likeMenName,User::findIdentity($likeMenId)->getUserName());
+            }
+        }
+
         //unset($post['likeMenList']);
 
         $readMenIds = explode('|',ArrayHelper::getValue($post,'readMenList'));
@@ -75,7 +94,8 @@ class Post extends ActiveRecord
 
         $newElements = array(
             'likeMenCount' => $likeMenCount,
-            'readMenCount' => $readMenCount
+            'readMenCount' => $readMenCount,
+            'likeMenName'=>$likeMenName,
         );
         return array_merge($post,$newElements);
     }

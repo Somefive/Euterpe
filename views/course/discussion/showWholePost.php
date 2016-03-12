@@ -26,7 +26,19 @@ use yii\helpers\ArrayHelper;
         <div class="post_region_text" id="questionText">
             <p><?php echo(ArrayHelper::getValue($selectedPost,'content'));?></p>
             <p>&nbsp;</p>
-            <p><?php echo(ArrayHelper::getValue($selectedPost,'time'));?></p>
+
+            <p><?php echo(ArrayHelper::getValue($selectedPost,'time').'&nbsp');
+                //echo('<img class="ui-icon icon-praise" src="http://os.qzonestyle.gtimg.cn/aoi/skin/sprite/35.32-man160203180152.png"  width="10" height="10" />');
+                ?>
+            <p>
+           <?php
+                    foreach (ArrayHelper::getValue($selectedPost,'likeMenName') as $likeMenName){
+                        echo($likeMenName.',');
+                    }
+                    if(ArrayHelper::getValue($selectedPost,'likeMenCount')!=0)
+                    echo('等共'.ArrayHelper::getValue($selectedPost,'likeMenCount').'人赞过');
+                ?>
+            </p>
         </div>
     </div>
 </div>
