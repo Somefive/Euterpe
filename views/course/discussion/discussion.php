@@ -12,8 +12,9 @@ $this->params['breadcrumbs'] = [
     $this->title
 ];
 $this->registerJsFile('/js/discussion.js');
-$this->registerCssFile('/css/discussion.css');
 $this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
+$this->registerCssFile('/css/discussion.css');
+$this->registerCssFile('/css/discussionSimpleList.css');
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -52,7 +53,12 @@ $this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
                     </ul>
                 </div>
                 <!--发帖-->
-                <button class="btn btn-info" onclick="editNewPost()">New Post</button>
+                <div class="btn-group" id="newPostBtn">
+                    <button class="btn btn-info" onclick="editNewPost()">
+                        New
+                        <span class="hvr-icon-forward"></span>
+                    </button>
+                </div>
             </div><br/>
 
             <div id = "simplePostList" style="height:500px; overflow:auto;border:	#A0A0A0 solid thin;">
