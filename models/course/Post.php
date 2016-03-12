@@ -82,7 +82,8 @@ class Post extends ActiveRecord
         }
         else {
             foreach ($likeMenIds as $likeMenId) {
-                array_push($likeMenName,User::findIdentity($likeMenId)->getUserName());
+                if($likeMenId == "") continue;
+                array_push($likeMenName,User::getUsernameById($likeMenId));
             }
         }
 
@@ -117,13 +118,21 @@ class Post extends ActiveRecord
     }
     //解析回帖
     //需要优化!
-    public static function  getnextPosts($post)
+    public static function getnextPosts($post)
     {
         $nextPostIds=explode('|',ArrayHelper::getValue($post,'nextPostId'));
         $nextPosts=array();
         foreach( $nextPostIds as $nextpostid)
         {
-            $nextPosts[]=static::find()->where(['postId'=>intval($nextpostid)])->asArray()->one();
+            if($nextpostid == "")   continue;
+            $nextPost=static::find()->where(['postId'=>intval($nextpostid)])->asArray()->one();
+            $nextPostManName = User::getUsernameById(ArrayHelper::getValue($nextPost,'postManId'));
+
+            $newElements = array(
+                'postManName' => $nextPostManName,
+            );
+
+            array_push($nextPosts,array_merge($nextPost,$newElements));
         }
         //$nextPosts=array_map("static::parseSimpleInfo",$nextPosts);
         //Yii::warning($nextPosts);

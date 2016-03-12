@@ -32,6 +32,14 @@ class User extends ActiveRecord implements IdentityInterface
         $allUser = static::find()->asArray()->all();
         return ArrayHelper::getColumn($allUser,'username');
     }
+
+    public static function getUsernameById($id)
+    {
+        $user = User::findIdentity($id);
+        if($user != null)
+            return $user->getUserName();
+    }
+
     public function getId()
     {
         return $this->id;

@@ -37,6 +37,7 @@ use yii\helpers\ArrayHelper;
                     }
                     if(ArrayHelper::getValue($selectedPost,'likeMenCount')!=0)
                     echo('等共'.ArrayHelper::getValue($selectedPost,'likeMenCount').'人赞过');
+                    //print_r($replyPosts);
                 ?>
             </p>
         </div>
@@ -50,7 +51,57 @@ use yii\helpers\ArrayHelper;
     </div>
 
     <div class="post_region_content clarifying_discussion">
+        <!--B型帖子-->
+        <?php foreach ($replyPosts as $replyPost): ?>
+        <div class="clarifying_discussion clearFix " id="ijy3z8w56bx3da">
+            <!--这里是头像显示区-->
+            <!--div class="account_image_container">
+                <div class="user_pic user_pic_ie7xy5sipx51qz user_loading"><div class="white_border"><img title="Gao Tong" src="https://d1b10bmlvqabco.cloudfront.net/photos/ie7xy5sipx51qz/1442247026_35.png" onload="onImageLoad(event);" width="34" height="34" style="width: 34px; height: 34px; left: 0px; top: 0px;"></div></div>
+            </div-->
+            <div class="discussion_content main_followup clearFix">
 
+                <div class="discussion_text">
+                    <a class="discussion_poster"><span anon="no" class="user_name user_name_ie7xy5sipx51qz user_loading"><?= ArrayHelper::getValue($replyPost,'postManName') ?></span></a>
+                    <a class="dicussion_meta"><span title="Thu Jan 28 2016 18:19:11 GMT+0800 (中国标准时间)"><?= ArrayHelper::getValue($replyPost,'time') ?></span></a>
+                    <span class="actual_text post_region_text"><p><?= ArrayHelper::getValue($replyPost,'content') ?></p></span>
+                </div>
+
+            </div>
+
+            <!--不懂干什么的div class="discussion_content discussion_content_edit clearFix" style="display:none;" id="discussion_edit_ijy3z8w56bx3da"></div-->
+            <!--talk区域-->
+            <div class="all_replies">
+
+                <div class="discussion_replies existing_reply clearFix" id="ijydlez52gn4fb">
+                    <!--这里是头像显示区-->
+                    <!--div class="account_image_container">
+                        <div class="user_pic user_pic_ie7xy5sipx51qz user_loading"><div class="white_border"><img title="Gao Tong" src="https://d1b10bmlvqabco.cloudfront.net/photos/ie7xy5sipx51qz/1442247026_35.png" onload="onImageLoad(event);" width="34" height="34" style="width: 34px; height: 34px; left: 0px; top: 0px;"></div></div>
+                    </div-->
+                    <div class="discussion_content clearFix">
+
+                        <div class="discussion_text">
+                            <a class="discussion_poster"><span anon="no" class="user_name user_name_ie7xy5sipx51qz user_loading">POSYMANNAME</span></a>
+                            <a class="dicussion_meta"><span title="Thu Jan 28 2016 22:48:22 GMT+0800 (中国标准时间)">TIME</span></a>
+                            <span class="actual_reply_text post_region_text"><p>CONTENT</p></span>
+                        </div>
+
+                    </div>
+                    <!--不懂干什么的 div class="discussion_content discussion_content_edit clearFix" style="display:none;" id="reply_edit_ijydlez52gn4fb"></div-->
+                </div>
+
+
+                <!--talk回复-->
+                <div class="compose_reply clearFix start_reply">Reply to this followup discussion</div>
+                <div class="discussion_replies new edit_mode hide">
+                    <div class="account_image_container">
+                        <div class="user_pic user_pic_ie7xy8iscsw1t7"><div class="white_border"><img title="吴行行" src="https://dvngeac8rg9mb.cloudfront.net/images/dashboard/common/default_user.png" onload="onImageLoad(event);" width="0" height="0" style="display: block; width: 0px; height: 0px; left: 0px;"></div></div>
+                    </div>
+                    <div class="discussion_content edit_mode clearFix" id="followup_reply_ijy3z8w56bx3da"></div>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+        <!--回复主贴-->
         <h5 id="start_new_followup_header">Start a new followup discussion</h5>
         <?php echo(
             '<div class="compose_discussion" onclick="replyPost('.ArrayHelper::getValue($selectedPost,'postId').')" id="create_new_followup">Compose a new followup discussion</div>'
