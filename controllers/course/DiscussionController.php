@@ -31,6 +31,9 @@ class DiscussionController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
+            ],
+            'upload' => [
+                'class' => 'kucha\ueditor\UEditorAction',
             ]
         ];
     }

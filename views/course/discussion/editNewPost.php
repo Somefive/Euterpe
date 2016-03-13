@@ -7,24 +7,26 @@
  */
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-
+use \kucha\ueditor\UEditor;
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title') ?>
-    <?= $form->field($model, 'content')->widget(\yii\redactor\widgets\Redactor::className(),
+    <?= $form->field($model, 'content')->widget('kucha\ueditor\UEditor',
         [
             'clientOptions' => [
-                'imageManagerJson' => ['/redactor/upload/image-json'],
-                'imageUpload' => ['/redactor/upload/image'],
-                'fileUpload' => ['/redactor/upload/file'],
-                'lang' => 'zh_cn',
-                'plugins' => ['clips', 'fontcolor','imagemanager','counter','fontfamily','limiter','textexpander'],
-                'row' => '16'
+                //编辑区域大小
+                'initialFrameHeight' => '200',
+                //设置语言
+                'lang' =>'en', //中文为 zh-cn
+                //定制菜单
+                'toolbars'=> [
+                     ['fullscreen', 'source', 'undo', 'redo','fontfamily','fontsize', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough','justifyleft', 'justifyright','justifycenter','justifyjustify',  'superscript', 'subscript', 'removeformat', 'formatmatch',],
+                     [ 'emotion','spechars','snapscreen','simpleupload','insertimage',  'insertorderedlist', 'insertunorderedlist','|','blockquote', 'pasteplain','link','selectall', 'cleardoc']
+                ]
             ]
-        ]
-    ) ?>
+        ]) ?>
     <?= $form->field($model,'option')->checkboxList(['1' => '匿名 ', '2' => '屏蔽',]);?>
     <div class="form-group">
         <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
