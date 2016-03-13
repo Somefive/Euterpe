@@ -44,7 +44,7 @@ class DiscussionController extends Controller
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
 
-        $selectedPost = Post::getPostByPostId(25);
+        $selectedPost = Post::getPostByPostId(24);
         $replyPosts = Post::getnextPosts($selectedPost);
         Yii::warning($replyPosts);
 

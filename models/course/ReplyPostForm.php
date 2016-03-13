@@ -22,14 +22,14 @@ class ReplyPostForm extends Model
             [[ 'content'], 'required'],
         ];
     }
-    public function addReplyPost($fatherPostId)
+    public function addReplyPost($fatherPostId,$isPostId)
     {
         if ($this->validate()) {
             $post = new Post();
             $post->postManId = User::getAppUserID();
             $post->content = $this->content;
             $post->time = date("Y-m-d H:i:s", time());
-            $post->isPost=1;
+            $post->isPost=$isPostId;
 
             if($_POST['NewPostForm']['option']['0']==1) $post->anoymous=1;
             else $post->anoymous=0;
@@ -47,20 +47,14 @@ class ReplyPostForm extends Model
 */
             if($post->save())   {
                 $fatherPost = Post::findOne($fatherPostId);
-                $fatherPost->nextPostId = ($fatherPost->nextPostId.'|'.$post->postId);
+                if(!$fatherPost->nextPostId) $fatherPost->nextPostId=$post->postId;
+                else $fatherPost->nextPostId = ($fatherPost->nextPostId.'|'.$post->postId);
                 return $fatherPost->save();
             }
             else return false;
 
         }
         return false;
-    }
-    public function dealFatherPost($fatherPostId)
-    {
-        $fatherPost=Post::findOne($fatherPostId);
-        \Yii::warning($fatherPostId);
-        if($fatherPost == null) return false;
-        $fatherPost->nextPostId=($fatherPost->nextPostId.'|'.'121');
     }
 
 }
