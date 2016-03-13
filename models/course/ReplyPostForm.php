@@ -22,14 +22,14 @@ class ReplyPostForm extends Model
             [[ 'content'], 'required'],
         ];
     }
-    public function addReplyPost($fatherPostId)
+    public function addReplyPost($fatherPostId,$postType)
     {
         if ($this->validate()) {
             $post = new Post();
             $post->postManId = User::getAppUserID();
             $post->content = $this->content;
             $post->time = date("Y-m-d H:i:s", time());
-            $post->isPost=1;
+            $post->isPost=$postType;
 
             if($_POST['NewPostForm']['option']['0']==1) $post->anoymous=1;
             else $post->anoymous=0;

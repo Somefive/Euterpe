@@ -89,17 +89,21 @@ class DiscussionController extends Controller
         if (Yii::$app->request->isAjax) {
             $session = Yii::$app->session;
             $session->open();
-            $session['fatherPostId'] = ArrayHelper::getValue(Yii::$app->request->get(), 'fatherPostId');
+            $session['fatherPostId'] = ArrayHelper::getValue(Yii::$app->request->post(), 'fatherPostId');
+            $session['postType'] = ArrayHelper::getValue(Yii::$app->request->post(),'postType');
+            //return (Yii::$app->session->get('postType'));
         }
         $model = new ReplyPostForm();
         if($model->load(Yii::$app->request->post()))    {
-            if($model->addReplyPost(Yii::$app->session->get('fatherPostId')))   $msg = "发帖成功";
+            $session = Yii::$app->session;
+            if($model->addReplyPost($session->get('fatherPostId'),$session->get('postType')))   $msg = "发帖成功";
             else    $msg = "发帖失败,";
             return $this->render('say', ['message' => $msg]);
         }
         return $this->renderAjax('replyPost.php', [
             'model' => $model,
         ]);
+        //return Yii::$app->session->get('fatherPostId')+" "+Yii::$app->session->get('postType');
     }
 
     public function actionModifyShowRule()
