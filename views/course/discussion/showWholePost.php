@@ -70,6 +70,8 @@ use yii\helpers\ArrayHelper;
 
             <!--不懂干什么的div class="discussion_content discussion_content_edit clearFix" style="display:none;" id="discussion_edit_ijy3z8w56bx3da"></div-->
             <!--talk区域-->
+            <?php $talks = ArrayHelper::getValue($replyPost,'talk');?>
+            <?php foreach ($talks as $talk): ?>
             <div class="all_replies">
 
                 <div class="discussion_replies existing_reply clearFix" id="ijydlez52gn4fb">
@@ -80,14 +82,15 @@ use yii\helpers\ArrayHelper;
                     <div class="discussion_content clearFix">
 
                         <div class="discussion_text">
-                            <a class="discussion_poster"><span anon="no" class="user_name user_name_ie7xy5sipx51qz user_loading">POSYMANNAME</span></a>
-                            <a class="dicussion_meta"><span title="Thu Jan 28 2016 22:48:22 GMT+0800 (中国标准时间)">TIME</span></a>
-                            <span class="actual_reply_text post_region_text"><p>CONTENT</p></span>
+                            <a class="discussion_poster"><span anon="no" class="user_name user_name_ie7xy5sipx51qz user_loading"><?= ArrayHelper::getValue($talk,'postManName') ?></span></a>
+                            <a class="dicussion_meta"><span title="Thu Jan 28 2016 22:48:22 GMT+0800 (中国标准时间)"><?= ArrayHelper::getValue($talk,'time') ?></span></a>
+                            <span class="actual_reply_text post_region_text"><p><?= ArrayHelper::getValue($talk,'content') ?></p></span>
                         </div>
 
                     </div>
                     <!--不懂干什么的 div class="discussion_content discussion_content_edit clearFix" style="display:none;" id="reply_edit_ijydlez52gn4fb"></div-->
                 </div>
+                <?php endforeach; ?>
 
 
                 <!--talk回复-->
