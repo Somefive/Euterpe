@@ -23,7 +23,7 @@ $this->registerCssFile('/css/discussionSimpleList.css');
             <div>
                 <!--只看unread或者all的下拉框-->
                 <div class="btn-group">
-                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10" aria-expanded="false">
                         Unread<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li onclick="getAllNorUnreadList()"><a>ALL POST</a></li>
@@ -32,7 +32,7 @@ $this->registerCssFile('/css/discussionSimpleList.css');
                 </div>
                 <!--只看某人帖子的下拉框-->
                 <div class="btn-group">
-                    <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
+                    <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10" aria-expanded="false">
                         View<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li onclick="getSpecificManList('var@ALL')"><a>ALL POST</a></li>
@@ -45,7 +45,7 @@ $this->registerCssFile('/css/discussionSimpleList.css');
                 </div>
                 <!--选择排序方法的下拉框-->
                 <div class="btn-group">
-                    <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
+                    <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10" aria-expanded="false">
                         Order By<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li onclick="modifyOrderRule('orderByTime')"><a>Time</a></li>
