@@ -11,9 +11,11 @@ namespace app\controllers\course;
 use app\models\account\User;
 use app\models\course\Courseenrollment;
 use yii\web\Controller;
+use app\models\course\share\VocabularyForm;
+use app\models\course\share\Vocabulary;
 use Yii;
 
-class DiscussionController extends Controller
+class ShareController extends Controller
 {
     public function actions()
     {
@@ -29,10 +31,24 @@ class DiscussionController extends Controller
         return $this->render('index.php');
     }
 
-    public function actionNewpost()
+    public function actionCreate()
     {
-        return $this->render('newpost.php');
+        $model = new VocabularyForm();
+        if($model->load(Yii::$app->request->post()))
+        {
+            if($model->createVocabulary()){
+                $msg = '创建成功！';
+            }
+            else
+                $msg = '创建失败……';
+            return $this->render('say', [
+                'message' => $msg
+            ]);
+        }
+        return $this->render('create.php',['model'=>$model]);
     }
+
+
 
     public function beforeAction($action)
     {
