@@ -20,7 +20,8 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "yiidoc/yii2-redactor": "*",
-        "pjkui/kindeditor": "dev-master"
+        "pjkui/kindeditor": "dev-master",
+        "kucha/ueditor": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
