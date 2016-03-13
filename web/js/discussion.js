@@ -147,16 +147,16 @@ function keepAllSelectedRules()
 /*
  * 回复主贴的帖子
  */
-function replyPost(fatherPostId)
+function replyPost(fatherPostId,postType,divIdNeedHide,divIdNeedHtml)
 {
-    //alert(fatherPostId);
+    //alert(fatherPostId+","+postType+","+divIdNeedHide+","+divIdNeedHtml);
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: 'http://localhost:8080/course/discussion/reply-post',
-        data: {fatherPostId:fatherPostId},
+        data: {fatherPostId:fatherPostId,postType:postType},
         success: function (data) {
-            $("#create_new_followup").hide();
-            $("#create_new_followup_div").html(data);
+            $("#"+divIdNeedHide).hide();
+            $("#"+divIdNeedHtml).html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);

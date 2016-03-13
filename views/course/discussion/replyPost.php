@@ -19,7 +19,7 @@ use yii\bootstrap\ActiveForm;
             'fileUpload' => ['/redactor/upload/file'],
             'lang' => 'zh_cn',
             'plugins' => ['clips', 'fontcolor','imagemanager','counter','fontfamily','limiter','textexpander'],
-            'row' => '16'
+            'row' => '30'
         ]
     ]
 ) ?>
