@@ -90,28 +90,28 @@ use yii\helpers\ArrayHelper;
                     </div>
                     <!--不懂干什么的 div class="discussion_content discussion_content_edit clearFix" style="display:none;" id="reply_edit_ijydlez52gn4fb"></div-->
                 </div>
-                <?php endforeach; ?>
+            </div>
+            <?php endforeach; ?>
 
 
                 <!--talk回复-->
-                <div class="compose_reply clearFix start_reply" id="start_reply_followup_<?= ArrayHelper::getValue($replyPost,'postId')?>"
-                     onclick="replyPost(<?= ArrayHelper::getValue($replyPost,'postId')?>,2,'start_reply_followup_<?= ArrayHelper::getValue($replyPost,'postId')?>','create_reply_followup_<?=  ArrayHelper::getValue($replyPost,'postId')?>')">
-                    Reply to this followup discussion
-                </div>
-                <!--下面的div原先class="discussion_replies new edit_mode"，但是这样却没办法显示，暂时去掉-->
-                <div id="create_reply_followup_<?=  ArrayHelper::getValue($replyPost,'postId')?>">
-                    <!--div class="account_image_container">
-                        <div class="user_pic user_pic_ie7xy8iscsw1t7"><div class="white_border"><img title="吴行行" src="https://dvngeac8rg9mb.cloudfront.net/images/dashboard/common/default_user.png" onload="onImageLoad(event);" width="0" height="0" style="display: block; width: 0px; height: 0px; left: 0px;"></div></div>
-                    </div-->
-                    <!--div class="discussion_content edit_mode clearFix" ></div-->
-                </div>
+            <div class="compose_reply clearFix start_reply" id="start_reply_followup_<?= ArrayHelper::getValue($replyPost,'postId')?>"
+                 onclick="replyPost(<?= ArrayHelper::getValue($replyPost,'postId')?>,2,'start_reply_followup_<?= ArrayHelper::getValue($replyPost,'postId')?>','create_reply_followup_<?=  ArrayHelper::getValue($replyPost,'postId')?>')">
+                Reply to this followup discussion
+            </div>
+            <!--下面的div原先class="discussion_replies new edit_mode"，但是这样却没办法显示，暂时去掉-->
+            <div id="create_reply_followup_<?=  ArrayHelper::getValue($replyPost,'postId')?>">
+                <!--div class="account_image_container">
+                    <div class="user_pic user_pic_ie7xy8iscsw1t7"><div class="white_border"><img title="吴行行" src="https://dvngeac8rg9mb.cloudfront.net/images/dashboard/common/default_user.png" onload="onImageLoad(event);" width="0" height="0" style="display: block; width: 0px; height: 0px; left: 0px;"></div></div>
+                </div-->
+                <!--div class="discussion_content edit_mode clearFix" ></div-->
             </div>
         </div>
         <?php endforeach; ?>
-        <!--回复A贴-->
-        <h5 id="start_new_followup_header">Start a new followup discussion</h5>
-        <div class="compose_discussion" onclick="replyPost(<?=ArrayHelper::getValue($selectedPost,'postId')?>,1,'create_new_followup','create_new_followup_div')" id="create_new_followup">Compose a new followup discussion</div>
-        <div id="create_new_followup_div"></div>
     </div>
+    <!--回复A贴-->
+    <h5 id="start_new_followup_header">Start a new followup discussion</h5>
+    <div class="compose_discussion" onclick="replyPost(<?=ArrayHelper::getValue($selectedPost,'postId')?>,1,'create_new_followup','create_new_followup_div')" id="create_new_followup">Compose a new followup discussion</div>
+    <div id="create_new_followup_div"></div>
 </div>
 
