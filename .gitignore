@@ -25,4 +25,5 @@ phpunit.phar
 
 /.idea
 
+/web/.htaccess
 
