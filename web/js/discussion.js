@@ -23,13 +23,36 @@ function showWholePost(postId)
         success: function (data) {
             $("#areaShowInfo").html(data);
             $("#unreadDot_"+postId).hide();
-            $("#li_postId_"+postId).removeClass("unread").addClass("hasread");
+            $("#li_postId_"+postId).removeClass("unread").addClass("hasread");z
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
         }
     });
 }
+
+function changeLike(fatherId,postId)
+{
+    $.ajax({
+        type: "POST",
+        url: 'http://localhost:8080/course/discussion/change-like',
+        data: {fatherId:fatherId,postId:postId},
+        dataType : 'text',
+        success: function (data) {
+            $("#areaShowInfo").html(data);
+            //alert("123");
+           if($("#like_"+postId).attr('class')=="like_"+postId){
+               $("#like_"+postId).removeClass("like_"+postId).addClass("notlike_"+postId);
+           }
+           else $("#like_"+postId).removeClass("notlike_"+postId).addClass("like_"+postId);
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.statusText);
+        }
+    });
+}
+
 
 function editNewPost()
 {
@@ -163,3 +186,5 @@ function replyPost(fatherPostId,postType,divIdNeedHide,divIdNeedHtml)
         }
     });
 }
+
+
