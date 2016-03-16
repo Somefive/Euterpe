@@ -28,18 +28,24 @@ use app\models\account\User;
             <p><?php echo(ArrayHelper::getValue($selectedPost,'content'));?></p>
             <p>&nbsp;</p>
 
-            <p><?php echo(ArrayHelper::getValue($selectedPost,'time').'&nbsp');
-                //echo('<img class="ui-icon icon-praise" src="http://os.qzonestyle.gtimg.cn/aoi/skin/sprite/35.32-man160203180152.png"  width="10" height="10" />');
+            <p><?php echo('<div><div style="float:left; width:150px">'.ArrayHelper::getValue($selectedPost,'time').'</div>'.'
+             <div style="float:left" id="like_'.(ArrayHelper::getValue($selectedPost,'postId')).'" class="'.(ArrayHelper::getValue($selectedPost,'islike')?like:notlike).'_'.(ArrayHelper::getValue($selectedPost,'postId')).'grid'.'"
+               onclick=changeLike('.'-1,'.ArrayHelper::getValue($selectedPost,'postId').')>
+               <button class="grid__item icobutton icobutton--thumbs-up ">'.'<span class="fa fa-thumbs-up"></span>'.
+                    '</button>'.'</div>'.'</div>');
                 ?>
             </p>
-            <p>
-           <?php
-                    foreach (ArrayHelper::getValue($selectedPost,'likeMenName') as $likeMenName){
-                        echo($likeMenName.',');
-                    }
-                    if(ArrayHelper::getValue($selectedPost,'likeMenCount')!=0)
+            <br/>
+            <p><?php
+                $x=0;
+                foreach (ArrayHelper::getValue($selectedPost,'likeMenName') as $likeMenName){
+                    $x++;
+                    if($x==ArrayHelper::getValue($selectedPost,'likeMenCount'))echo($likeMenName);
+                    else echo($likeMenName.',');
+                }
+                if(ArrayHelper::getValue($selectedPost,'likeMenCount')!=0)
                     echo('等共'.ArrayHelper::getValue($selectedPost,'likeMenCount').'人赞过');
-                    //print_r($replyPosts);
+                //print_r($replyPosts);
                 ?>
            <!--删除帖子-->
             <?php if(ArrayHelper::getValue($selectedPost,'postManId') == User::getAppUserID()):?>
@@ -70,6 +76,10 @@ use app\models\account\User;
                 <div class="discussion_text">
                     <a class="discussion_poster"><span anon="no" class="user_name user_name_ie7xy5sipx51qz user_loading"><?= ArrayHelper::getValue($replyPost,'postManName') ?></span></a>
                     <a class="dicussion_meta"><span title="Thu Jan 28 2016 18:19:11 GMT+0800 (中国标准时间)"><?= ArrayHelper::getValue($replyPost,'time') ?></span></a>
+                    <?php echo('
+                     <button id="like_'.(ArrayHelper::getValue($replyPost,'postId')).'" class="'.(ArrayHelper::getValue($replyPost,'islike')?like:notlike).'_'.(ArrayHelper::getValue($replyPost,'postId')).'"
+                      onclick=changeLike('.ArrayHelper::getValue($selectedPost,'postId').','.ArrayHelper::getValue($replyPost,'postId').')>'.ArrayHelper::getValue($replyPost,'likeOrNot').'</button>');
+                    ?>
                     <span class="actual_text post_region_text"><p><?= ArrayHelper::getValue($replyPost,'content') ?></p></span>
                 </div>
 

@@ -13,8 +13,13 @@ $this->params['breadcrumbs'] = [
 ];
 $this->registerJsFile('/js/discussion.js');
 $this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
+$this->registerJsFile('/js/demo.js');
+$this->registerJsFile('/js/mo.min.js');
 $this->registerCssFile('/css/discussion.css');
 $this->registerCssFile('/css/discussionSimpleList.css');
+$this->registerCssFile('/css/demo.css');
+$this->registerCssFile('/css/icons.css');
+$this->registerCssFile('/fonts/font-awesome-4.5.0/css/font-awesome.min.css');
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -23,7 +28,7 @@ $this->registerCssFile('/css/discussionSimpleList.css');
             <div>
                 <!--只看unread或者all的下拉框-->
                 <div class="btn-group">
-                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10" aria-expanded="false">
                         Unread<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li onclick="getAllNorUnreadList()"><a>ALL POST</a></li>
@@ -32,7 +37,7 @@ $this->registerCssFile('/css/discussionSimpleList.css');
                 </div>
                 <!--只看某人帖子的下拉框-->
                 <div class="btn-group">
-                    <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
+                    <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10" aria-expanded="false">
                         View<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li onclick="getSpecificManList('var@ALL')"><a>ALL POST</a></li>
@@ -45,7 +50,7 @@ $this->registerCssFile('/css/discussionSimpleList.css');
                 </div>
                 <!--选择排序方法的下拉框-->
                 <div class="btn-group">
-                    <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
+                    <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10" aria-expanded="false">
                         Order By<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li onclick="modifyOrderRule('orderByTime')"><a>Time</a></li>

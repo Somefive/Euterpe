@@ -31,7 +31,7 @@ class DiscussionController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-            ]
+            ],
         ];
     }
 
@@ -63,6 +63,29 @@ class DiscussionController extends Controller
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
             Post::addReadList($postId);
+            return $this->renderPartial('showWholePost.php',[
+                'selectedPost' => $selectedPost,
+                'replyPosts' => $replyPosts,
+            ],false,true);
+        }
+    }
+
+    public function actionChangeLike()
+    {
+
+        if(Yii::$app->request->isAjax){
+            $message=Yii::$app->request->post();
+            /*return $this->render('say.php',[
+                'message'=>$message,
+            ]);*/
+            $fatherId=$message['fatherId'];
+
+            $postId =$message['postId'];
+            Post::changeLikemenList($postId);
+            if($fatherId==-1) $selectedPost = Post::getPostByPostId($postId);
+            else $selectedPost=Post::getPostByPostId($fatherId);
+            $replyPosts = Post::getnextPosts($selectedPost);
+            //Yii::warning($selectedPost);
             return $this->renderPartial('showWholePost.php',[
                 'selectedPost' => $selectedPost,
                 'replyPosts' => $replyPosts,
