@@ -145,6 +145,30 @@ class Post extends ActiveRecord
     }
 
 
+    public static function deleteMainPost($deleteMainPostId)
+    {
+        $needDeletePostIds = array();
+        array_push($needDeletePostIds,$deleteMainPostId);
+        $mainPost = static::find()->where(['postId' => $deleteMainPostId])->asArray()->one();
+        $replyPostIds = explode('|', ArrayHelper::getValue($mainPost, 'nextPostId'));
+        foreach($replyPostIds as $replyPostId)  {
+            if($replyPostId=='')    continue;
+            array_push($needDeletePostIds,$replyPostId);
+            $replyPost = static::find()->where(['postId' => $replyPostId])->asArray()->one();
+            $talkPostIds = explode('|', ArrayHelper::getValue($replyPost, 'nextPostId'));
+            foreach($talkPostIds as $talkPostId)    array_push($needDeletePostIds,$talkPostId);
+        }
+        return static::deletePost($needDeletePostIds);
+    }
+    private static function deletePost($needDeletePostIds)
+    {
+        foreach($needDeletePostIds as $needDeletePostId)    {
+            if($needDeletePostId == '') continue;
+            $deletePost = Post::findOne($needDeletePostId);
+            if($deletePost) $deletePost->delete();
+        }
+    }
+
     //解析talk
     private static function getTalk($nextPostTalkId)
     {
@@ -153,6 +177,7 @@ class Post extends ActiveRecord
         foreach ($TalkIds as $TalkId) {//invantal?
             if($TalkId=='')continue;
             $Talk = static::find()->where(['postId' => intval($TalkId)])->asArray()->one();
+            if(!is_array($Talk))    continue;
             $TalkManName = User::getUsernameById(ArrayHelper::getValue($Talk, 'postManId'));
 
             $newElement = array('postManName' => $TalkManName);
@@ -160,4 +185,5 @@ class Post extends ActiveRecord
         }
         return $Talks;
     }
+
 }

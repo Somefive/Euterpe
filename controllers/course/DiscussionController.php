@@ -46,7 +46,7 @@ class DiscussionController extends Controller
 
         $selectedPost = Post::getPostByPostId(26);
         $replyPosts = Post::getnextPosts($selectedPost);
-        Yii::warning($replyPosts);
+        Yii::warning($selectedPost);
 
 
         return $this->render('discussion.php',[
@@ -134,6 +134,18 @@ class DiscussionController extends Controller
             return $this->renderPartial('simplePostList.php',[
                 'simplePosts' => $msg,
             ]);
+        }
+    }
+
+    public function actionDeleteMainPost()
+    {
+        if (Yii::$app->request->isAjax) {
+            $ajaxInfo = Yii::$app->request->post();
+            $deletePostId = ArrayHelper::getValue($ajaxInfo,'postId');
+
+            Post::deleteMainPost($deletePostId);
+
+            return $this->redirect(array('course/discussion/discussion'));
         }
     }
 

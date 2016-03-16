@@ -163,3 +163,24 @@ function replyPost(fatherPostId,postType,divIdNeedHide,divIdNeedHtml)
         }
     });
 }
+
+
+/**
+ * 删除帖子
+ * @param postType 帖子的类型.0,1,2分别对应A，B，C类帖子
+ * @param fatherPostId 父亲帖子的Id，若没有父贴，则设置为-1
+ * @param postId 删除的帖子的Id。
+ */
+function deletePost(postType,fatherPostId,postId)
+{
+    if(postType == 0)   {
+        //alert("will delete");
+
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:8080/course/discussion/delete-main-post',
+            data: {postId:postId}
+        });
+    }
+
+}

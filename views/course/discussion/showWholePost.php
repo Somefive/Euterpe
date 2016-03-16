@@ -3,6 +3,7 @@
  * Created by PhpStorm.
  */
 use yii\helpers\ArrayHelper;
+use app\models\account\User;
 ?>
 
 <div class="post_region_box question_note_view dashboard_element">
@@ -30,6 +31,7 @@ use yii\helpers\ArrayHelper;
             <p><?php echo(ArrayHelper::getValue($selectedPost,'time').'&nbsp');
                 //echo('<img class="ui-icon icon-praise" src="http://os.qzonestyle.gtimg.cn/aoi/skin/sprite/35.32-man160203180152.png"  width="10" height="10" />');
                 ?>
+            </p>
             <p>
            <?php
                     foreach (ArrayHelper::getValue($selectedPost,'likeMenName') as $likeMenName){
@@ -39,7 +41,12 @@ use yii\helpers\ArrayHelper;
                     echo('等共'.ArrayHelper::getValue($selectedPost,'likeMenCount').'人赞过');
                     //print_r($replyPosts);
                 ?>
+           <!--删除帖子-->
+            <?php if(ArrayHelper::getValue($selectedPost,'postManId') == User::getAppUserID()):?>
+            <div align="right"> <a onclick="deletePost(0,-1,<?=ArrayHelper::getValue($selectedPost,'postId')?>)">删除</a></div>
+            <?php endif?>
             </p>
+
         </div>
     </div>
 </div>
