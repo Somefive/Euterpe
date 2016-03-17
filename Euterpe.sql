@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost_3306
-Source Server Version : 50624
+Source Server Version : 50628
 Source Host           : localhost:3306
 Source Database       : euterpe
 
 Target Server Type    : MYSQL
-Target Server Version : 50624
+Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2016-03-13 11:54:28
+Date: 2016-03-17 23:16:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -113,14 +113,13 @@ CREATE TABLE `post` (
   `isPost` int(1) DEFAULT NULL,
   PRIMARY KEY (`postId`),
   KEY `postId` (`postId`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of post
 -- ----------------------------
-INSERT INTO `post` VALUES ('22', '5', '2016-03-08 21:09:43', '', '<p>会不会递增呀好伤心。</p><p>下面是乱写的。。。</p><p>123456</p>', '5', null, '吴行行', '0', '0', '47|48', '1');
-INSERT INTO `post` VALUES ('23', '5', '2016-03-08 21:11:10', '', '<p>来个图片</p><p>来个图片<br></p><p>来个图片<span class=\"redactor-invisible-space\"><br></span></p><p><span class=\"redactor-invisible-space\">来个图片<span class=\"redactor-invisible-space\"><br></span></span></p><p><span class=\"redactor-invisible-space\"><span class=\"redactor-invisible-space\"><img src=\"/uploads/5/7a07e25c31-u-98798092877674487fm-116gp-0.jpg\"><span class=\"redactor-invisible-space\"><br></span></span></span></p>', '1|5', '', '吴行行', '0', '0', null, '1');
-INSERT INTO `post` VALUES ('24', '9', '2016-03-08 21:20:30', '第4个帖子', '<p>为啥写这个帖子，不知道</p>', '9|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|6', '1', '9|ykd|第4个帖子|<p>为啥写这个帖子，不知道</p>|2016-03-08|1|2', '1', '2', '22|23|35|43|44|45', '0');
+INSERT INTO `post` VALUES ('22', '5', '2016-03-08 21:09:43', '', '<p>会不会递增呀好伤心。</p><p>下面是乱写的。。。</p><p>123456</p>', '5', null, '吴行行', '0', '0', '49', '1');
+INSERT INTO `post` VALUES ('24', '9', '2016-03-08 21:20:30', '第4个帖子', '<p>为啥写这个帖子，不知道</p>', '9|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|6|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5', '1', '9|ykd|第4个帖子|<p>为啥写这个帖子，不知道</p>|2016-03-08|1|2', '1', '2', '22|35|43|44|45', '0');
 INSERT INTO `post` VALUES ('25', '5', '2016-03-08 21:52:20', '马上要出操了', '<p>好伤心，根本不想出操！根本不想！！</p>', '|9|9|9|9|9|9|9', null, '5|吴行行|马上要出操了|<p>好伤心，根本不想出操！根本不想！！</p>|2016-03-08|0|0', '0', '0', '|36', '0');
 INSERT INTO `post` VALUES ('26', '5', '2016-03-08 22:49:17', '再来一个帖子', '<ul><li>能够看到滚动条的效果了！好开心好开心！<a href=\"http://localhost:8080/course/discussion/discussion\">我的地址！</a></li></ul>', '5|9|9|9|9|9|9|9|9|9|9|9|9', '1|2', '5|吴行行|再来一个帖子|<ul><li>能够看到滚动条的效果了！好开心好开心！<a href=\"http://localhost:8080/course/discussion/discussion\">我的地址！</a></li></ul>|2016-03-08|0|2', '0', '2', '|46', '0');
 INSERT INTO `post` VALUES ('27', '9', '2016-03-08 23:19:10', '测试', '<p><img src=\"/uploads/5/0ec2ae1d04-u-98798092877674487fm-116gp-0.jpg\"></p>', '9|5|5|5', null, '9|ykd|测试|<p><img src=\"/uploads/5/0ec2ae1d04-u-98798092877674487fm-116gp-0.jpg\"></p>|2016-03-08|1|0', '1', '0', null, '0');
@@ -141,8 +140,7 @@ INSERT INTO `post` VALUES ('43', '9', '2016-03-11 16:16:18', '', '<p>回复的�
 INSERT INTO `post` VALUES ('44', '5', '2016-03-12 17:02:42', '', '<p>回复第四个帖子！</p>', null, null, '吴行行', '0', '0', null, '1');
 INSERT INTO `post` VALUES ('45', '5', '2016-03-13 00:09:53', '', '<p>我要回帖！能不能显示呀！我在测试回帖的显示!</p>', null, null, '吴行行', '0', '0', null, '1');
 INSERT INTO `post` VALUES ('46', '5', '2016-03-13 00:16:53', '', '<p>要保证每个帖子都有回帖！我瞎说的...</p>', null, null, '吴行行', '0', '0', null, '1');
-INSERT INTO `post` VALUES ('47', '5', '2016-03-13 11:49:27', '', '<p>测试C</p>', null, null, '吴行行', '0', '0', null, '2');
-INSERT INTO `post` VALUES ('48', '5', '2016-03-13 11:49:49', '', '<p>测试C*2</p>', null, null, '吴行行', '0', '0', null, '2');
+INSERT INTO `post` VALUES ('49', '5', '2016-03-17 23:07:18', '', '<p>测试气泡,测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\"></span></span></span></span></span></span></span></p>', null, null, '吴行行', '0', '0', null, '2');
 
 -- ----------------------------
 -- Table structure for studentbasicinformation

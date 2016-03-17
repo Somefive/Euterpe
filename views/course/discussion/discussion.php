@@ -20,6 +20,7 @@ $this->registerCssFile('/css/discussionSimpleList.css');
 $this->registerCssFile('/css/style.css');
 $this->registerCssFile('/css/icons.css');
 $this->registerCssFile('/fonts/font-awesome-4.5.0/css/font-awesome.min.css');
+$this->registerCssFile('/css/discussionShowWholePost.css');
 ?>
 <div class="container-fluid">
     <div class="row">

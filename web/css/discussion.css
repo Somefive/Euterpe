@@ -2584,7 +2584,7 @@ a:hover {
   position: relative;
   top: 0px;
   right: 0px;
-  margin-left: 40px;
+  margin-left: 20px;
 }
 .post_region_box .post_region_content .clarifying_discussion .discussion_content.edit_mode {
   display: none;
@@ -10291,7 +10291,7 @@ ul {
   position: relative;
   top: 0px;
   right: 0px;
-  margin-left: 40px;
+  margin-left: 20px;
 }
 .post_region_box .post_region_content .clarifying_discussion .discussion_content.edit_mode {
   display: none;
