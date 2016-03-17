@@ -81,6 +81,11 @@ use app\models\account\User;
                       onclick=changeLike('.ArrayHelper::getValue($selectedPost,'postId').','.ArrayHelper::getValue($replyPost,'postId').')>'.ArrayHelper::getValue($replyPost,'likeOrNot').'</button>');
                     ?>
                     <span class="actual_text post_region_text"><p><?= ArrayHelper::getValue($replyPost,'content') ?></p></span>
+
+                    <!--删除帖子-->
+                    <?php if(ArrayHelper::getValue($replyPost,'postManId') == User::getAppUserID()):?>
+                        <div align="right"> <a onclick="deletePost(1,<?=ArrayHelper::getValue($selectedPost,'postId')?>,<?=ArrayHelper::getValue($replyPost,'postId')?>)">删除</a></div>
+                    <?php endif?>
                 </div>
 
             </div>
