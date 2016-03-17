@@ -98,7 +98,7 @@ use app\models\account\User;
             </div>
 
            <!--talk区域-->
-            <div class="discussion_replies existing_reply clearFix talk_all">
+            <div class="discussion_replies clearFix talk_all">
                 <?php $talks = ArrayHelper::getValue($replyPost,'talk');?>
                 <?php foreach ($talks as $talk): ?>
                 <div class="talk_one" id="talk_post_<?=ArrayHelper::getValue($talk,'postId')?>">

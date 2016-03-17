@@ -10326,7 +10326,7 @@ ul {
   margin-left: 40px;
   margin-top: 3px;
   background: #eee;
-  padding: 5px;
+  padding: 0px;
   margin-bottom: 7px;
 }
 .post_region_box .discussion_replies:hover > .followup_region_arrow_dropdown {
