@@ -263,7 +263,26 @@ function deletePost(postType,fatherPostId,postId)
         });
     }
     else if(postType == 1)  {
-
+        $("#follow_post_"+postId).hide('slow');
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:8080/course/discussion/delete-follow-post',
+            data: {postId:postId,fatherPostId:fatherPostId},
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.statusText);
+            }
+        });
+    }
+    else if(postType == 2)  {
+        $("#talk_post_"+postId).hide('slow');
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:8080/course/discussion/delete-talk-post',
+            data: {postId:postId,fatherPostId:fatherPostId},
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.statusText);
+            }
+        });
     }
 
 }

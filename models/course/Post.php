@@ -209,6 +209,43 @@ class Post extends ActiveRecord
         }
         return static::deletePost($needDeletePostIds);
     }
+
+    public static function deleteFollowPost($followPostId,$mainPostId)
+    {
+        static::deleteNextPostIdFromFatherPost($mainPostId,$followPostId);
+
+        $needDeletePostIds = array();
+        array_push($needDeletePostIds,$followPostId);
+
+        $replyPost = static::find()->where(['postId' => $followPostId])->asArray()->one();
+        $talkPostIds = explode('|', ArrayHelper::getValue($replyPost, 'nextPostId'));
+        foreach($talkPostIds as $talkPostId)    array_push($needDeletePostIds,$talkPostId);
+
+        return static::deletePost($needDeletePostIds);
+    }
+
+    public static function deleteTalkPost($talkPostId,$FollowPostId)
+    {
+        static::deleteNextPostIdFromFatherPost($FollowPostId,$talkPostId);
+
+        $needDeletePostIds = array();
+        array_push($needDeletePostIds,$talkPostId);
+        return static::deletePost($needDeletePostIds);
+    }
+
+    //删除父帖中nextPostId中含有的子帖Id
+    private static function deleteNextPostIdFromFatherPost($fatherPostId,$postId)
+    {
+        $fatherPost = Post::findOne($fatherPostId);
+        $fatherPostNextId = ($fatherPost->nextPostId);
+        $substr = "|".$postId;
+        if(stripos($fatherPostNextId,$substr) === false) {
+            $substr = $postId;
+        }
+        $fatherPost->nextPostId = ltrim(str_replace($substr,'',$fatherPostNextId),'|');
+        $fatherPost->save();
+    }
+    //删除数组里面的帖子
     private static function deletePost($needDeletePostIds)
     {
         foreach($needDeletePostIds as $needDeletePostId)    {

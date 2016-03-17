@@ -44,9 +44,6 @@ class DiscussionController extends Controller
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
 
-        $selectedPost = Post::getPostByPostId(26);
-        $replyPosts = Post::getnextPosts($selectedPost);
-        //Yii::warning($selectedPost);
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
             'allUsername' => $allUsername,
@@ -169,6 +166,31 @@ class DiscussionController extends Controller
 
             return $this->redirect(array('course/discussion/discussion'));
         }
+    }
+
+    public function actionDeleteFollowPost()
+    {
+        if (Yii::$app->request->isAjax) {
+            $ajaxInfo = Yii::$app->request->post();
+            $followPostId = ArrayHelper::getValue($ajaxInfo,'postId');
+            $mainPostId = ArrayHelper::getValue($ajaxInfo,'fatherPostId');
+
+            Post::deleteFollowPost($followPostId,$mainPostId);
+            return;
+        }
+    }
+
+    public function actionDeleteTalkPost()
+    {
+        if (Yii::$app->request->isAjax) {
+            $ajaxInfo = Yii::$app->request->post();
+            $followPostId = ArrayHelper::getValue($ajaxInfo,'postId');
+            $mainPostId = ArrayHelper::getValue($ajaxInfo,'fatherPostId');
+
+            Post::deleteTalkPost($followPostId,$mainPostId);
+            return;
+        }
+
     }
 
     public function beforeAction($action)

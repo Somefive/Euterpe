@@ -72,7 +72,7 @@ use app\models\account\User;
     <div class="post_region_content clarifying_discussion">
         <!--B型帖子-->
         <?php foreach ($replyPosts as $replyPost): ?>
-        <div class="clarifying_discussion clearFix " id="ijy3z8w56bx3da">
+        <div class="clarifying_discussion clearFix " id="follow_post_<?=(ArrayHelper::getValue($replyPost,'postId'))?>">
             <!--这里是头像显示区-->
             <!--div class="account_image_container">
                 <div class="user_pic user_pic_ie7xy5sipx51qz user_loading"><div class="white_border"><img title="Gao Tong" src="https://d1b10bmlvqabco.cloudfront.net/photos/ie7xy5sipx51qz/1442247026_35.png" onload="onImageLoad(event);" width="34" height="34" style="width: 34px; height: 34px; left: 0px; top: 0px;"></div></div>
@@ -103,7 +103,7 @@ use app\models\account\User;
             <!--talk区域-->
             <?php $talks = ArrayHelper::getValue($replyPost,'talk');?>
             <?php foreach ($talks as $talk): ?>
-            <div class="all_replies">
+            <div class="all_replies" id="talk_post_<?=ArrayHelper::getValue($talk,'postId')?>">
 
                 <div class="discussion_replies existing_reply clearFix" id="ijydlez52gn4fb">
                     <!--这里是头像显示区-->
@@ -116,6 +116,11 @@ use app\models\account\User;
                             <a class="discussion_poster"><span anon="no" class="user_name user_name_ie7xy5sipx51qz user_loading"><?= ArrayHelper::getValue($talk,'postManName') ?></span></a>
                             <a class="dicussion_meta"><span title="Thu Jan 28 2016 22:48:22 GMT+0800 (中国标准时间)"><?= ArrayHelper::getValue($talk,'time') ?></span></a>
                             <span class="actual_reply_text post_region_text"><p><?= ArrayHelper::getValue($talk,'content') ?></p></span>
+
+                            <!--删除帖子-->
+                            <?php if(ArrayHelper::getValue($talk,'postManId') == User::getAppUserID()):?>
+                                <div align="right"> <a onclick="deletePost(2,<?=ArrayHelper::getValue($replyPost,'postId')?>,<?=ArrayHelper::getValue($talk,'postId')?>)">删除</a></div>
+                            <?php endif?>
                         </div>
 
                     </div>
