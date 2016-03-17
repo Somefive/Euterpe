@@ -46,9 +46,7 @@ class DiscussionController extends Controller
 
         $selectedPost = Post::getPostByPostId(26);
         $replyPosts = Post::getnextPosts($selectedPost);
-        Yii::warning($selectedPost);
-
-
+        //Yii::warning($selectedPost);
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
             'allUsername' => $allUsername,
@@ -63,10 +61,13 @@ class DiscussionController extends Controller
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
             Post::addReadList($postId);
-            return $this->renderPartial('showWholePost.php',[
-                'selectedPost' => $selectedPost,
-                'replyPosts' => $replyPosts,
-            ],false,true);
+            /*return $this->render('say.php',[
+               'message' =>$selectedPost,
+            ]);*/
+             return $this->renderPartial('showWholePost.php',[
+                 'selectedPost' => $selectedPost,
+                 'replyPosts' => $replyPosts,
+             ],false,true);
         }
     }
 
@@ -78,18 +79,16 @@ class DiscussionController extends Controller
             /*return $this->render('say.php',[
                 'message'=>$message,
             ]);*/
-            $fatherId=$message['fatherId'];
-
             $postId =$message['postId'];
             Post::changeLikemenList($postId);
-            if($fatherId==-1) $selectedPost = Post::getPostByPostId($postId);
+           /* if($fatherId==-1) $selectedPost = Post::getPostByPostId($postId);
             else $selectedPost=Post::getPostByPostId($fatherId);
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($selectedPost);
             return $this->renderPartial('showWholePost.php',[
                 'selectedPost' => $selectedPost,
                 'replyPosts' => $replyPosts,
-            ],false,true);
+            ],false,true);*/
         }
     }
     //发新帖子

@@ -77,8 +77,8 @@
 	};
 
 	// grid items:
-	var items = [].slice.call(document.querySelectorAll('.grid > .grid__item'));
-	alert("123123");
+	var items = [].slice.call(document.querySelectorAll('ol.grid > .grid__item'));
+
 	function init() {
 		/* Icon 1 */
 		var el1 = items[0].querySelector('button.icobutton'), el1span = el1.querySelector('span');
@@ -122,9 +122,9 @@
 							var elasticOutProgress = mojs.easing.elastic.out(1.43*progress-0.43);
 							el1span.style.WebkitTransform = el1span.style.transform = 'scale3d(' + elasticOutProgress + ',' + elasticOutProgress + ',1)';
 						}
-					//	else {
-					//		el1span.style.WebkitTransform = el1span.style.transform = 'scale3d(0,0,1)';
-					//	}
+						else {
+							el1span.style.WebkitTransform = el1span.style.transform = 'scale3d(0,0,1)';
+						}
 					}
 				})
 			],
@@ -179,9 +179,9 @@
 							var elasticOutProgress = mojs.easing.elastic.out(1.43*progress-0.43);
 							el2span.style.WebkitTransform = el2span.style.transform = 'scale3d(' + elasticOutProgress + ',' + elasticOutProgress + ',1)';
 						}
-						//else {
-						//	el2span.style.WebkitTransform = el2span.style.transform = 'scale3d(0,0,1)';
-						//}
+						else {
+							el2span.style.WebkitTransform = el2span.style.transform = 'scale3d(0,0,1)';
+						}
 					}
 				})
 			],
@@ -237,7 +237,7 @@
 							el3span.style.WebkitTransform = el3span.style.transform = 'scale3d(' + elasticOutProgress + ',' + elasticOutProgress + ',1)';
 						}
 						else {
-						//	el3span.style.WebkitTransform = el3span.style.transform = 'scale3d(0,0,1)';
+							el3span.style.WebkitTransform = el3span.style.transform = 'scale3d(0,0,1)';
 						}
 					}
 				})

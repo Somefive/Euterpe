@@ -17,7 +17,7 @@ $this->registerJsFile('/js/demo.js');
 $this->registerJsFile('/js/mo.min.js');
 $this->registerCssFile('/css/discussion.css');
 $this->registerCssFile('/css/discussionSimpleList.css');
-$this->registerCssFile('/css/demo.css');
+$this->registerCssFile('/css/style.css');
 $this->registerCssFile('/css/icons.css');
 $this->registerCssFile('/fonts/font-awesome-4.5.0/css/font-awesome.min.css');
 ?>

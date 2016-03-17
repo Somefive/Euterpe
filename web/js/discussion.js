@@ -31,20 +31,79 @@ function showWholePost(postId)
     });
 }
 
-function changeLike(fatherId,postId)
+function changeLike(username,postId)
 {
-    $.ajax({
+    $("#like1_"+postId).css("background-position","")
+    var D=$("#like1_"+postId).attr("rel");
+    if(D === 'unlike') {
+        $("#like1_"+postId).addClass("heartAnimation").attr("rel","like");
+    }
+    else{
+        $("#like1_"+postId).removeClass("heartAnimation").attr("rel","unlike");
+        $("#like1_"+postId).css("background-position","left");
+    }
+    //alert(username);
+    var exist = 0;
+    var name=$("#name"+postId).text();
+    /*var i=name.length;
+   // name.replace(/[ ]/g,"");
+    ;
+    var ii=0;
+    for(ii=0;ii<i;++ii){
+        if(name[ii]!=" ")break;
+
+    }
+    name=name.substring(ii,i);
+    alert(name);
+    alert(name.length);*/
+    exist=name.indexOf(username);
+    if(exist==-1){
+        if(name.length==29||name.length==0)name=username+"等共1人赞过";
+        else {
+            var string=name.split("等");
+            name=string[0]+","+username+"等";
+            var count=parseInt(string[1][1]);
+            count++;
+            var string2=string[1].split(string[1][1]);
+            string[1]=string2[0]+count+string2[1];
+            name=name+string[1];
+        }
+        $("#name"+postId).empty()
+        $("#name"+postId).append(name);
+    }
+    else
+    {
+        var string3=name.split(username);
+        name=string3.join("");
+        var string4=name.split("等");
+        string4[0]=string4[0].substring(0,string4[0].length-1);
+        //alert(string4[1]);
+        var count1=parseInt(string4[1][1]);
+        count1--;
+        //alert(count1);
+        if(count1==0)name="";
+        else{
+            var string5=string4[1].split(string4[1][1]);
+            string4[1]=string5[0]+count1+string5[1];
+            name=string4[0]+"等"+string4[1];
+        }
+        $("#name"+postId).empty()
+        $("#name"+postId).append(name);
+        //$("#name").append(username+"等共"+count+"人点赞");
+    }
+
+   $.ajax({
         type: "POST",
         url: 'http://localhost:8080/course/discussion/change-like',
-        data: {fatherId:fatherId,postId:postId},
+        data: {postId:postId},
         dataType : 'text',
         success: function (data) {
-            $("#areaShowInfo").html(data);
+            //$("#areaShowInfo").html(data);
             //alert("123");
-           if($("#like_"+postId).attr('class')=="like_"+postId){
+           /*if($("#like_"+postId).attr('class')=="like_"+postId){
                $("#like_"+postId).removeClass("like_"+postId).addClass("notlike_"+postId);
            }
-           else $("#like_"+postId).removeClass("notlike_"+postId).addClass("like_"+postId);
+           else $("#like_"+postId).removeClass("notlike_"+postId).addClass("like_"+postId);*/
 
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
