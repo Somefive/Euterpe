@@ -252,6 +252,7 @@ function replyPost(fatherPostId,postType,divIdNeedHide,divIdNeedHtml)
         data: {fatherPostId:fatherPostId,postType:postType},
         success: function (data) {
             $("#"+divIdNeedHtml).html(data);
+            $(".redactor-editor").focus();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
@@ -297,5 +298,9 @@ function deletePost(postType,fatherPostId,postId)
             }
         });
     }
+}
 
+function say()
+{
+    alert("hello");
 }
