@@ -117,6 +117,14 @@ function changeLike(username,postId)
 
 function editNewPost()
 {
+    //加载动画，load1，load2，load6
+    var load =
+        '<div class="inner">\
+            <div class="load-container load1">\
+              <div class="loader">Loading...</div>\
+            </div>\
+         </div>';
+    $("#areaShowInfo").html(load);
     $.ajax({
         type: "POST",
         url: 'http://localhost:8080/course/discussion/edit-new-post',

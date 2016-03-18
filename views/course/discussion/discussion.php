@@ -18,6 +18,7 @@ $this->registerCssFile('/css/discussion.css');
 $this->registerCssFile('/css/discussionSimpleList.css');
 $this->registerCssFile('/css/discussionShowWholePost.css');
 $this->registerCssFile('/css/prefixfree.css');
+$this->registerCssFile('/css/css_load.css');
 
 //等待迪迪决定去留
 $this->registerCssFile('/css/style.css');
