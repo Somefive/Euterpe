@@ -19,7 +19,7 @@ use app\models\account\User;
             <p><?php echo(ArrayHelper::getValue($selectedPost,'content'));?></p>
             <p>&nbsp;</p>
 
-            <p><div><div style="float:left; width:150px"><?=ArrayHelper::getValue($selectedPost,'time')?></div>
+            <p><div><div style="float:left; width:150px; margin-top:15px;"><?=ArrayHelper::getValue($selectedPost,'time')?></div>
              <div style="float:left" id="like_<?=(ArrayHelper::getValue($selectedPost,'postId'))?>"
                onclick="changeLike('<?=User::getUsernameById(User::getAppUserId())?>',<?=ArrayHelper::getValue($selectedPost,'postId')?>)">
                <div class="heart" id="like1_<?=ArrayHelper::getValue($selectedPost,'postId')?>"<?php
@@ -65,12 +65,11 @@ use app\models\account\User;
         <?php foreach ($replyPosts as $replyPost): ?>
         <div class="follow_one clarifying_discussion clearFix" id="follow_post_<?=(ArrayHelper::getValue($replyPost,'postId'))?>">
             <div class="follow_body main_followup clearFix">
+                <div>
+                    <div style="float:left; margin-top:15px;">
                     <span class="talk_name"><?= ArrayHelper::getValue($replyPost,'postManName') ?></span>
                     <span title="talk_time"><?= ArrayHelper::getValue($replyPost,'time') ?></span>
-                    <!--删除帖子-->
-                    <?php if(ArrayHelper::getValue($replyPost,'postManId') == User::getAppUserID()):?>
-                        <a onclick="deletePost(1,<?=ArrayHelper::getValue($selectedPost,'postId')?>,<?=ArrayHelper::getValue($replyPost,'postId')?>)">&nbsp&nbsp删除</a>
-                    <?php endif?>
+                        </div>
                     <!--点赞-->
                     <div style="float:left" id="like_<?=(ArrayHelper::getValue($replyPost,'postId'))?>"
                          onclick="changeLike('<?=User::getUsernameById(User::getAppUserId())?>',<?=ArrayHelper::getValue($replyPost,'postId')?>)">
@@ -81,6 +80,14 @@ use app\models\account\User;
                             ?>
                         </div>
                     </div>
+                <!--删除帖子-->
+                <div style="float:right;margin-top:15px;">
+                <?php if(ArrayHelper::getValue($replyPost,'postManId') == User::getAppUserID()):?>
+                    <a onclick="deletePost(1,<?=ArrayHelper::getValue($selectedPost,'postId')?>,<?=ArrayHelper::getValue($replyPost,'postId')?>)">&nbsp&nbsp删除</a>
+                <?php endif?>
+            </div>
+                </div>
+            <br/>
                     <span class="actual_text post_region_text"><p><?= ArrayHelper::getValue($replyPost,'content') ?></p></span>
 
 

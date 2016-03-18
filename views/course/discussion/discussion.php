@@ -23,7 +23,6 @@ $this->registerCssFile('/css/css_load.css');
 //等待迪迪决定去留
 $this->registerCssFile('/css/style.css');
 $this->registerCssFile('/css/icons.css');
-$this->registerCssFile('/fonts/font-awesome-4.5.0/css/font-awesome.min.css');
 
 ?>
 

@@ -54,13 +54,6 @@ function changeLike(username,postId)
     var exist = 0;
     var name=$("#name"+postId).text();
     /*var i=name.length;
-   // name.replace(/[ ]/g,"");
-    ;
-    var ii=0;
-    for(ii=0;ii<i;++ii){
-        if(name[ii]!=" ")break;
-
-    }
     name=name.substring(ii,i);
     alert(name);
     alert(name.length);*/
@@ -68,7 +61,8 @@ function changeLike(username,postId)
     if(exist==-1){
         if(name.length==29||name.length==0)name=username+"等共1人赞过";
         else {
-            var string=name.split("等");
+            var deng=name.lastIndexOf("等");
+            var string=name.split(name.charAt(deng));
             name=string[0]+","+username+"等";
             var count=parseInt(string[1][1]);
             count++;
@@ -83,7 +77,8 @@ function changeLike(username,postId)
     {
         var string3=name.split(username);
         name=string3.join("");
-        var string4=name.split("等");
+        var deng=name.lastIndexOf("等");
+        var string4=name.split(name.charAt(deng));
         string4[0]=string4[0].substring(0,string4[0].length-1);
         //alert(string4[1]);
         var count1=parseInt(string4[1][1]);
