@@ -83,7 +83,7 @@ use app\models\account\User;
                 <!--删除帖子-->
                 <div style="float:right;margin-top:15px;">
                 <?php if(ArrayHelper::getValue($replyPost,'postManId') == User::getAppUserID()):?>
-                    <a onclick="deletePost(1,<?=ArrayHelper::getValue($selectedPost,'postId')?>,<?=ArrayHelper::getValue($replyPost,'postId')?>)">&nbsp&nbsp删除</a>
+                    <a onclick="deletePost(1,<?=ArrayHelper::getValue($selectedPost,'postId')?>,<?=ArrayHelper::getValue($replyPost,'postId')?>)">删除</a>
                 <?php endif?>
             </div>
                 </div>
@@ -104,7 +104,7 @@ use app\models\account\User;
                         <span class="talk_time"><?= ArrayHelper::getValue($talk,'time') ?></span>
                         <!--删除帖子-->
                         <?php if(ArrayHelper::getValue($talk,'postManId') == User::getAppUserID()):?>
-                            <a onclick="deletePost(2,<?=ArrayHelper::getValue($replyPost,'postId')?>,<?=ArrayHelper::getValue($talk,'postId')?>)">&nbsp&nbsp删除</a>
+                            <a onclick="deletePost(2,<?=ArrayHelper::getValue($replyPost,'postId')?>,<?=ArrayHelper::getValue($talk,'postId')?>)">删除</a>
                         <?php endif?>
                     </div>
                     <div class="chat_content_top"><?= ArrayHelper::getValue($talk,'content') ?></div>

@@ -237,6 +237,14 @@ function keepAllSelectedRules()
 function replyPost(fatherPostId,postType,divIdNeedHide,divIdNeedHtml)
 {
     //alert(fatherPostId+","+postType+","+divIdNeedHide+","+divIdNeedHtml);
+    //加载动画，load1，load2，load6
+    var load =
+        '<div class="inner">\
+            <div class="load-container load1">\
+              <div class="loader">Loading...</div>\
+            </div>\
+         </div>';
+    $("#"+divIdNeedHtml).html(load);
     $.ajax({
         type: "POST",
         url: 'http://localhost:8080/course/discussion/reply-post',
