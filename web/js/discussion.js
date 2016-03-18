@@ -244,13 +244,13 @@ function replyPost(fatherPostId,postType,divIdNeedHide,divIdNeedHtml)
               <div class="loader">Loading...</div>\
             </div>\
          </div>';
+    $("#"+divIdNeedHide).hide();
     $("#"+divIdNeedHtml).html(load);
     $.ajax({
         type: "POST",
         url: 'http://localhost:8080/course/discussion/reply-post',
         data: {fatherPostId:fatherPostId,postType:postType},
         success: function (data) {
-            $("#"+divIdNeedHide).hide();
             $("#"+divIdNeedHtml).html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {

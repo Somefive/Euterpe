@@ -41,6 +41,7 @@ class DiscussionController extends Controller
     //讨论区的主页面
     public function actionDiscussion()
     {
+
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
 
@@ -117,6 +118,7 @@ class DiscussionController extends Controller
             $session = Yii::$app->session;
             if($model->addReplyPost($session->get('fatherPostId'),$session->get('postType')))   $msg = "发帖成功";
             else    $msg = "发帖失败,";
+            $session->close();
             return $this->render('say', ['message' => $msg]);
         }
         return $this->renderAjax('replyPost.php', [
