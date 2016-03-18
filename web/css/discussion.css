@@ -2584,7 +2584,7 @@ a:hover {
   position: relative;
   top: 0px;
   right: 0px;
-  margin-left: 40px;
+  margin-left: 20px;
 }
 .post_region_box .post_region_content .clarifying_discussion .discussion_content.edit_mode {
   display: none;
@@ -10291,7 +10291,7 @@ ul {
   position: relative;
   top: 0px;
   right: 0px;
-  margin-left: 40px;
+  margin-left: 20px;
 }
 .post_region_box .post_region_content .clarifying_discussion .discussion_content.edit_mode {
   display: none;
@@ -10326,7 +10326,7 @@ ul {
   margin-left: 40px;
   margin-top: 3px;
   background: #eee;
-  padding: 5px;
+  padding: 0px;
   margin-bottom: 7px;
 }
 .post_region_box .discussion_replies:hover > .followup_region_arrow_dropdown {

@@ -60,69 +60,53 @@ use app\models\account\User;
         <div class="post_subtitle">for lingering questions and comments</div>
     </div>
 
-    <div class="post_region_content clarifying_discussion">
+    <div class="follow_all post_region_content clarifying_discussion ">
         <!--B型帖子-->
         <?php foreach ($replyPosts as $replyPost): ?>
-        <div class="clarifying_discussion clearFix " id="follow_post_<?=(ArrayHelper::getValue($replyPost,'postId'))?>">
-            <!--这里是头像显示区-->
-            <!--div class="account_image_container">
-                <div class="user_pic user_pic_ie7xy5sipx51qz user_loading"><div class="white_border"><img title="Gao Tong" src="https://d1b10bmlvqabco.cloudfront.net/photos/ie7xy5sipx51qz/1442247026_35.png" onload="onImageLoad(event);" width="34" height="34" style="width: 34px; height: 34px; left: 0px; top: 0px;"></div></div>
-            </div-->
-            <div class="discussion_content main_followup clearFix">
-
-                <div class="discussion_text">
-                    <div style="float:left">
-                    <a class="discussion_poster"><span anon="no" class="user_name user_name_ie7xy5sipx51qz user_loading"><?= ArrayHelper::getValue($replyPost,'postManName') ?></span></a>
-                    <a class="dicussion_meta"><span title="Thu Jan 28 2016 18:19:11 GMT+0800 (中国标准时间)"><?= ArrayHelper::getValue($replyPost,'time') ?></span></a></div>
-                    <div style="float:left" id="like_<?=(ArrayHelper::getValue($replyPost,'postId'))?>"
-                         onclick="changeLike('<?=User::getUsernameById(User::getAppUserId())?>',<?=ArrayHelper::getValue($replyPost,'postId')?>)">
-                        <div class="heart" id="like1_<?=ArrayHelper::getValue($replyPost,'postId')?>"<?php
-                        if(ArrayHelper::getValue($replyPost,'islike'))echo('rel="like" style="background-position:right">');
-                        else echo('rel="unlike" style="background-position:left">');
-                        ?></div>
-                </div><br/>
-                    <span class="actual_text post_region_text"><p><?= ArrayHelper::getValue($replyPost,'content') ?></p></span>
-
+        <div class="follow_one clarifying_discussion clearFix" id="follow_post_<?=(ArrayHelper::getValue($replyPost,'postId'))?>">
+            <div class="follow_body main_followup clearFix">
+                    <span class="talk_name"><?= ArrayHelper::getValue($replyPost,'postManName') ?></span>
+                    <span title="talk_time"><?= ArrayHelper::getValue($replyPost,'time') ?></span>
                     <!--删除帖子-->
                     <?php if(ArrayHelper::getValue($replyPost,'postManId') == User::getAppUserID()):?>
-                        <div align="right"> <a onclick="deletePost(1,<?=ArrayHelper::getValue($selectedPost,'postId')?>,<?=ArrayHelper::getValue($replyPost,'postId')?>)">删除</a></div>
+                        <a onclick="deletePost(1,<?=ArrayHelper::getValue($selectedPost,'postId')?>,<?=ArrayHelper::getValue($replyPost,'postId')?>)">&nbsp&nbsp删除</a>
                     <?php endif?>
-                </div>
-
-            </div>
-
-            <!--不懂干什么的div class="discussion_content discussion_content_edit clearFix" style="display:none;" id="discussion_edit_ijy3z8w56bx3da"></div-->
-            <!--talk区域-->
-            <?php $talks = ArrayHelper::getValue($replyPost,'talk');?>
-            <?php foreach ($talks as $talk): ?>
-            <div class="all_replies" id="talk_post_<?=ArrayHelper::getValue($talk,'postId')?>">
-
-                <div class="discussion_replies existing_reply clearFix" id="ijydlez52gn4fb">
-                    <!--这里是头像显示区-->
-                    <!--div class="account_image_container">
-                        <div class="user_pic user_pic_ie7xy5sipx51qz user_loading"><div class="white_border"><img title="Gao Tong" src="https://d1b10bmlvqabco.cloudfront.net/photos/ie7xy5sipx51qz/1442247026_35.png" onload="onImageLoad(event);" width="34" height="34" style="width: 34px; height: 34px; left: 0px; top: 0px;"></div></div>
-                    </div-->
-                    <div class="discussion_content clearFix">
-
-                        <div class="discussion_text">
-                            <a class="discussion_poster"><span anon="no" class="user_name user_name_ie7xy5sipx51qz user_loading"><?= ArrayHelper::getValue($talk,'postManName') ?></span></a>
-                            <a class="dicussion_meta"><span title="Thu Jan 28 2016 22:48:22 GMT+0800 (中国标准时间)"><?= ArrayHelper::getValue($talk,'time') ?></span></a>
-                            <span class="actual_reply_text post_region_text"><p><?= ArrayHelper::getValue($talk,'content') ?></p></span>
-
-                            <!--删除帖子-->
-                            <?php if(ArrayHelper::getValue($talk,'postManId') == User::getAppUserID()):?>
-                                <div align="right"> <a onclick="deletePost(2,<?=ArrayHelper::getValue($replyPost,'postId')?>,<?=ArrayHelper::getValue($talk,'postId')?>)">删除</a></div>
-                            <?php endif?>
+                    <!--点赞-->
+                    <div style="float:left" id="like_<?=(ArrayHelper::getValue($replyPost,'postId'))?>"
+                         onclick="changeLike('<?=User::getUsernameById(User::getAppUserId())?>',<?=ArrayHelper::getValue($replyPost,'postId')?>)">
+                        <div class="heart" id="like1_<?=ArrayHelper::getValue($replyPost,'postId')?>"
+                            <?php
+                            if(ArrayHelper::getValue($replyPost,'islike'))echo('rel="like" style="background-position:right">');
+                            else echo('rel="unlike" style="background-position:left">');
+                            ?>
                         </div>
-
                     </div>
-                    <!--不懂干什么的 div class="discussion_content discussion_content_edit clearFix" style="display:none;" id="reply_edit_ijydlez52gn4fb"></div-->
-                </div>
+                    <span class="actual_text post_region_text"><p><?= ArrayHelper::getValue($replyPost,'content') ?></p></span>
+
+
+
             </div>
-            <?php endforeach; ?>
+
+           <!--talk区域-->
+            <div class="discussion_replies clearFix talk_all">
+                <?php $talks = ArrayHelper::getValue($replyPost,'talk');?>
+                <?php foreach ($talks as $talk): ?>
+                <div class="talk_one" id="talk_post_<?=ArrayHelper::getValue($talk,'postId')?>">
+                    <div class="talk_between_name_content">
+                        <sapn class="talk_name"><?= ArrayHelper::getValue($talk,'postManName') ?></sapn>
+                        <span class="talk_time"><?= ArrayHelper::getValue($talk,'time') ?></span>
+                        <!--删除帖子-->
+                        <?php if(ArrayHelper::getValue($talk,'postManId') == User::getAppUserID()):?>
+                            <a onclick="deletePost(2,<?=ArrayHelper::getValue($replyPost,'postId')?>,<?=ArrayHelper::getValue($talk,'postId')?>)">&nbsp&nbsp删除</a>
+                        <?php endif?>
+                    </div>
+                    <div class="chat_content_top"><?= ArrayHelper::getValue($talk,'content') ?></div>
+                </div>
+                <?php endforeach; ?>
+            </div>
 
 
-                <!--talk回复-->
+            <!--talk回复-->
             <div class="compose_reply clearFix start_reply" id="start_reply_followup_<?= ArrayHelper::getValue($replyPost,'postId')?>"
                  onclick="replyPost(<?= ArrayHelper::getValue($replyPost,'postId')?>,2,'start_reply_followup_<?= ArrayHelper::getValue($replyPost,'postId')?>','create_reply_followup_<?=  ArrayHelper::getValue($replyPost,'postId')?>')">
                 Reply to this followup discussion

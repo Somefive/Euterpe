@@ -15,6 +15,15 @@ var selectedRulesArray = new Array("","","");
 
 function showWholePost(postId)
 {
+    //document.getElementById("theTemplate").style.display = 'block';
+    var load = '<div class="container_p">\
+                    <div class="progress">\
+                        <div class="progress-bar">\
+                            <div class="progress-shadow"></div>\
+                        </div>\
+                    </div>\
+                </div>';
+    $("#areaShowInfo").html(load);
     $.ajax({
         type: "POST",
         url: 'http://localhost:8080/course/discussion/show-whole-post',
@@ -23,7 +32,7 @@ function showWholePost(postId)
         success: function (data) {
             $("#areaShowInfo").html(data);
             $("#unreadDot_"+postId).hide();
-            $("#li_postId_"+postId).removeClass("unread").addClass("hasread");z
+            $("#li_postId_"+postId).removeClass("unread").addClass("hasread");
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
