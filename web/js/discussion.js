@@ -15,7 +15,6 @@ var selectedRulesArray = new Array("","","");
 
 function showWholePost(postId)
 {
-    //document.getElementById("theTemplate").style.display = 'block';
     var load = '<div class="container_p">\
                     <div class="progress">\
                         <div class="progress-bar">\

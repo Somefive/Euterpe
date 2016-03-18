@@ -101,9 +101,9 @@ use app\models\account\User;
             <div class="discussion_replies clearFix talk_all">
                 <?php $talks = ArrayHelper::getValue($replyPost,'talk');?>
                 <?php foreach ($talks as $talk): ?>
-                <div class="talk_one" id="talk_post_<?=ArrayHelper::getValue($talk,'postId')?>">
-                    <div class="talk_between_name_content">
-                        <sapn class="talk_name"><?= ArrayHelper::getValue($talk,'postManName') ?></sapn>
+                <div class="talk_one" style="child-align: right" id="talk_post_<?=ArrayHelper::getValue($talk,'postId')?>">
+                    <div class="talk_name_and_time">
+                        <span class="talk_name"><?= ArrayHelper::getValue($talk,'postManName') ?></span>
                         <span class="talk_time"><?= ArrayHelper::getValue($talk,'time') ?></span>
                         <!--删除帖子-->
                         <?php if(ArrayHelper::getValue($talk,'postManId') == User::getAppUserID()):?>
