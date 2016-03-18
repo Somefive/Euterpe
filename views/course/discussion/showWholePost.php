@@ -11,19 +11,10 @@ use app\models\account\User;
         <div class="post_icon note "></div>
 
         <div class="post_title">note</div>
-
-        <div class="post_favorite is_not_favorite">
-            <i class="icon_favorite is_favorite" onclick="PEM.fire('favorite', false);return false;"></i>
-            <i class="icon_favorite not_favorite" onclick="PEM.fire('favorite', true);return false;" tutorial="Save this post to your favorites to find it later." original-title=""></i>
-        </div>
-        <div class="post_converted_message">Your question is now a note.<div class="post_converted_message_close">x</div></div>
         <div class="post_view_count"><span class="count"><?php echo(ArrayHelper::getValue($selectedPost,'readMenCount'));?></span> views</div>
-        <a href="#" class="follow_link hide" onclick="PEM.fire('question_note_stop_follow');return false;">stop following</a>
     </div>
     <div class="post_region_content note" id="view_quesiton_note">
-
         <h1 class="post_region_title"><?php echo(ArrayHelper::getValue($selectedPost,'title'));?></h1>
-
         <div class="post_region_text" id="questionText">
             <p><?php echo(ArrayHelper::getValue($selectedPost,'content'));?></p>
             <p>&nbsp;</p>
@@ -80,15 +71,16 @@ use app\models\account\User;
             <div class="discussion_content main_followup clearFix">
 
                 <div class="discussion_text">
+                    <div style="float:left">
                     <a class="discussion_poster"><span anon="no" class="user_name user_name_ie7xy5sipx51qz user_loading"><?= ArrayHelper::getValue($replyPost,'postManName') ?></span></a>
-                    <a class="dicussion_meta"><span title="Thu Jan 28 2016 18:19:11 GMT+0800 (中国标准时间)"><?= ArrayHelper::getValue($replyPost,'time') ?></span></a>
+                    <a class="dicussion_meta"><span title="Thu Jan 28 2016 18:19:11 GMT+0800 (中国标准时间)"><?= ArrayHelper::getValue($replyPost,'time') ?></span></a></div>
                     <div style="float:left" id="like_<?=(ArrayHelper::getValue($replyPost,'postId'))?>"
                          onclick="changeLike('<?=User::getUsernameById(User::getAppUserId())?>',<?=ArrayHelper::getValue($replyPost,'postId')?>)">
                         <div class="heart" id="like1_<?=ArrayHelper::getValue($replyPost,'postId')?>"<?php
                         if(ArrayHelper::getValue($replyPost,'islike'))echo('rel="like" style="background-position:right">');
                         else echo('rel="unlike" style="background-position:left">');
                         ?></div>
-                </div>
+                </div><br/>
                     <span class="actual_text post_region_text"><p><?= ArrayHelper::getValue($replyPost,'content') ?></p></span>
 
                     <!--删除帖子-->

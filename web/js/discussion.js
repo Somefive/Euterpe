@@ -98,12 +98,6 @@ function changeLike(username,postId)
         data: {postId:postId},
         dataType : 'text',
         success: function (data) {
-            //$("#areaShowInfo").html(data);
-            //alert("123");
-           /*if($("#like_"+postId).attr('class')=="like_"+postId){
-               $("#like_"+postId).removeClass("like_"+postId).addClass("notlike_"+postId);
-           }
-           else $("#like_"+postId).removeClass("notlike_"+postId).addClass("like_"+postId);*/
 
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
