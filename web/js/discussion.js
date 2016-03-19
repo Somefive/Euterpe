@@ -244,14 +244,15 @@ function replyPost(fatherPostId,postType,divIdNeedHide,divIdNeedHtml)
               <div class="loader">Loading...</div>\
             </div>\
          </div>';
+    $("#"+divIdNeedHide).hide();
     $("#"+divIdNeedHtml).html(load);
     $.ajax({
         type: "POST",
         url: 'http://localhost:8080/course/discussion/reply-post',
         data: {fatherPostId:fatherPostId,postType:postType},
         success: function (data) {
-            $("#"+divIdNeedHide).hide();
             $("#"+divIdNeedHtml).html(data);
+            $(".redactor-editor").focus();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
@@ -297,5 +298,9 @@ function deletePost(postType,fatherPostId,postId)
             }
         });
     }
+}
 
+function say()
+{
+    alert("hello");
 }

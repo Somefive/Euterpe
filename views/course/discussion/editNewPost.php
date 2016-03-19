@@ -12,7 +12,7 @@ use yii\bootstrap\ActiveForm;
 
 <?php $form = ActiveForm::begin(); ?>
 
-<?= $form->field($model, 'title') ?>
+<?= $form->field($model, 'title')->textInput(['autofocus' => 'autofocus']) ?>
 <?= $form->field($model, 'content')->widget(\yii\redactor\widgets\Redactor::className(),
     [
         'clientOptions' => [
@@ -21,10 +21,13 @@ use yii\bootstrap\ActiveForm;
             'fileUpload' => ['/redactor/upload/file'],
             'lang' => 'zh_cn',
             'plugins' => ['clips', 'fontcolor','imagemanager','counter','fontfamily','limiter','textexpander','fullscreen','vedio'],
-            'row' => '16'
+        ],
+        'options' => [
+
         ]
     ]
 ) ?>
+
 <?= $form->field($model,'option')->checkboxList(['1' => '匿名 ', '2' => '屏蔽',]);?>
     <div class="form-group">
         <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
