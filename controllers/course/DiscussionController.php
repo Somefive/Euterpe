@@ -9,6 +9,7 @@ use app\models\account\User;
 use app\models\course\Courseenrollment;
 use app\models\course\NewPostForm;
 use app\models\course\Post;
+use app\models\course\Remind;
 use app\models\course\ReplyPostForm;
 
 use yii\web\Controller;
@@ -58,9 +59,6 @@ class DiscussionController extends Controller
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
             Post::addReadList($postId);
-            /*return $this->render('say.php',[
-               'message' =>$selectedPost,
-            ]);*/
              return $this->renderPartial('showWholePost.php',[
                  'selectedPost' => $selectedPost,
                  'replyPosts' => $replyPosts,
@@ -73,19 +71,8 @@ class DiscussionController extends Controller
 
         if(Yii::$app->request->isAjax){
             $message=Yii::$app->request->post();
-            /*return $this->render('say.php',[
-                'message'=>$message,
-            ]);*/
             $postId =$message['postId'];
             Post::changeLikemenList($postId);
-           /* if($fatherId==-1) $selectedPost = Post::getPostByPostId($postId);
-            else $selectedPost=Post::getPostByPostId($fatherId);
-            $replyPosts = Post::getnextPosts($selectedPost);
-            //Yii::warning($selectedPost);
-            return $this->renderPartial('showWholePost.php',[
-                'selectedPost' => $selectedPost,
-                'replyPosts' => $replyPosts,
-            ],false,true);*/
         }
     }
     //发新帖子
