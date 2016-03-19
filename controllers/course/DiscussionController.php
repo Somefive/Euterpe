@@ -54,10 +54,7 @@ class DiscussionController extends Controller
     //用来显示页面右侧的帖子的完整信息
     public function actionShowWholePost()
     {
-        $replyed=Remind::addReplyedOfA(9,24,5,35);
-        return $this->render('say.php',[
-            'message'=>$replyed,
-        ]);
+        
         if (Yii::$app->request->isAjax) {
             $postId = Yii::$app->request->post();
             $selectedPost = Post::getPostByPostId($postId);
@@ -184,6 +181,42 @@ class DiscussionController extends Controller
             return;
         }
 
+    }
+
+    public function actionRemind()
+    {
+        $ManId= User::getAppUser()->id;
+        //$RemindDatas=getRemindedData($ManId);
+        $RemindDatas=[25=>[5=>32],26=>[9=>31]];
+        //$ReplyDatas=getReplyedData($ManId);
+        $ReplyDatas=[25=>[5=>32],26=>[9=>31]];
+        $Remind=array();
+        foreach($RemindDatas as $RemindedPostId=>$RemindData )
+        {
+            foreach($RemindData as $RemindManId=>$RemindPostId)
+            {
+                $RemindManName=User::getUsernameById($RemindManId);
+                $RemindPost=Post::find(['PostId'=>$RemindPostId])->asArray()->one();
+                $simpleInfo=strip_tags(substr(ArrayHelper::getValue($RemindPost,'content'),0,100));
+                $Remind[]=['RemindedPostId'=>$RemindedPostId,'RemindManName'=>$RemindManName,'simpleInfo'=>$simpleInfo,'RemindPostId'=>$RemindPostId,'time'=>ArrayHelper::getValue($RemindPost,'time')];
+            }
+
+        }
+        $Reply=array();
+        foreach($ReplyDatas as $ReplyedPostId=>$ReplyData)
+        {
+            foreach($ReplyData as $ReplyManId=>$ReplyPostId)
+            {
+                $ReplyManName=User::getUsernameById($ReplyManId);
+                $ReplyPost=Post::find(['PostId'=>$ReplyPostId])->asArray()->one();
+                $simpleInfo=strip_tags(substr(ArrayHelper::getValue($ReplyPost,'content'),0,100));
+                $Reply[]=['ReplyedPostId'=>$ReplyedPostId,'ReplyManName'=>$ReplyManName,'simpleInfo'=>$simpleInfo,'ReplyPostId'=>$ReplyPostId];
+            }
+        }
+
+        Yii::warning($Remind);
+        Yii::warning($Reply);
+        return $this->render('remind',['Remind'=>$Remind,'Reply'=>$Reply]);
     }
 
     public function beforeAction($action)

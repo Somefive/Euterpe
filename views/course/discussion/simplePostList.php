@@ -11,6 +11,7 @@ use app\controllers\course\DiscussionController;
 use app\models\account\User;
 ?>
 
+
 <ul>
     <?php
     foreach ($simplePosts as $simplePost) {
