@@ -213,7 +213,6 @@ class Remind extends ActiveRecord
                 for($y=$x+1;$y<strlen($reminded->reminded);$y++){
                     //如果先找到逗号
                     if($reminded->reminded[$y]==','){
-
                         if($num==$remindPostId){//如果数字相等
                             //取出逗号后面开始后半段字符串
                             $sub_b=substr($reminded->reminded,$y+1);
@@ -247,16 +246,16 @@ class Remind extends ActiveRecord
                                 }
                                 else if($reminded->reminded[$z]=='['){
                                     for($in=$z-1;$in>=0;$in--){
-                                        if($reminded->reminded[$z]==';')
+                                        if($reminded->reminded[$in]==';')
                                         {
+                                            
                                             $sub_a=substr($reminded->reminded,0,$in);
                                             $reminded->reminded=$sub_a.$sub_b;
                                             $reminded->save();
-                                           // return $reminded->reminded;
+                                            return $reminded->reminded;
                                         };
                                     }
                                 }
-                                //else break;
                             }
                         }
                         else break;
