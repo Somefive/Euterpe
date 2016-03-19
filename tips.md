@@ -21,10 +21,10 @@ ykd:设计新表以及模型
         对数据插入提供的函数：addRemindedData(remindedManId,remindedPostId,remindManId,remindPostId)
                               addReplyedOfA(replyedManId,replyedPostId,replyManId,replyPostId)
                               addReplyedOfBC(参数如上)
-        对数据查询提供的函数: getRemindedData(remindedManId) return array("remindManId" => "remindPostId",...)
-                              getReplyedData(manId) return array("replyManId" => "replyPostId",...)
+        对数据查询提供的函数: getRemindedData(remindedManId) return array("remindedPostId"=>["remindManId" => "remindPostId"],...)
+                              getReplyedData(manId) return array("replyedPostId"=>["replyManId" => "replyPostId"],...)
         对数据删除提供的函数: deleteRemindedData(remindedManId,remindPostId)
-                              deleteReplyedData(replyedManId,replyManId)
+                              deleteReplyedData(replyedManId,replyPostId)
 
 wjf:写出action&view，可以简单显示有n未读，
                     postManName在帖子"引用帖子的部分内容"中@我，
