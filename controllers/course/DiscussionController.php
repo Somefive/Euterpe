@@ -83,15 +83,28 @@ class DiscussionController extends Controller
     //发新帖子
     public function actionEditNewPost()
     {
+        $allUsername = User::getAllUsername();
         $model = new NewPostForm;
         if($model->load(Yii::$app->request->post()))    {
-            if($model->addPost())   $msg = '发帖成功';
+            if($model->addPost())   $msg = "发帖成功";
             else    $msg = '发帖失败';
             return $this->render('say', ['message' => $msg]);
         }
         return $this->renderAjax('editNewPost.php',[
             'model' => $model,
+            'allUsername' => $allUsername,
         ]);
+    }
+
+    public function actionAcceptRemindList()
+    {
+        if (Yii::$app->request->isAjax) {
+            $session = Yii::$app->session;
+            $session->open();
+            $session['remindName'] = ArrayHelper::getValue(Yii::$app->request->post(), 'remindName');
+
+            return;
+        }
     }
 
     //回复帖子
