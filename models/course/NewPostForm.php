@@ -60,9 +60,11 @@ class NewPostForm extends Model
                     $remindNames =  explode('@', $session['remindName']);
                     foreach($remindNames as $remindName) {
                         if($remindName == "")   continue;
-                        Yii::warning($remindName);
-                        $remindedManId = User::findByUsername($remindName);
-                        //remind::addRemindedData($remindedManId,$post->postId,  User::getAppUserID(), $post->postId);
+                        $remindName = str_replace(' ','',$remindName);
+                        //Yii::warning($remindName);
+                        $remindedManId = User::getUserIdByName($remindName);
+                        //Yii::warning($remindedManId);
+                        Remind::addRemindedData($remindedManId,$post->postId,  User::getAppUserID(), $post->postId);
                     }
                     return true;
                 }

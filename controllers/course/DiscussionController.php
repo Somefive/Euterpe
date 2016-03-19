@@ -198,17 +198,17 @@ class DiscussionController extends Controller
     public function actionRemind()
     {
         $ManId= User::getAppUser()->id;
-        //$RemindDatas=getRemindedData($ManId);
-        $RemindDatas=[25=>[5=>32],26=>[9=>31]];
-        //$ReplyDatas=getReplyedData($ManId);
-        $ReplyDatas=[25=>[5=>32],26=>[9=>31]];
+        $RemindDatas=remind::getRemindedData($ManId);
+        //$RemindDatas=[25=>[5=>32],26=>[9=>31]];
+        $ReplyDatas=remind::getReplyedAData($ManId);
+        //$ReplyDatas=[25=>[5=>32],26=>[9=>31]];
         $Remind=array();
         foreach($RemindDatas as $RemindedPostId=>$RemindData )
         {
             foreach($RemindData as $RemindManId=>$RemindPostId)
             {
                 $RemindManName=User::getUsernameById($RemindManId);
-                $RemindPost=Post::find(['PostId'=>$RemindPostId])->asArray()->one();
+                $RemindPost=Post::find()->where(['postId'=>$RemindPostId])->asArray()->one();
                 $simpleInfo=strip_tags(substr(ArrayHelper::getValue($RemindPost,'content'),0,100));
                 $Remind[]=['RemindedPostId'=>$RemindedPostId,'RemindManName'=>$RemindManName,'simpleInfo'=>$simpleInfo,'RemindPostId'=>$RemindPostId,'time'=>ArrayHelper::getValue($RemindPost,'time')];
             }
