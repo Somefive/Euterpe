@@ -126,11 +126,47 @@ function editNewPost()
         data: {nullData:"null"},
         success: function (data) {
             $("#areaShowInfo").html(data);
+            $(".redactor-editor").bind("keyup",dealInputAt);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
         }
     });
+}
+
+function dealInputAt()   {
+    var currentValue = $(".redactor-editor").text();
+    currentValue = $(".redactor-editor").text();
+    if(currentValue.substr(currentValue.length-1,1) == '@') {
+        $("#remindList").modal('show');
+    }
+}
+
+
+function getSelectedRemindName()    {
+    var remindName = "";
+    $('input[name="NewPostForm[remindList][]"]:checked').each(function(){
+        if(remindName == "" ) remindName = ($(this).parent().text());
+        else remindName += ("@"+($(this).parent().text()));
+    });
+
+    $.ajax({
+        type: "POST",
+        url: 'http://localhost:8080/course/discussion/accept-remind-list',
+        data: {remindName:remindName},
+        success: function (data) {
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.statusText);
+        }
+    });
+
+    $("#remindList").modal('hide');
+    var originHtml = $(".redactor-editor").html();
+    var atHtml = "<strong data-verified='redactor' data-redactor-tag='strong'>"+remindName+"</strong>"
+    var htmlWithAt = originHtml.substr(0,originHtml.length-2)+atHtml;
+    $(".redactor-editor").html(htmlWithAt);
+
 }
 
 /**
@@ -304,3 +340,5 @@ function say()
 {
     alert("hello");
 }
+
+

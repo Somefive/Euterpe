@@ -83,15 +83,28 @@ class DiscussionController extends Controller
     //发新帖子
     public function actionEditNewPost()
     {
+        $allUsername = User::getAllUsername();
         $model = new NewPostForm;
         if($model->load(Yii::$app->request->post()))    {
-            if($model->addPost())   $msg = '发帖成功';
+            if($model->addPost())   $msg = "发帖成功";
             else    $msg = '发帖失败';
             return $this->render('say', ['message' => $msg]);
         }
         return $this->renderAjax('editNewPost.php',[
             'model' => $model,
+            'allUsername' => $allUsername,
         ]);
+    }
+
+    public function actionAcceptRemindList()
+    {
+        if (Yii::$app->request->isAjax) {
+            $session = Yii::$app->session;
+            $session->open();
+            $session['remindName'] = ArrayHelper::getValue(Yii::$app->request->post(), 'remindName');
+
+            return;
+        }
     }
 
     //回复帖子
@@ -184,6 +197,42 @@ class DiscussionController extends Controller
             return;
         }
 
+    }
+
+    public function actionRemind()
+    {
+        $ManId= User::getAppUser()->id;
+        //$RemindDatas=getRemindedData($ManId);
+        $RemindDatas=[25=>[5=>32],26=>[9=>31]];
+        //$ReplyDatas=getReplyedData($ManId);
+        $ReplyDatas=[25=>[5=>32],26=>[9=>31]];
+        $Remind=array();
+        foreach($RemindDatas as $RemindedPostId=>$RemindData )
+        {
+            foreach($RemindData as $RemindManId=>$RemindPostId)
+            {
+                $RemindManName=User::getUsernameById($RemindManId);
+                $RemindPost=Post::find(['PostId'=>$RemindPostId])->asArray()->one();
+                $simpleInfo=strip_tags(substr(ArrayHelper::getValue($RemindPost,'content'),0,100));
+                $Remind[]=['RemindedPostId'=>$RemindedPostId,'RemindManName'=>$RemindManName,'simpleInfo'=>$simpleInfo,'RemindPostId'=>$RemindPostId,'time'=>ArrayHelper::getValue($RemindPost,'time')];
+            }
+
+        }
+        $Reply=array();
+        foreach($ReplyDatas as $ReplyedPostId=>$ReplyData)
+        {
+            foreach($ReplyData as $ReplyManId=>$ReplyPostId)
+            {
+                $ReplyManName=User::getUsernameById($ReplyManId);
+                $ReplyPost=Post::find(['PostId'=>$ReplyPostId])->asArray()->one();
+                $simpleInfo=strip_tags(substr(ArrayHelper::getValue($ReplyPost,'content'),0,100));
+                $Reply[]=['ReplyedPostId'=>$ReplyedPostId,'ReplyManName'=>$ReplyManName,'simpleInfo'=>$simpleInfo,'ReplyPostId'=>$ReplyPostId];
+            }
+        }
+
+        Yii::warning($Remind);
+        Yii::warning($Reply);
+        return $this->render('remind',['Remind'=>$Remind,'Reply'=>$Reply]);
     }
 
     public function beforeAction($action)
