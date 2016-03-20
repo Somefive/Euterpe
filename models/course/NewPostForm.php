@@ -16,6 +16,7 @@ class NewPostForm extends Model
     public $title;
     public $content;
     public $option;
+    public $remindList;
     public function rules()
     {
         return [
@@ -52,7 +53,22 @@ class NewPostForm extends Model
 
             $post->simpleInfo =$post->postManId.'|'. $postManName.'|'.$this->title.'|'.substr($this->content,0,100).'|'.$simpleTime.'|'.$post->anoymous.'|'.$post->shieldteacher;
 
-            return $post->save();
+            if($post->save())   {
+                $session = Yii::$app->session;
+                $session->open();
+                if($session['remindName'] != null)  {
+                    $remindNames =  explode('@', $session['remindName']);
+                    foreach($remindNames as $remindName) {
+                        if($remindName == "")   continue;
+                        $remindName = str_replace(' ','',$remindName);
+                        //Yii::warning($remindName);
+                        $remindedManId = User::getUserIdByName($remindName);
+                        //Yii::warning($remindedManId);
+                        Remind::addRemindedData($remindedManId,$post->postId,  User::getAppUserID(), $post->postId);
+                    }
+                    return true;
+                }
+            }
         }
         return false;
     }

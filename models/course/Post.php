@@ -30,6 +30,18 @@ class Post extends ActiveRecord
     //帖子被看的时候，改变帖子的readMenList
     public static function addReadList($postId)
     {
+        $session = Yii::$app->session;
+        $session->open();
+        $timeKey = $postId.'_readTime';
+        if($session[$timeKey] == null)  {
+            $session[$timeKey] = time();
+        }else   {
+            $lastTime = $session[$timeKey];
+            $session[$timeKey] = time();
+            $timeInterval = time() -$lastTime;
+            $session->close();
+            if($timeInterval < 60) return;
+        }
         $selectedPost = Post::findOne($postId);
         if (User::getAppUserID() == $selectedPost->postManId)
             return;
@@ -37,11 +49,32 @@ class Post extends ActiveRecord
         $selectedPost->save();
         return;
     }
-
+    //改变该帖子点赞的用户列表
     public static function changeLikemenList($postId)
     {
         $selectedPost = Post::findOne($postId);
-        $selectedPost->likeMenList = ($selectedPost->likeMenList . '|' . User::getAppUserID());
+        $likeMenIds = explode('|', ArrayHelper::getValue($selectedPost, 'likeMenList'));
+        $key=false;
+        for($x=0;$x<count($likeMenIds);$x++)if($likeMenIds[$x]==User::getAppUserID())$key=true;
+        //$key=
+        if($key!=false){
+            array_unique($likeMenIds);
+            $index=array_search(User::getAppUserID(),$likeMenIds);
+            array_splice($likeMenIds,$index,1);
+            $selectedPost->likeMenList=null;
+            if(count($likeMenIds)==0)$selectedPost->likeMenList=null;
+            else {
+                foreach($likeMenIds as $like){
+                    if($selectedPost->likeMenList==null)$selectedPost->likeMenList = $like;
+                    else $selectedPost->likeMenList = ($selectedPost->likeMenList . '|' . $like);
+                }
+            }
+            // $selectedPost->likeMenList="1|2";
+        }
+        else {
+            if($selectedPost->likeMenList==null)$selectedPost->likeMenList =User::getAppUserID() ;
+            else  $selectedPost->likeMenList = ($selectedPost->likeMenList . '|' . User::getAppUserID());
+        }
         $selectedPost->save();
         return;
     }
@@ -64,6 +97,7 @@ class Post extends ActiveRecord
 
 
         $likeMenIds = explode('|', ArrayHelper::getValue($post, 'likeMenList'));
+        //if(in_array(User::getAppUserID(), $likeMenIds))$islike=
         $likeMenCount = count($likeMenIds);
 
         $newElements = array(
@@ -89,7 +123,13 @@ class Post extends ActiveRecord
                 array_push($likeMenName, User::getUsernameById($likeMenId));
             }
         }
+        if(in_array(User::getAppUserID(), $likeMenIds))$islike=true;
+        else $islike=false;
 
+        if(in_array(User::getUsernameById(User::getAppUserId()),$likeMenName)){
+            $likeOrNot="取消赞";
+        }
+        else $likeOrNot="赞";
         //unset($post['likeMenList']);
 
         $readMenIds = explode('|', ArrayHelper::getValue($post, 'readMenList'));
@@ -100,6 +140,8 @@ class Post extends ActiveRecord
             'likeMenCount' => $likeMenCount,
             'readMenCount' => $readMenCount,
             'likeMenName' => $likeMenName,
+            'likeOrNot'=>$likeOrNot,
+            'islike'=>$islike,
         );
         return array_merge($post, $newElements);
     }
@@ -131,10 +173,29 @@ class Post extends ActiveRecord
 
             $nextPostManName = User::getUsernameById(ArrayHelper::getValue($nextPost, 'postManId'));
             $nextPostTalk = static::getTalk( ArrayHelper::getValue($nextPost, 'nextPostId'));
+            $likeMenIds = explode('|', ArrayHelper::getValue($nextPost, 'likeMenList'));
+            $likeMenName = array();
+            $likeMenCount = count($likeMenIds);
+            if ($likeMenCount == 1 && $likeMenIds[0] == '') {
+                $likeMenCount = 0;
+            } else {
+                foreach ($likeMenIds as $likeMenId) {
+                    if ($likeMenId == "") continue;
+                    array_push($likeMenName, User::getUsernameById($likeMenId));
+                }
+            }
+            if(in_array(User::getAppUserID(), $likeMenIds))$islike=true;
+            else $islike=false;
 
+            if(in_array(User::getUsernameById(User::getAppUserId()),$likeMenName)){
+                $likeOrNot="取消赞";
+            }
+            else $likeOrNot="赞";
             $newElements = array(
                 'postManName' => $nextPostManName,
-                'talk' => $nextPostTalk
+                'talk' => $nextPostTalk,
+                'likeOrNot'=>$likeOrNot,
+                'islike'=>$islike,
             );
 
             array_push($nextPosts, array_merge($nextPost, $newElements));
@@ -145,6 +206,67 @@ class Post extends ActiveRecord
     }
 
 
+    public static function deleteMainPost($deleteMainPostId)
+    {
+        $needDeletePostIds = array();
+        array_push($needDeletePostIds,$deleteMainPostId);
+        $mainPost = static::find()->where(['postId' => $deleteMainPostId])->asArray()->one();
+        $replyPostIds = explode('|', ArrayHelper::getValue($mainPost, 'nextPostId'));
+        foreach($replyPostIds as $replyPostId)  {
+            if($replyPostId=='')    continue;
+            array_push($needDeletePostIds,$replyPostId);
+            $replyPost = static::find()->where(['postId' => $replyPostId])->asArray()->one();
+            $talkPostIds = explode('|', ArrayHelper::getValue($replyPost, 'nextPostId'));
+            foreach($talkPostIds as $talkPostId)    array_push($needDeletePostIds,$talkPostId);
+        }
+        return static::deletePost($needDeletePostIds);
+    }
+
+    public static function deleteFollowPost($followPostId,$mainPostId)
+    {
+        static::deleteNextPostIdFromFatherPost($mainPostId,$followPostId);
+
+        $needDeletePostIds = array();
+        array_push($needDeletePostIds,$followPostId);
+
+        $replyPost = static::find()->where(['postId' => $followPostId])->asArray()->one();
+        $talkPostIds = explode('|', ArrayHelper::getValue($replyPost, 'nextPostId'));
+        foreach($talkPostIds as $talkPostId)    array_push($needDeletePostIds,$talkPostId);
+
+        return static::deletePost($needDeletePostIds);
+    }
+
+    public static function deleteTalkPost($talkPostId,$FollowPostId)
+    {
+        static::deleteNextPostIdFromFatherPost($FollowPostId,$talkPostId);
+
+        $needDeletePostIds = array();
+        array_push($needDeletePostIds,$talkPostId);
+        return static::deletePost($needDeletePostIds);
+    }
+
+    //删除父帖中nextPostId中含有的子帖Id
+    private static function deleteNextPostIdFromFatherPost($fatherPostId,$postId)
+    {
+        $fatherPost = Post::findOne($fatherPostId);
+        $fatherPostNextId = ($fatherPost->nextPostId);
+        $substr = "|".$postId;
+        if(stripos($fatherPostNextId,$substr) === false) {
+            $substr = $postId;
+        }
+        $fatherPost->nextPostId = ltrim(str_replace($substr,'',$fatherPostNextId),'|');
+        $fatherPost->save();
+    }
+    //删除数组里面的帖子
+    private static function deletePost($needDeletePostIds)
+    {
+        foreach($needDeletePostIds as $needDeletePostId)    {
+            if($needDeletePostId == '') continue;
+            $deletePost = Post::findOne($needDeletePostId);
+            if($deletePost) $deletePost->delete();
+        }
+    }
+
     //解析talk
     private static function getTalk($nextPostTalkId)
     {
@@ -153,6 +275,7 @@ class Post extends ActiveRecord
         foreach ($TalkIds as $TalkId) {//invantal?
             if($TalkId=='')continue;
             $Talk = static::find()->where(['postId' => intval($TalkId)])->asArray()->one();
+            if(!is_array($Talk))    continue;
             $TalkManName = User::getUsernameById(ArrayHelper::getValue($Talk, 'postManId'));
 
             $newElement = array('postManName' => $TalkManName);
@@ -160,4 +283,5 @@ class Post extends ActiveRecord
         }
         return $Talks;
     }
+
 }

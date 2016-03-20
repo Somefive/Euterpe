@@ -7,28 +7,46 @@
  */
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use \kucha\ueditor\UEditor;
+use app\models\account\User;
+
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title') ?>
-    <?= $form->field($model, 'content')->widget('kucha\ueditor\UEditor',
-        [
-            'clientOptions' => [
-                //编辑区域大小
-                'initialFrameHeight' => '200',
-                //设置语言
-                'lang' =>'en', //中文为 zh-cn
-                //定制菜单
-                'toolbars'=> [
-                     ['fullscreen', 'source', 'undo', 'redo','fontfamily','fontsize', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough','justifyleft', 'justifyright','justifycenter','justifyjustify',  'superscript', 'subscript', 'removeformat', 'formatmatch',],
-                     [ 'emotion','spechars','snapscreen','simpleupload','insertimage',  'insertorderedlist', 'insertunorderedlist','|','blockquote', 'pasteplain','link','selectall', 'cleardoc']
-                ]
-            ]
-        ]) ?>
-    <?= $form->field($model,'option')->checkboxList(['1' => '匿名 ', '2' => '屏蔽',]);?>
+<?= $form->field($model, 'title')->textInput(['autofocus' => 'autofocus']) ?>
+<?= $form->field($model, 'content')->widget(\yii\redactor\widgets\Redactor::className(),
+    [
+        'clientOptions' => [
+            'imageManagerJson' => ['/redactor/upload/image-json'],
+            'imageUpload' => ['/redactor/upload/image'],
+            'fileUpload' => ['/redactor/upload/file'],
+            'lang' => 'zh_cn',
+            'plugins' => ['clips', 'fontcolor','imagemanager','counter','fontfamily','limiter','textexpander','fullscreen','vedio'],
+        ],
+        'options' => [
+
+        ]
+    ]
+) ?>
+<?= $form->field($model,'option')->checkboxList(['1' => '匿名 ', '2' => '屏蔽',]);?>
     <div class="form-group">
         <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
     </div>
 <?php ActiveForm::end(); ?>
+<div class="modal fade" id = "remindList" style="display: none">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">@...</h4>
+            </div>
+            <div class="modal-body">
+                <?= $form->field($model, 'remindList')->checkboxList($allUsername);?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="getSelectedRemindName()">OK</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

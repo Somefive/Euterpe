@@ -13,9 +13,19 @@ $this->params['breadcrumbs'] = [
 ];
 $this->registerJsFile('/js/discussion.js');
 $this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
+$this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
 $this->registerCssFile('/css/discussion.css');
 $this->registerCssFile('/css/discussionSimpleList.css');
+$this->registerCssFile('/css/discussionShowWholePost.css');
+$this->registerCssFile('/css/prefixfree.css');
+$this->registerCssFile('/css/css_load.css');
+
+//等待迪迪决定去留
+$this->registerCssFile('/css/style.css');
+$this->registerCssFile('/css/icons.css');
+
 ?>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
@@ -68,12 +78,7 @@ $this->registerCssFile('/css/discussionSimpleList.css');
             </div>
         </div>
 
-        <div id="areaShowInfo" class="col-md-8"></div>
-
+        <div id="areaShowInfo" class="col-md-8">
+        </div>
     </div>
 </div>
-
-<!--script src="/js/discussion.js"></script>
-<script type="text/javascript">
-    $('#unreadBtn').click();
-</script-->

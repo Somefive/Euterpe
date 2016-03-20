@@ -9,6 +9,7 @@ use app\models\account\User;
 use app\models\course\Courseenrollment;
 use app\models\course\NewPostForm;
 use app\models\course\Post;
+use app\models\course\Remind;
 use app\models\course\ReplyPostForm;
 
 use yii\web\Controller;
@@ -32,9 +33,6 @@ class DiscussionController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'upload' => [
-                'class' => 'kucha\ueditor\UEditorAction',
-            ]
         ];
     }
 
@@ -44,13 +42,9 @@ class DiscussionController extends Controller
     //讨论区的主页面
     public function actionDiscussion()
     {
+
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
-
-        $selectedPost = Post::getPostByPostId(26);
-        $replyPosts = Post::getnextPosts($selectedPost);
-        Yii::warning($replyPosts);
-
 
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
@@ -60,30 +54,57 @@ class DiscussionController extends Controller
     //用来显示页面右侧的帖子的完整信息
     public function actionShowWholePost()
     {
+        $replyed=Remind::deleteRemindedData(9,12);
+        return $this->render('say.php',[
+            'message'=>($replyed),
+        ]);
         if (Yii::$app->request->isAjax) {
             $postId = Yii::$app->request->post();
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
             Post::addReadList($postId);
-            return $this->renderPartial('showWholePost.php',[
-                'selectedPost' => $selectedPost,
-                'replyPosts' => $replyPosts,
-            ],false,true);
+             return $this->renderPartial('showWholePost.php',[
+                 'selectedPost' => $selectedPost,
+                 'replyPosts' => $replyPosts,
+             ],false,true);
+        }
+    }
+
+    public function actionChangeLike()
+    {
+
+        if(Yii::$app->request->isAjax){
+            $message=Yii::$app->request->post();
+            $postId =$message['postId'];
+            Post::changeLikemenList($postId);
         }
     }
     //发新帖子
     public function actionEditNewPost()
     {
+        $allUsername = User::getAllUsername();
         $model = new NewPostForm;
         if($model->load(Yii::$app->request->post()))    {
-            if($model->addPost())   $msg = '发帖成功';
+            if($model->addPost())   $msg = "发帖成功";
             else    $msg = '发帖失败';
             return $this->render('say', ['message' => $msg]);
         }
         return $this->renderAjax('editNewPost.php',[
             'model' => $model,
+            'allUsername' => $allUsername,
         ]);
+    }
+
+    public function actionAcceptRemindList()
+    {
+        if (Yii::$app->request->isAjax) {
+            $session = Yii::$app->session;
+            $session->open();
+            $session['remindName'] = ArrayHelper::getValue(Yii::$app->request->post(), 'remindName');
+
+            return;
+        }
     }
 
     //回复帖子
@@ -101,6 +122,7 @@ class DiscussionController extends Controller
             $session = Yii::$app->session;
             if($model->addReplyPost($session->get('fatherPostId'),$session->get('postType')))   $msg = "发帖成功";
             else    $msg = "发帖失败,";
+            $session->close();
             return $this->render('say', ['message' => $msg]);
         }
         return $this->renderAjax('replyPost.php', [
@@ -138,6 +160,79 @@ class DiscussionController extends Controller
                 'simplePosts' => $msg,
             ]);
         }
+    }
+
+    public function actionDeleteMainPost()
+    {
+        if (Yii::$app->request->isAjax) {
+            $ajaxInfo = Yii::$app->request->post();
+            $deletePostId = ArrayHelper::getValue($ajaxInfo,'postId');
+
+            Post::deleteMainPost($deletePostId);
+
+            return $this->redirect(array('course/discussion/discussion'));
+        }
+    }
+
+    public function actionDeleteFollowPost()
+    {
+        if (Yii::$app->request->isAjax) {
+            $ajaxInfo = Yii::$app->request->post();
+            $followPostId = ArrayHelper::getValue($ajaxInfo,'postId');
+            $mainPostId = ArrayHelper::getValue($ajaxInfo,'fatherPostId');
+
+            Post::deleteFollowPost($followPostId,$mainPostId);
+            return;
+        }
+    }
+
+    public function actionDeleteTalkPost()
+    {
+        if (Yii::$app->request->isAjax) {
+            $ajaxInfo = Yii::$app->request->post();
+            $followPostId = ArrayHelper::getValue($ajaxInfo,'postId');
+            $mainPostId = ArrayHelper::getValue($ajaxInfo,'fatherPostId');
+
+            Post::deleteTalkPost($followPostId,$mainPostId);
+            return;
+        }
+
+    }
+
+    public function actionRemind()
+    {
+        $ManId= User::getAppUser()->id;
+        $RemindDatas=remind::getRemindedData($ManId);
+        //$RemindDatas=[25=>[5=>32],26=>[9=>31]];
+        $ReplyDatas=remind::getReplyedAData($ManId);
+        //$ReplyDatas=[25=>[5=>32],26=>[9=>31]];
+        $Remind=array();
+        foreach($RemindDatas as $RemindedPostId=>$RemindData )
+        {
+            foreach($RemindData as $RemindManId=>$RemindPostId)
+            {
+                $RemindManName=User::getUsernameById($RemindManId);
+                $RemindPost=Post::find()->where(['postId'=>$RemindPostId])->asArray()->one();
+                $simpleInfo=strip_tags(substr(ArrayHelper::getValue($RemindPost,'content'),0,100));
+                $Remind[]=['RemindedPostId'=>$RemindedPostId,'RemindManName'=>$RemindManName,'simpleInfo'=>$simpleInfo,'RemindPostId'=>$RemindPostId,'time'=>ArrayHelper::getValue($RemindPost,'time')];
+            }
+
+        }
+        $Reply=array();
+        foreach($ReplyDatas as $ReplyedPostId=>$ReplyData)
+        {
+            foreach($ReplyData as $ReplyManId=>$ReplyPostId)
+            {
+                $ReplyManName=User::getUsernameById($ReplyManId);
+                $ReplyPost=Post::find(['PostId'=>$ReplyPostId])->asArray()->one();
+                $simpleInfo=strip_tags(substr(ArrayHelper::getValue($ReplyPost,'content'),0,100));
+                $Reply[]=['ReplyedPostId'=>$ReplyedPostId,'ReplyManName'=>$ReplyManName,'simpleInfo'=>$simpleInfo,'ReplyPostId'=>$ReplyPostId];
+            }
+        }
+
+        Yii::warning($Remind);
+        Yii::warning($Reply);
+        return $this->render('remind',['Remind'=>$Remind,'Reply'=>$Reply]);
     }
 
     public function beforeAction($action)

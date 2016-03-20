@@ -26,4 +26,5 @@ phpunit.phar
 /.idea
 
 /web/.htaccess
+/web/assets
 

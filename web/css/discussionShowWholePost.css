@@ -1,0 +1,83 @@
+/*全部的follow,包含所有的follow_one,B回复区*/
+.follow_all {
+
+}
+/*一个follow，包含follow_body,talk_all,talk回复区*/
+.follow_one {
+
+}
+/*follow的主体*/
+.follow_body    {
+    margin-left: 15px ;
+}
+
+
+/*所有的talk*/
+.talk_all   {
+
+}
+/*一个talk的总的css*/
+.talk_one   {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 10px ;
+    margin-bottom: 10px ;
+}
+/*talk中名字时间一行，用来增加和气泡的距离*/
+.talk_name_and_time  {
+    margin-bottom:8px;
+}
+/*talk name和time*/
+.talk_name  {
+    margin-right: 3px;
+    margin-bottom:10px;
+    font-weight: bold;
+    color: #333;
+}
+.talk_time  {
+    font-size: 11px;
+    line-height: 1.3;
+    font-weight: normal;
+    color: #908f8f;
+    margin-top: 2px;
+    margin-right: 5px;
+}
+/*talk气泡*/
+[class*=chat_content_] {
+    background: #5bc0de;
+    position: relative;
+    max-width: 70%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin: 0 .5rem;
+    border: 1px solid #ccc;
+    word-break: break-all;word-wrap: break-word;
+}
+/*调整尖角的大小需要同时调整top,border-width*/
+.chat_content_top:before,
+.chat_content_top:after {
+    position: absolute;
+    top: -6px;
+    width: 0;
+    height: 0;
+    display: block;
+    content: " ";
+    border-color: transparent transparent #5bc0de transparent;
+    border-style: dashed dashed solid dashed;
+    border-width: 0px 6px 6px 6px;
+    pointer-events: none;
+}
+.chat_content_top:before {
+    border-bottom-color: #5bc0de;
+    z-index: 1;
+}
+.chat_content_top:after {
+    border-bottom-color: #5bc0de;
+    margin-top: 1px;
+    z-index: 2;
+}
+
