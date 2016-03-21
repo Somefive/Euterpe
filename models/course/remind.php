@@ -248,7 +248,7 @@ class Remind extends ActiveRecord
                                     for($in=$z-1;$in>=0;$in--){
                                         if($reminded->reminded[$in]==';')
                                         {
-                                            
+
                                             $sub_a=substr($reminded->reminded,0,$in);
                                             $reminded->reminded=$sub_a.$sub_b;
                                             $reminded->save();
@@ -264,7 +264,6 @@ class Remind extends ActiveRecord
                 }
             }
         }
-
     }
 
     public static function deleteReplyedData($replyedManId,$replyPostId){
