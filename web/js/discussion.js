@@ -13,6 +13,9 @@
 var indexOfFunction = {"getAllNorUnreadList":0, "getSpecificManList":1, "getUnreadList":2};
 var selectedRulesArray = new Array("","","");
 
+var hostname = 'http://'+location.host;
+//alert(hostname+'/course/discussion/show-whole-post');
+
 function showWholePost(postId)
 {
     var load = '<div class="container_p">\
@@ -25,7 +28,7 @@ function showWholePost(postId)
     $("#areaShowInfo").html(load);
     $.ajax({
         type: "POST",
-        url: 'http://localhost:8080/course/discussion/show-whole-post',
+        url:  hostname+'/course/discussion/show-whole-post',
         data: {postId:postId},
         dataType : 'text',
         success: function (data) {
@@ -97,7 +100,7 @@ function changeLike(username,postId)
 
    $.ajax({
         type: "POST",
-        url: 'http://localhost:8080/course/discussion/change-like',
+        url:  hostname+'/course/discussion/change-like',
         data: {postId:postId},
         dataType : 'text',
         success: function (data) {
@@ -122,7 +125,7 @@ function editNewPost()
     $("#areaShowInfo").html(load);
     $.ajax({
         type: "POST",
-        url: 'http://localhost:8080/course/discussion/edit-new-post',
+        url: hostname+'/course/discussion/edit-new-post',
         data: {nullData:"null"},
         success: function (data) {
             $("#areaShowInfo").html(data);
@@ -152,7 +155,7 @@ function getSelectedRemindName()    {
 
     $.ajax({
         type: "POST",
-        url: 'http://localhost:8080/course/discussion/accept-remind-list',
+        url: hostname+'/course/discussion/accept-remind-list',
         data: {remindName:remindName},
         success: function (data) {
         },
@@ -242,7 +245,7 @@ function modifyOrderRule(orderRule)
 {
     $.ajax({
         type: "POST",
-        url: 'http://localhost:8080/course/discussion/modify-order-rule',
+        url: hostname+'/course/discussion/modify-order-rule',
         data: {orderRule:orderRule},
         success: function (data) {
             $("#simplePostList").empty();
@@ -284,7 +287,7 @@ function replyPost(fatherPostId,postType,divIdNeedHide,divIdNeedHtml)
     $("#"+divIdNeedHtml).html(load);
     $.ajax({
         type: "POST",
-        url: 'http://localhost:8080/course/discussion/reply-post',
+        url: hostname+'/course/discussion/reply-post',
         data: {fatherPostId:fatherPostId,postType:postType},
         success: function (data) {
             $("#"+divIdNeedHtml).html(data);
@@ -308,7 +311,7 @@ function deletePost(postType,fatherPostId,postId)
         $("#areaShowInfo").hide('slow');
         $.ajax({
             type: "POST",
-            url: 'http://localhost:8080/course/discussion/delete-main-post',
+            url: hostname+'/course/discussion/delete-main-post',
             data: {postId:postId}
         });
     }
@@ -316,7 +319,7 @@ function deletePost(postType,fatherPostId,postId)
         $("#follow_post_"+postId).hide('slow');
         $.ajax({
             type: "POST",
-            url: 'http://localhost:8080/course/discussion/delete-follow-post',
+            url: hostname+'/course/discussion/delete-follow-post',
             data: {postId:postId,fatherPostId:fatherPostId},
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert(XMLHttpRequest.statusText);
@@ -327,7 +330,7 @@ function deletePost(postType,fatherPostId,postId)
         $("#talk_post_"+postId).hide('slow');
         $.ajax({
             type: "POST",
-            url: 'http://localhost:8080/course/discussion/delete-talk-post',
+            url: hostname+'/course/discussion/delete-talk-post',
             data: {postId:postId,fatherPostId:fatherPostId},
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert(XMLHttpRequest.statusText);

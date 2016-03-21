@@ -1,10 +1,10 @@
 需要进行的服务器上的测试
-    使用session的地方
-        回帖（fatherID）
-        阅读之间相差的时间
-    涉及localhost的地方
-        discussion.js
-
+    使用session的地方 [OK]
+        回帖（fatherID）[OK]
+        阅读之间相差的时间 [OK]
+    涉及localhost的地方 [OK]
+        discussion.js [OK]
+打开对外服务器的方法:php -S 0.0.0.0:8080 直接访问http://[59.66.134.208]:8080/course/discussion/discussion
 
 ykd:发帖的界面优化，复选框的美化
 wjf:离开编辑框需要进行询问
