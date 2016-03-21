@@ -46,7 +46,7 @@ AppAsset::register($this);
             array_push($Nav_courseitem,'<li class="dropdown-header">'.$course->name.'</li>');
             array_push($Nav_courseitem,['label' => 'Class', 'url' => '/course/class']);
             array_push($Nav_courseitem,['label' => 'Composer', 'url' => '/course/composer/index']);
-            array_push($Nav_courseitem,['label' => 'Discussion', 'url' => '/course/share/index']);
+            array_push($Nav_courseitem,['label' => 'Discussion', 'url' => '/course/discussion/discussion']);
             array_push($Nav_courseitem,['label' => 'Wiki', 'url' => '/course/wiki/index']);
             array_push($Nav_courseitem,['label' => 'Share', 'url' => '/course/share/index']);
    //     }

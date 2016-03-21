@@ -54,10 +54,6 @@ class DiscussionController extends Controller
     //用来显示页面右侧的帖子的完整信息
     public function actionShowWholePost()
     {
-        $replyed=Remind::deleteRemindedData(9,12);
-        return $this->render('say.php',[
-            'message'=>($replyed),
-        ]);
         if (Yii::$app->request->isAjax) {
             $postId = Yii::$app->request->post();
             $selectedPost = Post::getPostByPostId($postId);
