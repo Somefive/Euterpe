@@ -194,6 +194,7 @@ function editNewPost()
 function dealInputAt()   {
     var currentValue = $(".redactor-editor").text();
     currentValue = $(".redactor-editor").text();
+    currentValue = $(".redactor-editor").text();
     if(currentValue.substr(currentValue.length-1,1) == '@') {
         $("#remindList").modal('show');
     }
@@ -220,10 +221,17 @@ function getSelectedRemindName()    {
 
     $("#remindList").modal('hide');
     var originHtml = $(".redactor-editor").html();
-    var atHtml = "<strong data-verified='redactor' data-redactor-tag='strong'>"+remindName+"</strong>"
+    var atHtml = "<at>"+remindName+"</at>"
     var htmlWithAt = originHtml.substr(0,originHtml.length-2)+atHtml;
     $(".redactor-editor").html(htmlWithAt);
 
+}
+
+
+function submitNewPost()
+{
+    var originHtml = $(".redactor-editor").html();
+    $('#contentLoader').val(originHtml);
 }
 
 /**

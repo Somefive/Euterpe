@@ -40,7 +40,7 @@ class Post extends ActiveRecord
             $session[$timeKey] = time();
             $timeInterval = time() -$lastTime;
             $session->close();
-            if($timeInterval < 60) return;
+            //if($timeInterval < 60) return;
         }
         $selectedPost = Post::findOne($postId);
         if (User::getAppUserID() == $selectedPost->postManId)

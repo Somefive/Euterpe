@@ -15,12 +15,13 @@ class NewPostForm extends Model
 {
     public $title;
     public $content;
+    public $editContent;//暂时接纳编辑信息，作为content的一个中转
     public $option;
     public $remindList;
     public function rules()
     {
         return [
-            [['title', 'content'], 'required'],
+            [['title'], 'required'],
         ];
     }
 
