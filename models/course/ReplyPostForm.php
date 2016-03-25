@@ -11,6 +11,7 @@ namespace app\models\course;
 
 use yii\base\Model;
 use app\models\account\User;
+use yii\helpers\ArrayHelper;
 
 class ReplyPostForm extends Model
 {
@@ -46,9 +47,12 @@ class ReplyPostForm extends Model
         $selectedPost->save();
 */
             if($post->save())   {
+
                 $fatherPost = Post::findOne($fatherPostId);
                 if(!$fatherPost->nextPostId) $fatherPost->nextPostId=$post->postId;
                 else $fatherPost->nextPostId = ($fatherPost->nextPostId.'|'.$post->postId);
+                if($post->isPost==1)Remind::addReplyedOfA($fatherPost->postManId,$fatherPostId,$post->postManId,$post->postId);
+                if($post->isPost==2)Remind::addReplyedOfB($fatherPost->postManId,$fatherPostId,$post->postManId,$post->postId);
                 return $fatherPost->save();
             }
             else return false;
