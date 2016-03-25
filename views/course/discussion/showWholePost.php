@@ -127,9 +127,9 @@ use app\models\account\User;
             </div>
         </div>
         <?php endforeach; ?>
+        <!--回复A贴-->
+        <h5 id="start_new_followup_header">Start a new followup discussion</h5>
+        <div class="compose_discussion" onclick="replyPost(<?=ArrayHelper::getValue($selectedPost,'postId')?>,1,'create_new_followup','create_new_followup_div')" id="create_new_followup">Compose a new followup discussion</div>
+        <div id="create_new_followup_div"></div>
     </div>
-    <!--回复A贴-->
-    <h5 id="start_new_followup_header">Start a new followup discussion</h5>
-    <div class="compose_discussion" onclick="replyPost(<?=ArrayHelper::getValue($selectedPost,'postId')?>,1,'create_new_followup','create_new_followup_div')" id="create_new_followup">Compose a new followup discussion</div>
-    <div id="create_new_followup_div"></div>
 </div>

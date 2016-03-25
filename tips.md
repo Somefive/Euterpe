@@ -1,33 +1,30 @@
-需要进行的服务器上的测试
-    使用session的地方 [OK]
-        回帖（fatherID）[OK]
-        [NO:可能导致刷新还是未读]阅读之间相差的时间 
-    涉及localhost的地方 [OK]
-        discussion.js [OK]
-打开对外服务器的方法:php -S 0.0.0.0:8080 直接访问http://[59.66.134.208]:8080/course/discussion/discussion
+---
+title: 讨论区开发tips
+tags: TODO,Question
+---
+## 遗留问题
+### whh
+* 需要进行的服务器上的测试
+    * //使用session的地方
+    * //回帖(==fatherID==)
+    * 阅读之间相差的时间,可能导致刷新还是未读
+* 发帖之后的动画效果
+* showholepost页面用到piazza的样式要更改
+### ykd
+* 发帖界面复选框,按钮的美化
+* remind页面点击之后要能回退(==修改url==):cry:
+* 各种需要匿名的时候进行屏蔽
+### wjf
+* 发帖模型存在一些字符串处理的漏洞
 
-ykd:发帖的界面优化，复选框的美化
-wjf:离开编辑框需要进行询问
-whh:
-
-
-2016/3/19:
-任务清单:
-ykd:设计新表以及模型
-    数据：  reminded{remindManId1:remindPostId1,remindManId2:remindPostId2,...}
-            replyedOfA{replyedPostId:[replyManId1:replyPostId1,replyManId2:replyId2,...],...}
-            replyedOfBC{格式如上}
-    提供接口：
-        对数据插入提供的函数：addRemindedData(remindedManId,remindedPostId,remindManId,remindPostId)
-                              addReplyedOfA(replyedManId,replyedPostId,replyManId,replyPostId)
-                              addReplyedOfBC(参数如上)
-        对数据查询提供的函数: getRemindedData(remindedManId) return array("remindedPostId"=>["remindManId" => "remindPostId"],...)
-                              getReplyedData(manId) return array("replyedPostId"=>["replyManId" => "replyPostId"],...)
-        对数据删除提供的函数: deleteRemindedData(remindedManId,remindPostId)
-                              deleteReplyedData(replyedManId,replyPostId)
-
-wjf:写出action&view，可以简单显示有n未读，
-                    postManName在帖子"引用帖子的部分内容"中@我，
-                    postManName回复我的帖子"引用帖子的部分内容"
-        点击链接可以showWholePost(相应postId)
-whh:@功能的简单实现(阅读模态框使用方法，监控输入事件,与新数据表进行交互
+## 经验
+* 打开对外服务器的方法:php -S 0.0.0.0:8080
+* 直接访问http://==59.66.134.208==:8080/course/discussion/discussion
+## TODO
+1. *@列表的美化*
+2. **回帖和@的测试**
+3. **删除之后及时更新其他在线用户的列表**
+4. 主页背景使用一个模糊图片
+5. **离开编辑框需要进行询问(==JS==)**
+6. 增加返回顶部的js特效
+7. 精简帖子列表，滚动条美化
