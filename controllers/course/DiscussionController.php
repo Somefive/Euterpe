@@ -42,7 +42,6 @@ class DiscussionController extends Controller
     //讨论区的主页面
     public function actionDiscussion()
     {
-
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
         $reminded=Remind::getRemindedData(User::getAppUserID());

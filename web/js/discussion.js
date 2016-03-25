@@ -13,6 +13,8 @@
 var indexOfFunction = {"getAllNorUnreadList":0, "getSpecificManList":1, "getUnreadList":2};
 var selectedRulesArray = new Array("","","");
 
+var remindName ="";
+
 var hostname = 'http://'+location.host;
 //alert(hostname+'/course/discussion/show-whole-post');
 
@@ -202,12 +204,11 @@ function dealInputAt()   {
 
 
 function getSelectedRemindName()    {
-    var remindName = "";
     $('input[name="NewPostForm[remindList][]"]:checked').each(function(){
         if(remindName == "" ) remindName = ($(this).parent().text());
         else remindName += ("@"+($(this).parent().text()));
     });
-
+    //格式：name@name@name
     $.ajax({
         type: "POST",
         url: hostname+'/course/discussion/accept-remind-list',
@@ -221,10 +222,9 @@ function getSelectedRemindName()    {
 
     $("#remindList").modal('hide');
     var originHtml = $(".redactor-editor").html();
-    var atHtml = "<at>"+remindName+"</at>"
+    var atHtml = "<start>"+remindName+"</start><end>&nbsp;";
     var htmlWithAt = originHtml.substr(0,originHtml.length-2)+atHtml;
     $(".redactor-editor").html(htmlWithAt);
-
 }
 
 
@@ -232,6 +232,7 @@ function submitNewPost()
 {
     var originHtml = $(".redactor-editor").html();
     $('#contentLoader').val(originHtml);
+    //alert(originHtml);
 }
 
 /**

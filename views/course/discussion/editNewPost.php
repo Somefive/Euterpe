@@ -31,6 +31,7 @@ use app\models\account\User;
 <input type='text' id='contentLoader' name='content' value='' style='display: none;'>
 <?= $form->field($model,'option')->checkboxList(['1' => '匿名 ', '2' => '屏蔽',]);?>
     <div class="form-group">
+        <button type="button" class="btn btn-primary" onclick="submitNewPost()">test</button>
         <?= Html::submitButton('Submit', ['class' => 'btn btn-primary','onclick'=>'submitNewPost()']) ?>
     </div>
 <?php ActiveForm::end(); ?>
