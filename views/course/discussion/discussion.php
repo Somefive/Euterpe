@@ -78,7 +78,29 @@ $this->registerCssFile('/css/icons.css');
             </div>
         </div>
 
-        <div id="areaShowInfo" class="col-md-8">
+        <div id="areaShowInfo" class="col-md-8" >
+            <div style=" margin-top:80px;margin-left:10px;">
+                <?php /*echo \Yii::$app->view->renderFile('@app/views/course/discussion/remind.php', [
+                    'remindedNum'=>$remindedNum,
+                    'simplePosts' => $simplePosts,
+                    'replyNum'=>$replyNum,
+                ]);*/ ?>
+                <ul>
+                    <li  id="simpleRemind" >
+                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息" onclick="showWholeRemind(<?php $remindedNum?><?php $replyNum?>)">
+                            <?php if($remindedNum==0)echo('<img src="https://piazza.com/images/piazza/dashboard/check.png"   style="position:absolute;left:8px;top:40px;"/>');
+                                   else echo('<div><img src="https://piazza.com/images/piazza/dashboard/exclaim.png"  style="position:absolute;left:8px;top:40px;"/></div>');
+                                   echo('<div>'.$remindedNum.'个帖子中有人@你'.'</div>') ?>
+                        </div>
+                        <hr size="5" color="#202020"/>
+                    </li>
+                    <li  id="simpleRply"  >
+                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息"  onclick="showWholeRemind(<?php $remindedNum?><?php $replyNum?>)">
+                            <?php echo($replyNum.'个帖子中有人回复你') ?>
+                        </div>
+                    </li>
+                </ul>
+                </div>
         </div>
     </div>
 </div>

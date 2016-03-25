@@ -42,6 +42,39 @@ function showWholePost(postId)
     });
 }
 
+function deleteRemindedData(RemindedManId,RemindPostId,postId)
+{
+    $.ajax({
+        type: "POST",
+        url:  hostname+'/course/discussion/delete-reminded-data',
+        data: {RemindedManId:RemindedManId,RemindPostId:RemindPostId,postId:postId,},
+        dataType : 'text',
+        success: function (data) {
+            $("#areaShowInfo").html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.statusText);
+        }
+    });
+}
+
+function deleteReplyedData(ReplyedManId,ReplyPostId,postId)
+{
+    $.ajax({
+        type: "POST",
+        url:  hostname+'/course/discussion/delete-replyed-data',
+        data: {ReplyedManId:ReplyedManId,ReplyPostId:ReplyPostId,postId:postId,},
+        dataType : 'text',
+        success: function (data) {
+            $("#areaShowInfo").html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.statusText);
+        }
+    });
+}
+
+
 function changeLike(username,postId)
 {
     $("#like1_"+postId).css("background-position","")
@@ -53,13 +86,8 @@ function changeLike(username,postId)
         $("#like1_"+postId).removeClass("heartAnimation").attr("rel","unlike");
         $("#like1_"+postId).css("background-position","left");
     }
-    //alert(username);
     var exist = 0;
     var name=$("#name"+postId).text();
-    /*var i=name.length;
-    name=name.substring(ii,i);
-    alert(name);
-    alert(name.length);*/
     exist=name.indexOf(username);
     if(exist==-1){
         if(name.length==29||name.length==0)name=username+"等共1人赞过";
@@ -95,7 +123,6 @@ function changeLike(username,postId)
         }
         $("#name"+postId).empty()
         $("#name"+postId).append(name);
-        //$("#name").append(username+"等共"+count+"人点赞");
     }
 
    $.ajax({
@@ -112,6 +139,33 @@ function changeLike(username,postId)
     });
 }
 
+function showWholeRemind(remindedNum,replyNum)
+{
+    var load =
+        '<div class="inner">\
+            <div class="load-container load1">\
+              <div class="loader">Loading...</div>\
+            </div>\
+         </div>';
+    $("#areaShowInfo").html(load);
+    $.ajax({
+        type: "POST",
+        url: hostname+'/course/discussion/show-whole-remind',
+        data: {remindedNum:remindedNum,replyNun:replyNum},
+        success: function (data) {
+            $("#areaShowInfo").html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.statusText);
+        }
+    });
+
+}
+
+function showWholeReply($reply)
+{
+
+}
 
 function editNewPost()
 {

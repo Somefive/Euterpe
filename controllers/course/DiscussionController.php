@@ -45,19 +45,32 @@ class DiscussionController extends Controller
 
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
-
+        $reminded=Remind::getRemindedData(User::getAppUserID());
+        $reply=Remind::getReplyedData(User::getAppUserID());
+        $count=count($reminded);
+        $remindedNum=0;
+        $replyNum=0;
+        foreach($reminded as $x){
+            $remindedNum+=count($x);
+        }
+        foreach($reply as $y){
+            $replyNum+=count($y);
+        }
+       /* return $this->render('say.php',[
+            'message'=>($reply),
+        ]);*/
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
             'allUsername' => $allUsername,
+            //'reminded' => $reminded,
+            //'reply' => $reply,
+            'remindedNum' =>$remindedNum,
+            'replyNum'=>$replyNum,
         ]);
     }
     //用来显示页面右侧的帖子的完整信息
     public function actionShowWholePost()
     {
-        /*$replyed=Remind::addReplyedOfB(2,6,6,6);
-        return $this->render('say.php',[
-            'message'=>($replyed),
-        ]);*/
         if (Yii::$app->request->isAjax) {
             $postId = Yii::$app->request->post();
             $selectedPost = Post::getPostByPostId($postId);
@@ -73,13 +86,26 @@ class DiscussionController extends Controller
 
     public function actionChangeLike()
     {
-
         if(Yii::$app->request->isAjax){
             $message=Yii::$app->request->post();
             $postId =$message['postId'];
             Post::changeLikemenList($postId);
         }
     }
+
+    //展示全部的提醒的帖子
+   /* public function actionShowWholeRemind(){
+        if(Yii::$app->request->isAjax){
+            $data='';
+            $reminded=Yii::$app->request->post();
+            foreach($reminded as $remind){
+                foreach($remind as $x=>$y){
+                    $data.=User::getUsernameById($x)."在";
+                }
+            }
+
+        }
+    }*/
     //发新帖子
     public function actionEditNewPost()
     {
@@ -106,7 +132,43 @@ class DiscussionController extends Controller
             return;
         }
     }
+    //删除提醒标记
+    public function actionDeleteRemindedData(){
+        if(Yii::$app->request->isAjax){
+            $message=Yii::$app->request->post();
+            $RemindedManId=$message['RemindedManId'];
+            $RemindPostId=$message['RemindPostId'];
+            $postId=$message['postId'];
+            Remind::deleteRemindedData($RemindedManId,$RemindPostId);
+            $selectedPost = Post::getPostByPostId($postId);
+            $replyPosts = Post::getnextPosts($selectedPost);
+            //Yii::warning($replyPosts);
+            Post::addReadList($postId);
+            return $this->renderPartial('showWholePost.php',[
+                'selectedPost' => $selectedPost,
+                'replyPosts' => $replyPosts,
+            ],false,true);
+        }
+    }
 
+    //删除回复标记
+    public function actionDeleteReplyedData(){
+        if(Yii::$app->request->isAjax){
+            $message=Yii::$app->request->post();
+            $ReplyedManId=$message['ReplyedManId'];
+            $ReplyPostId=$message['ReplyPostId'];
+            $postId=$message['postId'];
+            Remind::deleteReplyedData($ReplyedManId,$ReplyPostId);
+            $selectedPost = Post::getPostByPostId($postId);
+            $replyPosts = Post::getnextPosts($selectedPost);
+            //Yii::warning($replyPosts);
+            Post::addReadList($postId);
+            return $this->renderPartial('showWholePost.php',[
+                'selectedPost' => $selectedPost,
+                'replyPosts' => $replyPosts,
+            ],false,true);
+        }
+    }
     //回复帖子
     public function actionReplyPost()
     {
@@ -199,12 +261,12 @@ class DiscussionController extends Controller
 
     }
 
-    public function actionRemind()
+    public function actionShowWholeRemind()
     {
         $ManId= User::getAppUser()->id;
-        $RemindDatas=remind::getRemindedData($ManId);
+        $RemindDatas=Remind::getRemindedData($ManId);
         //$RemindDatas=[25=>[5=>32],26=>[9=>31]];
-        $ReplyDatas=remind::getReplyedAData($ManId);
+        $ReplyDatas=Remind::getReplyedData($ManId);
         //$ReplyDatas=[25=>[5=>32],26=>[9=>31]];
         $Remind=array();
         foreach($RemindDatas as $RemindedPostId=>$RemindData )
@@ -232,7 +294,7 @@ class DiscussionController extends Controller
 
         Yii::warning($Remind);
         Yii::warning($Reply);
-        return $this->render('remind',['Remind'=>$Remind,'Reply'=>$Reply]);
+        return $this->render('remind',['Remind'=>$Remind,'Reply'=>$Reply,]);
     }
 
     public function beforeAction($action)

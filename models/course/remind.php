@@ -66,7 +66,7 @@ class Remind extends ActiveRecord
         $array=Remind::getData($reminded->reminded);
         return $array;
     }
-
+  
     public static function getReplyedAData($replyedmanId){
         $replyed = Remind::findOne($replyedmanId);
         $array=Remind::getData($replyed->replyedOfA);
@@ -78,6 +78,11 @@ class Remind extends ActiveRecord
         $array=Remind::getData($replyed->replyedOfB);
         return $array;
     }
+
+    public static function getReplyedData($replyedmanId){
+        return array_merge(Remind::getReplyedAData($replyedmanId),Remind::getReplyedBData($replyedmanId));
+    }
+
 
     public static function deleteRemindedData($remindedManId,$remindPostId){
         $reminded = Remind::findOne($remindedManId);
