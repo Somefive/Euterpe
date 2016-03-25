@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2016-03-21 23:52:20
+Date: 2016-03-25 22:17:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -114,7 +114,7 @@ CREATE TABLE `post` (
   `isPost` int(1) DEFAULT NULL,
   PRIMARY KEY (`postId`),
   KEY `postId` (`postId`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of post
@@ -141,10 +141,11 @@ INSERT INTO `post` VALUES ('46', '5', '2016-03-13 00:16:53', '', '<p>要保证�
 INSERT INTO `post` VALUES ('49', '5', '2016-03-17 23:07:18', '', '<p>测试气泡,测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\"></span></span></span></span></span></span></span></p>', null, null, '吴行行', '0', '0', null, '2');
 INSERT INTO `post` VALUES ('50', '5', '2016-03-17 23:18:04', '', '<p>接下来还要测试气泡！测试气泡！怎么选一个好的颜色呀！</p>', null, null, '吴行行', '0', '0', null, '2');
 INSERT INTO `post` VALUES ('52', '5', '2016-03-21 13:10:16', '测试@', '<p>hello！@<!--<strong data-verified=\'redactor\' data-redactor-tag=\'strong\'--> 吴行行</p>', '5', null, '5|吴行行|测试@|<p>hello！@<!--<strong data-verified=\'redactor\' data-redactor-tag=\'strong\'--> 吴行行</p>|2016-03-21|0|0', '0', '0', null, '0');
-INSERT INTO `post` VALUES ('57', '9', '2016-03-21 15:13:56', 'dad', '<p>sadds@@<!--<strong data-verified=\'redactor\' data-redactor-tag=\'strong\'--> ykddsada</p>', '9', null, '9|ykd|dad|<p>sadds@@<!--<strong data-verified=\'redactor\' data-redactor-tag=\'strong\'--> ykddsada</p>|2016-03-21|0|0', '0', '0', null, '0');
-INSERT INTO `post` VALUES ('58', '10', '2016-03-21 23:36:38', '测试发帖', '<p>我是王俊杰</p>', '10', null, '10|王俊杰|测试发帖|<p>我是王俊杰</p>|2016-03-21|0|0', '0', '0', null, '0');
+INSERT INTO `post` VALUES ('57', '9', '2016-03-21 15:13:56', 'dad', '<p>sadds@@<!--<strong data-verified=\'redactor\' data-redactor-tag=\'strong\'--> ykddsada</p>', '9|5', null, '9|ykd|dad|<p>sadds@@<!--<strong data-verified=\'redactor\' data-redactor-tag=\'strong\'--> ykddsada</p>|2016-03-21|0|0', '0', '0', null, '0');
+INSERT INTO `post` VALUES ('58', '10', '2016-03-21 23:36:38', '测试发帖', '<p>我是王俊杰</p>', '10|5', null, '10|王俊杰|测试发帖|<p>我是王俊杰</p>|2016-03-21|0|0', '0', '0', null, '0');
 INSERT INTO `post` VALUES ('59', '10', '2016-03-21 23:37:12', '', '<p>123</p>', null, null, '王俊杰', '0', '0', null, '2');
-INSERT INTO `post` VALUES ('66', '10', '2016-03-21 23:42:08', '测试发帖', '<p>@</p>', '10', null, '10|王俊杰|测试发帖|<p>@</p>|2016-03-21|0|0', '0', '0', null, '0');
+INSERT INTO `post` VALUES ('66', '10', '2016-03-21 23:42:08', '测试发帖', '<p>@</p>', '10|5', null, '10|王俊杰|测试发帖|<p>@</p>|2016-03-21|0|0', '0', '0', null, '0');
+INSERT INTO `post` VALUES ('68', '5', '2016-03-25 22:15:50', '@功能越来越完善了', '<p>​<a>@ykd&nbsp;</a>&nbsp;佳夫凯迪你们快看</end></p>', '5', null, '5|吴行行|@功能越来越完善了|<p>​@<!--<start--> ykd<end>&nbsp;佳夫凯迪你们快看</end></p>|2016-03-25|0|0', '0', '0', null, '0');
 
 -- ----------------------------
 -- Table structure for `remind`
@@ -162,7 +163,7 @@ CREATE TABLE `remind` (
 -- ----------------------------
 -- Records of remind
 -- ----------------------------
-INSERT INTO `remind` VALUES ('ykd', '9', ';57:[9:57];66:[10:66]', null, null);
+INSERT INTO `remind` VALUES ('ykd', '9', ';57:[9:57];66:[10:66];67:[5:67];68:[5:68]', null, null);
 
 -- ----------------------------
 -- Table structure for `studentbasicinformation`

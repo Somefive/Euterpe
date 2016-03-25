@@ -20,6 +20,7 @@ class NewPostForm extends Model
     public $remindList;
 
     private $remindNames = array();
+    private $remindNamesNeedSave = array();
     public function rules()
     {
         return [
@@ -57,9 +58,13 @@ class NewPostForm extends Model
             $post->simpleInfo =$post->postManId.'|'. $postManName.'|'.$this->title.'|'.substr($this->content,0,100).'|'.$simpleTime.'|'.$post->anoymous.'|'.$post->shieldteacher;
 
             if($post->save())   {
-                //
+                foreach($this->remindNamesNeedSave as $remindName)  {
+                    if($remindName == "")   continue;
+                    $remindedManId = User::getUserIdByName($remindName);
+                    Remind::addRemindedData($remindedManId,$post->postId,  User::getAppUserID(), $post->postId);
+                }
                 return true;
-            }
+           }
         }
         return false;
     }
@@ -79,10 +84,7 @@ class NewPostForm extends Model
                 array_push($this->remindNames,$remindName);
             }
 
-            /*
-            $remindedManId = User::getUserIdByName($remindName);
-            Remind::addRemindedData($remindedManId,$post->postId,  User::getAppUserID(), $post->postId);
-            */
+
             $content = preg_replace_callback(
                 "|(@<!--<start-->.*?<end>)|",
                 array($this, 'dealAtName'),
@@ -114,6 +116,7 @@ class NewPostForm extends Model
 
             if(in_array($atName,$this->remindNames))  {
                 Yii::warning("is in");
+                array_push($this->remindNamesNeedSave,$atName);
                 $result .= ("<a>@".$atName."&nbsp;</a>");
             }
             else $result .= ("@".$atName);
