@@ -441,4 +441,24 @@ function say()
     alert("hello");
 }
 
+//回到顶部
+(function() {
 
+    var $backToTopTxt = "返回顶部", $backToTopEle = $('<img src="/img/discussion/gotop.png" class="backToTop">').appendTo($("body"))
+        .click(function() {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+        }), $backToTopFun = function() {
+        var st = $(document).scrollTop(), winh = $(window).height();
+        (st > 0)? $backToTopEle.show(): $backToTopEle.hide();
+        //IE6下的定位
+        if (!window.XMLHttpRequest) {
+            $backToTopEle.css("top", st + winh - 166);
+        }
+    };
+    $(".backToTop").hover(                  function()
+    {$(this).css("background","red");},function(){
+        $(this).css("background","#000");
+    });
+    $(window).bind("scroll", $backToTopFun);
+    $(function() { $backToTopFun(); });
+})();
