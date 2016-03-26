@@ -88,15 +88,17 @@ $this->registerCssFile('/css/icons.css');
                 <ul>
                     <li  id="simpleRemind" >
                         <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息" onclick="showWholeRemind(<?php $remindedNum?><?php $replyNum?>)">
-                            <?php if($remindedNum==0)echo('<img src="https://piazza.com/images/piazza/dashboard/check.png"   style="position:absolute;left:8px;top:40px;"/>');
-                                   else echo('<div><img src="https://piazza.com/images/piazza/dashboard/exclaim.png"  style="position:absolute;left:8px;top:40px;"/></div>');
-                                   echo('<div>'.$remindedNum.'个帖子中有人@你'.'</div>') ?>
+                            <?php if($remindedNum==0)echo('<img src="https://piazza.com/images/piazza/dashboard/check.png"   style=""/>');
+                                   else echo('<img src="https://piazza.com/images/piazza/dashboard/exclaim.png"  style=""/>');
+                                   echo('&nbsp&nbsp'.$remindedNum.'个帖子中有人@你') ?>
                         </div>
                         <hr size="5" color="#202020"/>
                     </li>
                     <li  id="simpleRply"  >
                         <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息"  onclick="showWholeRemind(<?php $remindedNum?><?php $replyNum?>)">
-                            <?php echo($replyNum.'个帖子中有人回复你') ?>
+                            <?php if($replyNum==0)echo('<img src="https://piazza.com/images/piazza/dashboard/check.png"   style=""/>');
+                                    else echo('<img src="https://piazza.com/images/piazza/dashboard/exclaim.png"  style=""/>');
+                                echo('&nbsp&nbsp'.$replyNum.'个帖子中有人回复你') ?>
                         </div>
                     </li>
                 </ul>
