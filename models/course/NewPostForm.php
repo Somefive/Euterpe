@@ -18,6 +18,9 @@ class NewPostForm extends Model
     public $editContent;//暂时接纳编辑信息，作为content的一个中转
     public $option;
     public $remindList;
+
+    private $remindNames = array();
+    private $remindNamesNeedSave = array();
     public function rules()
     {
         return [
@@ -39,7 +42,7 @@ class NewPostForm extends Model
             $post = new Post();
             $post->postManId = User::getAppUserID();
             $post->title = $this->title;
-            $post->content = $this->content;
+            $post->content = $this->dealAtListInContent($this->content);
             $post->time = date("Y-m-d H:i:s", time());
             //初始化阅读者列表
             $post->readMenList = $post->postManId;
@@ -55,23 +58,69 @@ class NewPostForm extends Model
             $post->simpleInfo =$post->postManId.'|'. $postManName.'|'.$this->title.'|'.substr($this->content,0,100).'|'.$simpleTime.'|'.$post->anoymous.'|'.$post->shieldteacher;
 
             if($post->save())   {
-                $session = Yii::$app->session;
-                $session->open();
-                if($session['remindName'] != null)  {
-                    $remindNames =  explode('@', $session['remindName']);
-                    foreach($remindNames as $remindName) {
-                        if($remindName == "")   continue;
-                        $remindName = str_replace(' ','',$remindName);
-                        //Yii::warning($remindName);
-                        $remindedManId = User::getUserIdByName($remindName);
-                        //Yii::warning($remindedManId);
-                        Remind::addRemindedData($remindedManId,$post->postId,  User::getAppUserID(), $post->postId);
-                    }
-                    return true;
+                foreach($this->remindNamesNeedSave as $remindName)  {
+                    if($remindName == "")   continue;
+                    $remindedManId = User::getUserIdByName($remindName);
+                    Remind::addRemindedData($remindedManId,$post->postId,  User::getAppUserID(), $post->postId);
                 }
                 return true;
-            }
+           }
         }
         return false;
+    }
+    //找出content里面包含的@信息，并且进行更改与储存
+    public function dealAtListInContent($content)
+    {
+        Yii::warning($content);
+        $session = Yii::$app->session;
+        $session->open();
+        if($session['remindName'] != null)  {
+            Yii::warning($session['remindName']);
+
+            $remindNames =  explode('@', $session['remindName']);
+            foreach($remindNames as $remindName) {
+                if($remindName == "")   continue;
+                $remindName = str_replace(' ','',$remindName);
+                array_push($this->remindNames,$remindName);
+            }
+
+
+            $content = preg_replace_callback(
+                "|(@<!--<start-->.*?<end>)|",
+                array($this, 'dealAtName'),
+                $content);
+
+            $content = preg_replace_callback(
+                "|(@</end><!--<start-->.*?<end>)|",
+                array($this, 'dealAtName'),
+                $content);
+        }
+        Yii::warning($content);
+        return $content;
+    }
+
+    public function dealAtName($matches)
+    {
+        // 通常: $matches[0]是完成的匹配
+        //$matches[1]的信息是<!--<start-->.*<end>
+        Yii::warning($matches[1]);
+        $result = "";
+        preg_match("/<!--<start-->(.*)<end>/", $matches[1], $atInfo);
+        $atNames =  explode('@',$atInfo[1]);
+        foreach($atNames as $atName) {
+            if($atName == "")   continue;
+            $atName = str_replace(' ', '', $atName);
+
+            Yii::warning("atName is ".$atName);
+            Yii::warning($this->remindNames);
+
+            if(in_array($atName,$this->remindNames))  {
+                Yii::warning("is in");
+                array_push($this->remindNamesNeedSave,$atName);
+                $result .= ("<a>@".$atName."&nbsp;</a>");
+            }
+            else $result .= ("@".$atName);
+        }
+        return $result;
     }
 }

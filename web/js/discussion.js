@@ -13,6 +13,8 @@
 var indexOfFunction = {"getAllNorUnreadList":0, "getSpecificManList":1, "getUnreadList":2};
 var selectedRulesArray = new Array("","","");
 
+var remindName ="";
+
 var hostname = 'http://'+location.host;
 //alert(hostname+'/course/discussion/show-whole-post');
 
@@ -202,12 +204,11 @@ function dealInputAt()   {
 
 
 function getSelectedRemindName()    {
-    var remindName = "";
     $('input[name="NewPostForm[remindList][]"]:checked').each(function(){
         if(remindName == "" ) remindName = ($(this).parent().text());
         else remindName += ("@"+($(this).parent().text()));
     });
-
+    //格式：name@name@name
     $.ajax({
         type: "POST",
         url: hostname+'/course/discussion/accept-remind-list',
@@ -221,17 +222,51 @@ function getSelectedRemindName()    {
 
     $("#remindList").modal('hide');
     var originHtml = $(".redactor-editor").html();
-    var atHtml = "<at>"+remindName+"</at>"
+    var atHtml = "<start>"+remindName+"</start><end>&nbsp;";
     var htmlWithAt = originHtml.substr(0,originHtml.length-2)+atHtml;
+    //$(".redactor-editor").focus();
     $(".redactor-editor").html(htmlWithAt);
-
+    //setCaretToPos($(".redactor-editor"), htmlWithAt.length-2);
+    placeCaretAtEnd($('.redactor-editor')[0]);
 }
-
+function placeCaretAtEnd(el) {
+    el.focus();
+    if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        range.collapse(false);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    } else if (typeof document.body.createTextRange != "undefined") {
+        var textRange = document.body.createTextRange();
+        textRange.moveToElementText(el);
+        textRange.collapse(false);
+        textRange.select();
+    }
+}
+function setSelectionRange(input, selectionStart, selectionEnd) {
+    if (input.setSelectionRange) {
+        input.focus();
+        input.setSelectionRange(selectionStart, selectionEnd);
+    }
+    else if (input.createTextRange) {
+        var range = input.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', selectionEnd);
+        range.moveStart('character', selectionStart);
+        range.select();
+    }
+}
+function setCaretToPos (input, pos) {
+    setSelectionRange(input, pos, pos);
+}
 
 function submitNewPost()
 {
     var originHtml = $(".redactor-editor").html();
     $('#contentLoader').val(originHtml);
+    //alert(originHtml);
 }
 
 /**
