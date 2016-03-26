@@ -6,11 +6,11 @@
 $this->title = 'Discussion';
 $this->params['breadcrumbs'][] = ['label'=>'course','url'=>'/course/index'];
 $this->params['breadcrumbs'][] = $this->title;
-$this->registerJsFile('/js/discussion.js');
-$this->registerJsFile('/js/jquery.pjax.js');
+$this->registerJsFile('/js/course/discussion/discussion.js');
+//$this->registerJsFile('/js/jquery.pjax.js');
 ?>
 <h2>Discussion</h2>
 <div >
     <a href="<?php echo Yii::app()->createUrl('discussion/test');?>">article</a>
 </div>
-<div id="main">Ìæ»»µÄÄÚÈÝ</div>
+<div id="main">ï¿½æ»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</div>

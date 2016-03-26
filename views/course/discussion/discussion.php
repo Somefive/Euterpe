@@ -11,15 +11,17 @@ $this->params['breadcrumbs'] = [
     ['label'=>'discussion','url'=>'/course/discussion/index'],
     $this->title
 ];
-$this->registerJsFile('/js/discussion.js');
 $this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
-$this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
-$this->registerCssFile('/css/discussion.css');
-$this->registerCssFile('/css/discussionSimpleList.css');
-$this->registerCssFile('/css/discussionShowWholePost.css');
-$this->registerCssFile('/css/prefixfree.css');
-$this->registerCssFile('/css/css_load.css');
-$this->registerCssFile('/css/discussionEditPost.css');
+
+$this->registerJsFile('/js/course/discussion/discussion.js');
+$this->registerJsFile('/js/course/discussion/prefixfree.min.js');
+$this->registerCssFile('/css/discussion/discussion.css');
+$this->registerCssFile('/css/discussion/discussionSimpleList.css');
+$this->registerCssFile('/css/discussion/discussionShowWholePost.css');
+$this->registerCssFile('/css/discussion/prefixfree.css');
+$this->registerCssFile('/css/discussion/css_load.css');
+$this->registerCssFile('/css/discussion/discussionEditPost.css');
+$this->registerCssFile('/css/discussion/changLike.css');
 
 ?>
 

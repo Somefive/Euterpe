@@ -8,7 +8,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use app\models\account\User;
-$this->registerJsFile('/js/editnewPost.js');
+$this->registerJsFile('/js/course/discussion/editnewPost.js');
 ?>
 
 <?php $form = ActiveForm::begin(); ?>

@@ -12,6 +12,7 @@ tags: TODO,Question
 * showholepost页面用到piazza的样式要更改
 * <font color=red>**打开帖子时应对帖子不存在的问题,提醒方面也要做处理</font>**
 * 图片的引用
+* @列表第二次点开取消选择某人没用
 
 ### ykd
 * 发帖界面复选框,按钮的美化
