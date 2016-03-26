@@ -46,6 +46,7 @@ function showWholePost(postId)
 
 function deleteRemindedData(RemindedManId,RemindPostId,postId)
 {
+   // var offset=10;
     $.ajax({
         type: "POST",
         url:  hostname+'/course/discussion/delete-reminded-data',
@@ -53,6 +54,9 @@ function deleteRemindedData(RemindedManId,RemindPostId,postId)
         dataType : 'text',
         success: function (data) {
             $("#areaShowInfo").html(data);
+            //window.location.hash="#follow_post_"+RemindPostId;
+            //$("html,body").animate({scrollTop:$("#follow_post_"+RemindPost).offset.top-offset});
+
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
@@ -62,6 +66,7 @@ function deleteRemindedData(RemindedManId,RemindPostId,postId)
 
 function deleteReplyedData(ReplyedManId,ReplyPostId,postId)
 {
+    //var offset=10;
     $.ajax({
         type: "POST",
         url:  hostname+'/course/discussion/delete-replyed-data',
@@ -69,6 +74,17 @@ function deleteReplyedData(ReplyedManId,ReplyPostId,postId)
         dataType : 'text',
         success: function (data) {
             $("#areaShowInfo").html(data);
+            var scroll_offset=$("#follow_post_56").offset();
+            $("body,html").animate({
+                scrollTop:scroll_offset.top
+            },0);
+            //scrollTo("#follow_post_56",150000);
+            //window.location.hash="#follow_post_56";
+            //$("html,body").animate({scrollTop:$("#follow_post_56").offset});
+            //确保当前元素可见
+            //document.getElementById("follow_post_56").scrollIntoView();
+            //确保只在当前元素不可见的情况下才使其可见
+           // document.getElementById("follow_post_56").scrollIntoViewIfNeeded();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
@@ -141,7 +157,7 @@ function changeLike(username,postId)
     });
 }
 
-function showWholeRemind(remindedNum,replyNum)
+function showWholeRemind(reminded,reply,talk)
 {
     var load =
         '<div class="inner">\
@@ -153,7 +169,7 @@ function showWholeRemind(remindedNum,replyNum)
     $.ajax({
         type: "POST",
         url: hostname+'/course/discussion/show-whole-remind',
-        data: {remindedNum:remindedNum,replyNun:replyNum},
+        data: {reminded:reminded,reply:reply,talk:talk},
         success: function (data) {
             $("#areaShowInfo").html(data);
         },
@@ -161,11 +177,6 @@ function showWholeRemind(remindedNum,replyNum)
             alert(XMLHttpRequest.statusText);
         }
     });
-
-}
-
-function showWholeReply($reply)
-{
 
 }
 
@@ -441,4 +452,24 @@ function say()
     alert("hello");
 }
 
+//回到顶部
+(function() {
 
+    var $backToTopTxt = "返回顶部", $backToTopEle = $('<img src="/img/discussion/gotop.png" class="backToTop">').appendTo($("body"))
+        .click(function() {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+        }), $backToTopFun = function() {
+        var st = $(document).scrollTop(), winh = $(window).height();
+        (st > 0)? $backToTopEle.show(): $backToTopEle.hide();
+        //IE6下的定位
+        if (!window.XMLHttpRequest) {
+            $backToTopEle.css("top", st + winh - 166);
+        }
+    };
+    $(".backToTop").hover(                  function()
+    {$(this).css("background","red");},function(){
+        $(this).css("background","#000");
+    });
+    $(window).bind("scroll", $backToTopFun);
+    $(function() { $backToTopFun(); });
+})();

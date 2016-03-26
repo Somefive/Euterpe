@@ -19,17 +19,13 @@ $this->registerCssFile('/css/discussionSimpleList.css');
 $this->registerCssFile('/css/discussionShowWholePost.css');
 $this->registerCssFile('/css/prefixfree.css');
 $this->registerCssFile('/css/css_load.css');
-
-//等待迪迪决定去留
-$this->registerCssFile('/css/style.css');
-$this->registerCssFile('/css/icons.css');
+$this->registerCssFile('/css/discussionEditPost.css');
 
 ?>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-4" >
-
+<div class="container-fluid" style="background-image:url(/img/discussion/4.jpg)">
+    <div class="row" >
+        <div class="col-md-4">
             <div>
                 <!--只看unread或者all的下拉框-->
                 <div class="btn-group">
@@ -87,18 +83,29 @@ $this->registerCssFile('/css/icons.css');
                 ]);*/ ?>
                 <ul>
                     <li  id="simpleRemind" >
-                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息" onclick="showWholeRemind(<?php $remindedNum?><?php $replyNum?>)">
+                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息" onclick="showWholeRemind('<?= $reminded?>','<?= $reply?>','<?= $talk?>')">
                             <?php if($remindedNum==0)echo('<img src="https://piazza.com/images/piazza/dashboard/check.png"   style=""/>');
                                    else echo('<img src="https://piazza.com/images/piazza/dashboard/exclaim.png"  style=""/>');
-                                   echo('&nbsp&nbsp'.$remindedNum.'个帖子中有人@你') ?>
+                                   echo('&nbsp&nbsp'.$remindedNum.'个帖子中有人@你');
+
+                            ?>
                         </div>
                         <hr size="5" color="#202020"/>
                     </li>
                     <li  id="simpleRply"  >
-                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息"  onclick="showWholeRemind(<?php $remindedNum?><?php $replyNum?>)">
+                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息"  onclick="showWholeRemind('<?= $reminded?>','<?= $reply?>','<?= $talk?>')">
                             <?php if($replyNum==0)echo('<img src="https://piazza.com/images/piazza/dashboard/check.png"   style=""/>');
                                     else echo('<img src="https://piazza.com/images/piazza/dashboard/exclaim.png"  style=""/>');
                                 echo('&nbsp&nbsp'.$replyNum.'个帖子中有人回复你') ?>
+                        </div>
+                        <hr size="5" color="#202020"/>
+                    </li>
+                    <li  id="simpleTalk"  >
+                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息"  onclick="showWholeRemind('<?= $reminded?>','<?= $reply?>','<?= $talk?>')">
+                            <?php if($talkNum==0)echo('<img src="https://piazza.com/images/piazza/dashboard/check.png"   style=""/>');
+                            else echo('<img src="https://piazza.com/images/piazza/dashboard/exclaim.png"  style=""/>');
+                            echo('&nbsp&nbsp'.$talkNum.'个帖子在你的帖子下讨论');?>
+
                         </div>
                     </li>
                 </ul>

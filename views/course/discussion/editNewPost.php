@@ -44,7 +44,7 @@ $this->registerJsFile('/js/editnewPost.js');
                 <h4 class="modal-title">@...</h4>
             </div>
             <div class="modal-body">
-                <?= $form->field($model, 'remindList')->checkboxList($allUsername,['class'=>'atList ']);?>
+                <?= $form->field($model, 'remindList')->checkboxList($allUsername,['class'=>'atList']);?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -28,13 +28,14 @@ class NewPostForm extends Model
         ];
     }
 
-    /*public function attributeLabels()
+    public function attributeLabels()
     {
         return [
             'title' => 'title',
-            'content' => 'content'
+            'content' => 'content',
+            'remindList' => ''
         ];
-    }*/
+    }
 
     public function addPost()
     {
