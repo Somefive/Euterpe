@@ -45,26 +45,35 @@ class DiscussionController extends Controller
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
         $reminded=Remind::getRemindedData(User::getAppUserID());
-        $reply=Remind::getReplyedData(User::getAppUserID());
+        $reply=Remind::getReplyedAData(User::getAppUserID());
+        $talk=Remind::getReplyedBData(User::getAppUserID());
+
         $count=count($reminded);
         $remindedNum=0;
         $replyNum=0;
+        $talkNum=0;
         foreach($reminded as $x){
             $remindedNum+=count($x);
         }
         foreach($reply as $y){
             $replyNum+=count($y);
         }
+        foreach($talk as $z){
+            $talkNum+=count($z);
+        }
        /* return $this->render('say.php',[
             'message'=>($reply),
         ]);*/
+        //Yii::warning($talk);
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
             'allUsername' => $allUsername,
-            //'reminded' => $reminded,
-            //'reply' => $reply,
+            'reminded' => $reminded,
+            'reply' => $reply,
+            'talk'=>$talk,
             'remindedNum' =>$remindedNum,
             'replyNum'=>$replyNum,
+            'talkNum'=>$talkNum,
         ]);
     }
     //用来显示页面右侧的帖子的完整信息
@@ -147,6 +156,7 @@ class DiscussionController extends Controller
             //Yii::warning($replyPosts);
             Post::addReadList($postId);
             return $this->renderPartial('showWholePost.php',[
+                'RemindPostId'=>$RemindPostId,
                 'selectedPost' => $selectedPost,
                 'replyPosts' => $replyPosts,
             ],false,true);
@@ -160,7 +170,7 @@ class DiscussionController extends Controller
             $ReplyedManId=$message['ReplyedManId'];
             $ReplyPostId=$message['ReplyPostId'];
             $postId=$message['postId'];
-            Remind::deleteReplyedData($ReplyedManId,$ReplyPostId);
+            Remind::deleteAData($ReplyedManId,$ReplyPostId);
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
@@ -265,38 +275,41 @@ class DiscussionController extends Controller
 
     public function actionShowWholeRemind()
     {
-        $ManId= User::getAppUser()->id;
-        $RemindDatas=Remind::getRemindedData($ManId);
-        //$RemindDatas=[25=>[5=>32],26=>[9=>31]];
-        $ReplyDatas=Remind::getReplyedData($ManId);
-        //$ReplyDatas=[25=>[5=>32],26=>[9=>31]];
-        $Remind=array();
-        foreach($RemindDatas as $RemindedPostId=>$RemindData )
-        {
-            foreach($RemindData as $RemindManId=>$RemindPostId)
-            {
-                $RemindManName=User::getUsernameById($RemindManId);
-                $RemindPost=Post::find()->where(['postId'=>$RemindPostId])->asArray()->one();
-                $simpleInfo=strip_tags(substr(ArrayHelper::getValue($RemindPost,'content'),0,100));
-                $Remind[]=['RemindedPostId'=>$RemindedPostId,'RemindManName'=>$RemindManName,'simpleInfo'=>$simpleInfo,'RemindPostId'=>$RemindPostId,'time'=>ArrayHelper::getValue($RemindPost,'time')];
-            }
+        if(Yii::$app->request->isAjax) {
+            $ManId = User::getAppUser()->id;
+            $RemindDatas = Remind::getRemindedData($ManId);
+            $ReplyDatas = Remind::getReplyedAData($ManId);
+            $talkDatas=Remind::getReplyedBData($ManId);
+            $Remind=array();
+            foreach ($RemindDatas as $RemindedPostId => $RemindData) {
+                foreach ($RemindData as $RemindManId => $RemindPostId) {
+                    $RemindManName = User::getUsernameById($RemindManId);
+                    $RemindPost = Post::find()->where(['postId' => $RemindPostId])->asArray()->one();
+                    $simpleInfo = strip_tags(substr(ArrayHelper::getValue($RemindPost, 'content'), 0, 100));
+                    $Remind[] = ['RemindedPostId' => $RemindedPostId, 'RemindManName' => $RemindManName, 'simpleInfo' => $simpleInfo, 'RemindPostId' => $RemindPostId, 'time' => ArrayHelper::getValue($RemindPost, 'time')];
+                }
 
-        }
-        $Reply=array();
-        foreach($ReplyDatas as $ReplyedPostId=>$ReplyData)
-        {
-            foreach($ReplyData as $ReplyManId=>$ReplyPostId)
-            {
-                $ReplyManName=User::getUsernameById($ReplyManId);
-                $ReplyPost=Post::find(['PostId'=>$ReplyPostId])->asArray()->one();
-                $simpleInfo=strip_tags(substr(ArrayHelper::getValue($ReplyPost,'content'),0,100));
-                $Reply[]=['ReplyedPostId'=>$ReplyedPostId,'ReplyManName'=>$ReplyManName,'simpleInfo'=>$simpleInfo,'ReplyPostId'=>$ReplyPostId];
             }
+            $Reply = array();
+            foreach ($ReplyDatas as $ReplyedPostId => $ReplyData) {
+                foreach ($ReplyData as $ReplyManId => $ReplyPostId) {
+                    $ReplyManName = User::getUsernameById($ReplyManId);
+                    $ReplyPost = Post::find()->where(['PostId' => $ReplyPostId])->asArray()->one();
+                    $simpleInfo = strip_tags(substr(ArrayHelper::getValue($ReplyPost, 'content'), 0, 100));
+                    $Reply[] = ['ReplyedPostId' => $ReplyedPostId, 'ReplyManName' => $ReplyManName, 'simpleInfo' => $simpleInfo, 'ReplyPostId' => $ReplyPostId];
+                }
+            }
+            $Talk=array();
+            foreach ($talkDatas as $ReplyedPostId => $TalkedData) {
+                foreach ($TalkedData as $TalkManId => $TalkPostId) {
+                    $TalkManName = User::getUsernameById($TalkManId);
+                    $TalkPost = Post::find()->where(['PostId' => $TalkPostId])->asArray()->one();
+                    $simpleInfo = strip_tags(substr(ArrayHelper::getValue($TalkPost, 'content'), 0, 100));
+                    $Talk[] = ['ReplyedPostId' => $ReplyedPostId, 'TalkManName' => $TalkManName, 'simpleInfo' => $simpleInfo, 'TalkPostId' => $TalkPostId];
+                }
+            }
+            return $this->render('remind', ['Remind' => $Remind, 'Reply' => $Reply,'Talk'=>$Talk]);
         }
-
-        Yii::warning($Remind);
-        Yii::warning($Reply);
-        return $this->render('remind',['Remind'=>$Remind,'Reply'=>$Reply,]);
     }
 
     public function beforeAction($action)
