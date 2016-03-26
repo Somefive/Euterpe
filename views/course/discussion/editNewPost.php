@@ -14,7 +14,7 @@ use app\models\account\User;
 <?php $form = ActiveForm::begin(); ?>
 
 <?= $form->field($model, 'title')->textInput(['autofocus' => 'autofocus']) ?>
-<?= $form->field($model, 'content')->widget(\yii\redactor\widgets\Redactor::className(),
+<?= $form->field($model, 'editContent')->widget(\yii\redactor\widgets\Redactor::className(),
     [
         'clientOptions' => [
             'imageManagerJson' => ['/redactor/upload/image-json'],
@@ -28,11 +28,14 @@ use app\models\account\User;
         ]
     ]
 ) ?>
+<input type='text' id='contentLoader' name='content' value='' style='display: none;'>
 <?= $form->field($model,'option')->checkboxList(['1' => '匿名 ', '2' => '屏蔽',]);?>
     <div class="form-group">
-        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary','onclick'=>'submitNewPost()']) ?>
     </div>
 <?php ActiveForm::end(); ?>
+
+
 <div class="modal fade" id = "remindList" style="display: none">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -41,7 +44,7 @@ use app\models\account\User;
                 <h4 class="modal-title">@...</h4>
             </div>
             <div class="modal-body">
-                <?= $form->field($model, 'remindList')->checkboxList($allUsername);?>
+                <?= $form->field($model, 'remindList')->checkboxList($allUsername,['class'=>'atList ']);?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

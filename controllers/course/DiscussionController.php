@@ -42,7 +42,6 @@ class DiscussionController extends Controller
     //讨论区的主页面
     public function actionDiscussion()
     {
-
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
         $reminded=Remind::getRemindedData(User::getAppUserID());
@@ -112,6 +111,9 @@ class DiscussionController extends Controller
         $allUsername = User::getAllUsername();
         $model = new NewPostForm;
         if($model->load(Yii::$app->request->post()))    {
+            $model->content = ArrayHelper::getValue(Yii::$app->request->post(),'content');
+            //return $this->render('say', ['message' => $msg]);
+
             if($model->addPost())   $msg = "发帖成功";
             else    $msg = '发帖失败';
             return $this->render('say', ['message' => $msg]);
