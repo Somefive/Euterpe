@@ -1,0 +1,16 @@
+.atList    {
+    font-family: "Microsoft YaHei", 'Georgia', Times, Times New Roman, serif;
+    font-size: 20px;
+}
+.atList div {
+    margin: 10px 10px;
+}
+.atList div:hover, .atList div:focus, .atList div:active {
+    color:#5cb85c;
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+}
+.atList div label input{
+    width: 18px;
+    height: 18px;
+}
