@@ -5,11 +5,13 @@ tags: TODO,Question
 ## 遗留问题
 ### whh
 * 需要进行的服务器上的测试
-    * //使用session的地方
-    * //回帖(==fatherID==)
+    * <font color=blue>使用session的地方</font>
+    * <font color=blue>回帖(==fatherID==)</font>
     * 阅读之间相差的时间,可能导致刷新还是未读
 * 发帖之后的动画效果
 * showholepost页面用到piazza的样式要更改
+* <font color=red>**打开帖子时应对帖子不存在的问题,提醒方面也要做处理</font>**
+* 图片的引用
 
 ### ykd
 * 发帖界面复选框,按钮的美化
@@ -22,12 +24,14 @@ tags: TODO,Question
 ## 经验
 * 打开对外服务器的方法:php -S 0.0.0.0:8080
 * 直接访问http://==59.66.134.208==:8080/course/discussion/discussion
+* 加入图片形式<img src="/img/discussion/==gotop.png==">
 
 ## TODO
-1. *@列表的美化*
-2. **回帖和@的测试**
+1. @列表的美化
+2. *回帖和@的测试*
 3. **删除之后及时更新其他在线用户的列表**
-4. 主页背景使用一个模糊图片
-5. **离开编辑框需要进行询问(==JS==)**
+4. <font color=green>主页背景使用一个模糊图片:ykd</font>
+5. <font color=green>**离开编辑框需要进行询问(==JS==):wjf**</font>
 6. 增加返回顶部的js特效
 7. 精简帖子列表，滚动条美化
+8. 列表分页或者自动加载
