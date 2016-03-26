@@ -280,7 +280,7 @@ function submitNewPost()
     $('#contentLoader').val(originHtml);
     //alert(originHtml);
 
-
+    //$(".redactor-toolbar").destory();
     var offset = $("#end").offset();
     var flyer = $("#areaShowInfo");
     flyer.fly({
@@ -295,8 +295,9 @@ function submitNewPost()
             height: 0
         },
         onEnd: function(){
+            $("#areaShowInfo").hide();
             $("#hintPostSuccess").show().animate({width: '250px'}, 500).fadeOut(1000);
-            $(".redactor-editor").destory();
+            //$(".redactor-editor").destory();
         }
     });
 }
