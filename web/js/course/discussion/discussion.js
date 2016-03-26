@@ -240,6 +240,7 @@ function getSelectedRemindName()    {
     //setCaretToPos($(".redactor-editor"), htmlWithAt.length-2);
     placeCaretAtEnd($('.redactor-editor')[0]);
 }
+/*光标放置在最后*/
 function placeCaretAtEnd(el) {
     el.focus();
     if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
@@ -278,8 +279,27 @@ function submitNewPost()
     var originHtml = $(".redactor-editor").html();
     $('#contentLoader').val(originHtml);
     //alert(originHtml);
-}
 
+
+    var offset = $("#end").offset();
+    var flyer = $("#areaShowInfo");
+    flyer.fly({
+        start: {
+            left: event.pageX,
+            top: event.pageY
+        },
+        end: {
+            left: 10,
+            top: offset.top+10,
+            width: 0,
+            height: 0
+        },
+        onEnd: function(){
+            $("#hintPostSuccess").show().animate({width: '250px'}, 500).fadeOut(1000);
+            $(".redactor-editor").destory();
+        }
+    });
+}
 /**
  * 取消unread筛选，显示所有的帖子
  * 被调用在views\course\discussion\discussion.php

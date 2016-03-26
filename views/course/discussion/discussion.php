@@ -15,6 +15,8 @@ $this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
 
 $this->registerJsFile('/js/course/discussion/discussion.js');
 $this->registerJsFile('/js/course/discussion/prefixfree.min.js');
+$this->registerJsFile('/js/course/discussion/jquery.fly.min.js');
+$this->registerJsFile('/js/course/discussion/requestAnimationFrame.js');
 $this->registerCssFile('/css/discussion/discussion.css');
 $this->registerCssFile('/css/discussion/discussionSimpleList.css');
 $this->registerCssFile('/css/discussion/discussionShowWholePost.css');
@@ -25,9 +27,14 @@ $this->registerCssFile('/css/discussion/changLike.css');
 
 ?>
 
+
 <div class="container-fluid" style="background-image:url(/img/discussion/4.jpg)">
     <div class="row" >
         <div class="col-md-4">
+
+            <i id="end"></i>
+            <div id="hintPostSuccess">发帖成功！</div>
+
             <div>
                 <!--只看unread或者all的下拉框-->
                 <div class="btn-group">

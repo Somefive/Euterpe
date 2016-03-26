@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2016-03-26 23:06:09
+Date: 2016-03-27 00:28:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -114,7 +114,7 @@ CREATE TABLE `post` (
   `isPost` int(1) DEFAULT NULL,
   PRIMARY KEY (`postId`),
   KEY `postId` (`postId`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of post
@@ -146,6 +146,7 @@ INSERT INTO `post` VALUES ('71', '5', '2016-03-26 12:55:57', '@自己能不能�
 INSERT INTO `post` VALUES ('72', '5', '2016-03-26 12:56:29', '', '<p>回复自己能不能行</p>', null, null, '吴行行', '0', '0', null, '1');
 INSERT INTO `post` VALUES ('74', '5', '2016-03-26 21:11:18', '新功能', '<p>​<a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;新功能耶！</end></p>', '5', null, '5|吴行行|新功能|<p>​@<!--<start--> test@ ykd<end>&nbsp;新功能耶！</end></p>|2016-03-26|0|0', '0', '0', null, '0');
 INSERT INTO `post` VALUES ('75', '5', '2016-03-26 22:05:27', '规整', '<p>​1344<a>@ykd&nbsp;</a>&nbsp;<a>@ykd&nbsp;</a><a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;</end></p>', '5', null, '5|吴行行|规整|<p>​1344@<!--<start--> ykd<end>&nbsp;@</end><!--<start--> ykd@ test@ ykd<end>&nbsp;</end></p>|2016-03-26|0|0', '0', '0', null, '0');
+INSERT INTO `post` VALUES ('81', '5', '2016-03-27 00:27:42', '快来看发帖动画', '<p>​<a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;快试试动画效果</end></p>', '5', null, '5|吴行行|快来看发帖动画|<p>​@<!--<start--> test@ ykd<end>&nbsp;快试试动画效果</end></p>|2016-03-27|0|0', '0', '0', null, '0');
 
 -- ----------------------------
 -- Table structure for `remind`
@@ -164,9 +165,9 @@ CREATE TABLE `remind` (
 -- Records of remind
 -- ----------------------------
 INSERT INTO `remind` VALUES ('吴行行', '5', '', '', null);
-INSERT INTO `remind` VALUES ('test', '6', ';74:[5:74];75:[5:75]', null, null);
+INSERT INTO `remind` VALUES ('test', '6', ';74:[5:74];75:[5:75];81:[5:81]', null, null);
 INSERT INTO `remind` VALUES ('吴行行1', '8', ';71:[5:71]', null, null);
-INSERT INTO `remind` VALUES ('ykd', '9', ';57:[9:57];66:[10:66];67:[5:67];68:[5:68];74:[5:74];75:[5:75,5:75,5:75]', ';24:[5:70];24:[5:79]', null);
+INSERT INTO `remind` VALUES ('ykd', '9', ';57:[9:57];66:[10:66];67:[5:67];68:[5:68];74:[5:74];75:[5:75,5:75,5:75];81:[5:81]', ';24:[5:70];24:[5:79]', null);
 
 -- ----------------------------
 -- Table structure for `studentbasicinformation`

@@ -10,7 +10,4 @@ $this->registerJsFile('/js/course/discussion/discussion.js');
 //$this->registerJsFile('/js/jquery.pjax.js');
 ?>
 <h2>Discussion</h2>
-<div >
-    <a href="<?php echo Yii::app()->createUrl('discussion/test');?>">article</a>
-</div>
-<div id="main">�滻������</div>
+<div id="main"><?php echo date('h:i:s') . "\n";sleep(2);echo date('h:i:s') . "\n";?></div>

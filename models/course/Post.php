@@ -7,8 +7,9 @@ use yii\helpers\ArrayHelper;
 use Yii;
 use app\models\account\User;
 
-/*用来与数据库的表post进行数据交互：查找，增加，改变，删除
-  对外提供一些接口对数据进行查询，更改
+/**
+ * 用来与数据库的表post进行数据交互：查找，增加，改变，删除
+ * 对外提供一些接口对数据进行查询，更改
 */
 class Post extends ActiveRecord
 {

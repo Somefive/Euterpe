@@ -13,7 +13,7 @@ tags: TODO,Question
 * <font color=red>**打开帖子时应对帖子不存在的问题,提醒方面也要做处理</font>**
 * 图片的引用
 * @列表第二次点开取消选择某人没用
-* 删除帖子同时要删除包含的图片视频等
+* <font color=blue>DONE:删除帖子同时要删除包含的图片视频等</font>
 
 ### ykd
 * 发帖界面复选框,按钮的美化
@@ -21,6 +21,7 @@ tags: TODO,Question
 * 各种需要匿名的时候进行屏蔽
 * 进入具体的帖子跳转到具体位置
 * 匿名帖子的回复之后的提醒问题
+* showWholeRemind的折叠问题
 
 ### wjf
 * 发帖模型存在一些字符串处理的漏洞
@@ -31,6 +32,8 @@ tags: TODO,Question
 * 打开对外服务器的方法:php -S 0.0.0.0:8080
 * 直接访问http://59.66.134.208:8080/course/discussion/discussion
 * 加入图片形式 img src="/img/discussion/XX.png"
+* $(this).destory();析构元素
+* 提交新帖子之后，前段动画效果与后台刷新之间的配合
 
 ## TODO
 1. <font color=blue>DONE:@列表的美化:whh</font>

@@ -38,31 +38,11 @@ class DiscussionController extends Controller
 
     public function actionIndex()
     {
-    }
-    //删除帖子里面的图片
-    private static function deletePicInPost($matches)
-    {
-        //foreach($matches[1] as $image) {
-            $webPath = Yii::getAlias('@webroot');
-            $imagePath = $webPath . $matches[1];
-            Yii::warning($imagePath);
-            //unlink($imagePath);
-        //}
+        return $this->render('index.php');
     }
     //讨论区的主页面
     public function actionDiscussion()
     {
-
-        $deletePost = Post::findOne(77);
-        if($deletePost) {
-            preg_replace_callback(
-                "|<img src=\"(.*?)\"|",
-                'static::deletePicInPost',
-                $deletePost->content);
-
-            //$deletePost->delete();
-        }
-
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
         $reminded=Remind::getRemindedData(User::getAppUserID());
@@ -82,10 +62,6 @@ class DiscussionController extends Controller
         foreach($talk as $z){
             $talkNum+=count($z);
         }
-       /* return $this->render('say.php',[
-            'message'=>($reply),
-        ]);*/
-        //Yii::warning($talk);
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
             'allUsername' => $allUsername,
@@ -144,9 +120,12 @@ class DiscussionController extends Controller
             $model->content = ArrayHelper::getValue(Yii::$app->request->post(),'content');
             //return $this->render('say', ['message' => $msg]);
 
-            if($model->addPost())   $msg = "发帖成功";
-            else    $msg = '发帖失败';
-            return $this->render('say', ['message' => $msg]);
+            if($model->addPost())   {
+                sleep(1);
+                return $this->redirect(array('course/discussion/discussion'));
+                //return $this->sleep();
+            }
+            else return $this->render('say', ['message' => '发帖失败']);
         }
         return $this->renderAjax('editNewPost.php',[
             'model' => $model,
