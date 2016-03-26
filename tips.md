@@ -8,10 +8,9 @@ tags: TODO,Question
     * <font color=blue>DONE:使用session的地方</font>
     * <font color=blue>DONE:回帖(==fatherID==)</font>
     * 阅读之间相差的时间,可能导致刷新还是未读
-* 发帖之后的动画效果
 * showholepost页面用到piazza的样式要更改
 * <font color=red>**打开帖子时应对帖子不存在的问题,提醒方面也要做处理</font>**
-* 图片的引用
+* <font color=blue>DONE:图片的引用</font>
 * @列表第二次点开取消选择某人没用
 * <font color=blue>DONE:删除帖子同时要删除包含的图片视频等</font>
 
@@ -42,8 +41,9 @@ tags: TODO,Question
 4. <font color=green>主页背景使用一个模糊图片:ykd</font>
 5. <font color=blue>DONE:**离开编辑框需要进行询问(JS):wjf**</font>
 6. <font color=blue>DONE:增加返回顶部的js特效:whh</font>
-7. 精简帖子列表，滚动条美化
-8. 列表分页或者自动加载
-9. 解决帖子列表的重叠，混乱问题，测试长帖子的显示
+7. <font color=blue>DONE:发帖之后的动画效果:whh</font>
+8. 精简帖子列表，滚动条美化
+9. 列表分页或者自动加载
+10. 解决帖子列表的重叠，混乱问题，测试长帖子的显示
 
 # **大家有问题或者什么经验都记在这里呀**
