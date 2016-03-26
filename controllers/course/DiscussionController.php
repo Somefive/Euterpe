@@ -39,9 +39,30 @@ class DiscussionController extends Controller
     public function actionIndex()
     {
     }
+    //删除帖子里面的图片
+    private static function deletePicInPost($matches)
+    {
+        //foreach($matches[1] as $image) {
+            $webPath = Yii::getAlias('@webroot');
+            $imagePath = $webPath . $matches[1];
+            Yii::warning($imagePath);
+            //unlink($imagePath);
+        //}
+    }
     //讨论区的主页面
     public function actionDiscussion()
     {
+
+        $deletePost = Post::findOne(77);
+        if($deletePost) {
+            preg_replace_callback(
+                "|<img src=\"(.*?)\"|",
+                'static::deletePicInPost',
+                $deletePost->content);
+
+            //$deletePost->delete();
+        }
+
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
         $reminded=Remind::getRemindedData(User::getAppUserID());

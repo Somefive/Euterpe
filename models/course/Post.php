@@ -263,8 +263,24 @@ class Post extends ActiveRecord
         foreach($needDeletePostIds as $needDeletePostId)    {
             if($needDeletePostId == '') continue;
             $deletePost = Post::findOne($needDeletePostId);
-            if($deletePost) $deletePost->delete();
+            if($deletePost) {
+                preg_replace_callback(
+                    "|<img src=\"(.*?)\"|",
+                    'static::deletePicInPost',
+                    $deletePost->content);
+
+                $deletePost->delete();
+            }
         }
+    }
+
+    //删除帖子里面的图片
+    private static function deletePicInPost($matches)
+    {
+        $webPath = Yii::getAlias('@webroot');
+        $imagePath = $webPath . $matches[1];
+        if(file_exists($imagePath))
+            unlink($imagePath);
     }
 
     //解析talk
