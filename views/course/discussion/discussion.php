@@ -28,7 +28,7 @@ $this->registerCssFile('/css/icons.css');
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" >
 
             <div>
                 <!--只看unread或者all的下拉框-->
