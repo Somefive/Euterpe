@@ -101,7 +101,7 @@ $this->registerCssFile('/css/discussionEditPost.css');
                         <hr size="5" color="#202020"/>
                     </li>
                     <li  id="simpleTalk"  >
-                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息"  onclick="showWholeRemind('<?= $reminded?>','<?= $reply?>','<?= $talk?>')">
+                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息"  onclick="showWh   oleRemind('<?= $reminded?>','<?= $reply?>','<?= $talk?>')">
                             <?php if($talkNum==0)echo('<img src="https://piazza.com/images/piazza/dashboard/check.png"   style=""/>');
                             else echo('<img src="https://piazza.com/images/piazza/dashboard/exclaim.png"  style=""/>');
                             echo('&nbsp&nbsp'.$talkNum.'个帖子在你的帖子下讨论');?>

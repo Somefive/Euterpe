@@ -308,7 +308,7 @@ class DiscussionController extends Controller
                     $Talk[] = ['ReplyedPostId' => $ReplyedPostId, 'TalkManName' => $TalkManName, 'simpleInfo' => $simpleInfo, 'TalkPostId' => $TalkPostId];
                 }
             }
-            return $this->render('remind', ['Remind' => $Remind, 'Reply' => $Reply,'Talk'=>$Talk]);
+            return $this->renderPartial('remind', ['Remind' => $Remind, 'Reply' => $Reply,'Talk'=>$Talk]);
         }
     }
 

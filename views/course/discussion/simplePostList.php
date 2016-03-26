@@ -25,7 +25,7 @@ use app\models\account\User;
                                             <div class="timestamp">'. ArrayHelper::getValue($simplePost,'time').'</div>
                                         </div>');
         if(!ArrayHelper::getValue($simplePost,'isRead'))
-            echo('<img id="unreadDot_'.$postId.'" src="https://piazza.com/images/piazza/dashboard/icon-unread-dot.png"  width="10" height="10" style="position:absolute;left:8px;top:40px;"></img>');
+            echo('<img id="unreadDot_'.$postId.'" src="/img/discussion/icon-unread-dot.png"  width="10" height="10" style="position:absolute;left:8px;top:40px;"></img>');
 
 
             if (ArrayHelper::getValue($simplePost, 'anoymous') == 1)
