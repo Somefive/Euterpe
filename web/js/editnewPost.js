@@ -3,7 +3,7 @@
  */
 var stop=1;
 $("#w0").click(function(){
-    if(confirm('走吗你?')&&stop==1) {stop=0;}
+    if(confirm('有未提交的内容，确认离开?')&&stop==1) {stop=0;}
     else
     {
         return false;
@@ -11,7 +11,7 @@ $("#w0").click(function(){
 });
 
 $(".breadcrumb").click(function(){
-    if(confirm('走吗你?')) {}
+    if(confirm('有未提交的内容，确认离开?')) {}
     else
     {
         return false;
@@ -20,7 +20,7 @@ $(".breadcrumb").click(function(){
 document.getElementById('simplePostList').addEventListener('click',function(event){
 
     if(stop==0)return;
-    if(confirm('走吗你?')) {stop=0;}
+    if(confirm('有未提交的内容，确认离开?')) {stop=0;}
     else
     {
         event.stopPropagation();
@@ -39,4 +39,12 @@ document.getElementById('simplePostList').addEventListener('click',function(even
 document.getElementById('newPostBtn').addEventListener('click',function(){
     stop=1;
 });
+document.getElementById('newPostBtn').addEventListener('click',function(event){
 
+    if(stop==0)return;
+    if(confirm('有未提交的内容，确认离开?')) {stop=0;}
+    else
+    {
+        event.stopPropagation();
+    }
+},true);
