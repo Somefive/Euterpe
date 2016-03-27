@@ -16,7 +16,7 @@ tags: TODO,Question
 
 ### ykd
 * 发帖界面复选框,按钮的美化
-* remind页面点击之后要能回退(==修改url==):cry:
+* remind页面点击之后要能回退(修改url)
 * 各种需要匿名的时候进行屏蔽
 * 进入具体的帖子跳转到具体位置
 * 匿名帖子的回复之后的提醒问题
@@ -35,7 +35,7 @@ tags: TODO,Question
 
 ## TODO
 1. <font color=blue>DONE:@列表的美化:whh</font>
-2. *回帖和@的测试*
+2. <font color=blue>DONE:*回帖和@的测试*:whh</font>
 3. **删除之后及时更新其他在线用户的列表**
 4. <font color=green>主页背景使用一个模糊图片:ykd</font>
 5. <font color=blue>DONE:**离开编辑框需要进行询问(JS):wjf**</font>

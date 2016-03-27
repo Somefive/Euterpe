@@ -24,6 +24,7 @@ class Post extends ActiveRecord
     public static function getSimplePosts()
     {
         $lastestPosts = static::find()->where(['isPost' => 0])->asArray()->all();
+        ArrayHelper::multisort($lastestPosts, 'time', SORT_DESC);
         $lastestPosts = array_map("static::parseSimpleInfo", $lastestPosts);
         return $lastestPosts;
     }
