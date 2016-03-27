@@ -20,6 +20,7 @@ tags: TODO,Question
 * <font color=green>各种需要匿名的时候进行屏蔽</font>
 * 进入具体的帖子跳转到具体位置
 * <font color=green>showWholeRemind的折叠问题</font>
+* <font color=red>提醒还有bug，点击失效，ABC帖子不能分开</font>
 
 ### wjf
 * ***发帖模型存在一些字符串处理的漏洞***
