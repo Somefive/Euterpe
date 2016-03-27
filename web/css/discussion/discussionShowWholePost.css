@@ -97,8 +97,8 @@
     opacity: .6;
     filter: Alpha(opacity=60);
 }
-/*发帖成功的提示*/
 
+/*发帖成功的提示*/
 #hintPostSuccess{
     position:fixed;
     /*top:300px;

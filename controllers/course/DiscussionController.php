@@ -19,14 +19,6 @@ use yii\data\ActiveDataProvider;
 
 class DiscussionController extends Controller
 {
-    private static $orderRule = "";//储存列表排序的规则
-
-    private static $showRules = array();//储存列表可显示的规则
-    /*
-     * $showRules中elements声明：
-     * unread=>只显示未读的信息
-     */
-
     public function actions()
     {
         return [

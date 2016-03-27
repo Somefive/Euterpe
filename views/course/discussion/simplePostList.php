@@ -26,7 +26,7 @@ use app\models\account\User;
 
             <?php
             if(!ArrayHelper::getValue($simplePost,'isRead'))
-                echo('<img id="unreadDot_'.$postId.'" src="/img/discussion/icon-unread-dot.png"  width="10" height="10" style="position:absolute;left:8px;top:40px;"></img>');
+                echo('<img id="unreadDot_'.$postId.'" src="/img/discussion/unread-dot.png"  width="10" height="10" style="position:absolute;left:8px;top:20px;"></img>');
             ?>
 
             <?php if (ArrayHelper::getValue($simplePost, 'anoymous') == 1):?>
