@@ -218,6 +218,8 @@ function getSelectedRemindName()    {
     $('input[name="NewPostForm[remindList][]"]:checked').each(function(){
         if(remindName == "" ) remindName = ($(this).parent().text());
         else remindName += ("@"+($(this).parent().text()));
+        //$(this).setAttribute("checked","false");
+        $(this).removeAttr("checked");
     });
     //格式：name@name@name
     $.ajax({
@@ -256,22 +258,6 @@ function placeCaretAtEnd(el) {
         textRange.collapse(false);
         textRange.select();
     }
-}
-function setSelectionRange(input, selectionStart, selectionEnd) {
-    if (input.setSelectionRange) {
-        input.focus();
-        input.setSelectionRange(selectionStart, selectionEnd);
-    }
-    else if (input.createTextRange) {
-        var range = input.createTextRange();
-        range.collapse(true);
-        range.moveEnd('character', selectionEnd);
-        range.moveStart('character', selectionStart);
-        range.select();
-    }
-}
-function setCaretToPos (input, pos) {
-    setSelectionRange(input, pos, pos);
 }
 
 function submitNewPost()

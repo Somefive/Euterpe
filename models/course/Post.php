@@ -16,7 +16,6 @@ class Post extends ActiveRecord
     public static function getPostByPostId($id)
     {
         $post = static::find()->where(['postId' => $id])->asArray()->all();
-        // Yii::warning(array_map("static::parseList",$post));
         return array_map("static::parseList", $post)[0];
     }
 

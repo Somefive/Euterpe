@@ -16,15 +16,15 @@ tags: TODO,Question
 
 ### ykd
 * 发帖界面复选框,按钮的美化
-* remind页面点击之后要能回退(修改url)
-* 各种需要匿名的时候进行屏蔽
+* <font color=green>remind页面点击之后要能回退(修改url)</font>
+* <font color=green>各种需要匿名的时候进行屏蔽</font>
 * 进入具体的帖子跳转到具体位置
-* 匿名帖子的回复之后的提醒问题
-* showWholeRemind的折叠问题
+* <font color=green>showWholeRemind的折叠问题</font>
 
 ### wjf
-* 发帖模型存在一些字符串处理的漏洞
+* ***发帖模型存在一些字符串处理的漏洞***
 * 所有功能都确认之后，离开表单的警告功能需要规整代码
+* **匿名帖子的回复之后的提醒问题**
 
 ## 经验
 * 打开对外服务器的方法:php -S 0.0.0.0:8080
@@ -36,7 +36,7 @@ tags: TODO,Question
 ## TODO
 1. <font color=blue>DONE:@列表的美化:whh</font>
 2. <font color=blue>DONE:*回帖和@的测试*:whh</font>
-3. **删除之后及时更新其他在线用户的列表**
+3. <font color=green>**删除之后及时更新其他在线用户的列表**:wjf</font>
 4. <font color=green>主页背景使用一个模糊图片:ykd</font>
 5. <font color=blue>DONE:**离开编辑框需要进行询问(JS):wjf**</font>
 6. <font color=blue>DONE:增加返回顶部的js特效:whh</font>
