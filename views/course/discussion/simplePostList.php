@@ -21,7 +21,7 @@ use app\models\account\User;
         echo(
             '<li class="'.(ArrayHelper::getValue($simplePost,'isRead')?hasread:unread).' postManName_'.ArrayHelper::getValue($simplePost,'postManName').' '.((ArrayHelper::getValue($simplePost,'anoymous')==1)?anoymous:canview).' simplePost hvr-wobble-vertical" id="li_postId_'.ArrayHelper::getValue($simplePost,'postId').'" style="min-height: 100px; max-height: 100px; overflow: hidden;" onclick="showWholePost('.$postId.')"><div style="position: relative; cursor:pointer;">
                                         <hr size="5" color="#202020"/>
-                                        <div class="metadata" style="position:absolute;right:10px;top:10px;">
+                                        <div class="metadata" style="position:absolute;right:10px;top:6px;">
                                             <div class="timestamp">'. ArrayHelper::getValue($simplePost,'time').'</div>
                                         </div>');
         if(!ArrayHelper::getValue($simplePost,'isRead'))
