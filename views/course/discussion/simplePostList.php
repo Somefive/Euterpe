@@ -39,7 +39,7 @@ use app\models\account\User;
             <?php else:?>
                  <div class="content" style= "position:absolute;left:32px;top:5px;right:7px">
                         <div class="title ellipses">
-                            <div class="title_text" style="max-width: 235px;"><b>[<?=ArrayHelper::getValue($simplePost, 'postManName')?>]:<? ArrayHelper::getValue($simplePost, 'title')?></b></div>
+                            <div class="title_text" style="max-width: 235px;"><b>[<?=ArrayHelper::getValue($simplePost, 'postManName')?>]:<?=ArrayHelper::getValue($simplePost, 'title')?></b></div>
                         </div>
                         <div class="snippet"><?=ArrayHelper::getValue($simplePost, 'content')?></div>
                  </div>
