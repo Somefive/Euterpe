@@ -54,9 +54,26 @@ function deleteRemindedData(RemindedManId,RemindPostId,postId)
         dataType : 'text',
         success: function (data) {
             $("#areaShowInfo").html(data);
-            //window.location.hash="#follow_post_"+RemindPostId;
+            window.location.hash="#follow_post_"+RemindPostId;
             //$("html,body").animate({scrollTop:$("#follow_post_"+RemindPost).offset.top-offset});
 
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.statusText);
+        }
+    });
+}
+
+function deleteTalkData(ReplyedManId,TalkPostId,postId)
+{
+    $.ajax({
+        type: "POST",
+        url:  hostname+'/course/discussion/delete-talk-data',
+        data: {ReplyedManId:ReplyedManId,TalkPostId:TalkPostId,postId:postId,},
+        dataType : 'text',
+        success: function (data) {
+            $("#areaShowInfo").html(data);
+            window.location.hash="#talk_post_"+TalkPostId;
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
@@ -74,12 +91,12 @@ function deleteReplyedData(ReplyedManId,ReplyPostId,postId)
         dataType : 'text',
         success: function (data) {
             $("#areaShowInfo").html(data);
-            var scroll_offset=$("#follow_post_56").offset();
-            $("body,html").animate({
-                scrollTop:scroll_offset.top
-            },0);
+            //var scroll_offset=$("#follow_post_56").offset();
+            //$("body,html").animate({
+            //    scrollTop:scroll_offset.top
+            //},0);
             //scrollTo("#follow_post_56",150000);
-            //window.location.hash="#follow_post_56";
+            window.location.hash="#follow_post_"+ReplyPostId;
             //$("html,body").animate({scrollTop:$("#follow_post_56").offset});
             //确保当前元素可见
             //document.getElementById("follow_post_56").scrollIntoView();

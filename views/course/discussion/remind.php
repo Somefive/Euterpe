@@ -44,12 +44,12 @@ use app\models\account\User;
     <div class="panel panel-default" style="width:750px">
         <div class="panel-heading" role="tab" id="headingOne">
             <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <?php echo('下列帖子中有人回复你')      ?>
                 </a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
                 <table class="table table-striped table-bordered" style="text-align: center;">
                     <thead>
@@ -65,19 +65,19 @@ use app\models\account\User;
     <div class="panel panel-default" style="width:750px">
         <div class="panel-heading" role="tab" id="headingOne">
             <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
                     <?php echo('下列帖子中有人讨论')      ?>
                 </a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
                 <table class="table table-striped table-bordered" style="text-align: center;">
                     <thead>
                     <tr><td width="200px">讨论发帖的小伙伴 </td><td> 讨论的帖子 </td></tr>
                     </thead>
                     <tbody>
-                    <?php foreach($Talk as $TalkOne){ echo('<tr class="tr-enter-course" data-toggle="tooltip" title="enter the post 进入该帖子" style="cursor:pointer;" replypostid="'.$TalkOne['TalkPostId'].'" onclick="deleteReplyedData('.User::getAppUserID().','.$TalkOne['TalkPostId'].','.$TalkOne['ReplyedPostId'].')'.'"><td>'.$TalkOne['TalkManName'].'</td><td>'.$TalkOne['simpleInfo'].'</td></tr>'); } ?>
+                    <?php foreach($Talk as $TalkOne){ echo('<tr class="tr-enter-course" data-toggle="tooltip" title="enter the post 进入该帖子" style="cursor:pointer;" replypostid="'.$TalkOne['TalkPostId'].'" onclick="deleteTalkData('.User::getAppUserID().','.$TalkOne['TalkPostId'].','.$TalkOne['ReplyedPostId'].')'.'"><td>'.$TalkOne['TalkManName'].'</td><td>'.$TalkOne['simpleInfo'].'</td></tr>'); } ?>
                     </tbody>
                 </table>
             </div>

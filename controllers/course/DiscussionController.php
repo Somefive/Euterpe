@@ -74,6 +74,7 @@ class DiscussionController extends Controller
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
             Post::addReadList($postId);
+            Remind::deleteRemindedData(User::getAppUserID(),$postId['postId']);
              return $this->renderPartial('showWholePost.php',[
                  'selectedPost' => $selectedPost,
                  'replyPosts' => $replyPosts,
@@ -163,6 +164,25 @@ class DiscussionController extends Controller
             $ReplyPostId=$message['ReplyPostId'];
             $postId=$message['postId'];
             Remind::deleteAData($ReplyedManId,$ReplyPostId);
+            $selectedPost = Post::getPostByPostId($postId);
+            $replyPosts = Post::getnextPosts($selectedPost);
+            //Yii::warning($replyPosts);
+            Post::addReadList($postId);
+            return $this->renderPartial('showWholePost.php',[
+                'selectedPost' => $selectedPost,
+                'replyPosts' => $replyPosts,
+            ],false,true);
+        }
+    }
+
+    //删除讨论标记
+    public function actionDeleteTalkData(){
+        if(Yii::$app->request->isAjax){
+            $message=Yii::$app->request->post();
+            $ReplyedManId=$message['ReplyedManId'];
+            $TalkPostId=$message['TalkPostId'];
+            $postId=$message['postId'];
+            Remind::deleteBData($ReplyedManId,$TalkPostId);
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
