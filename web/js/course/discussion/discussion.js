@@ -61,7 +61,7 @@ function deleteRemindedData(RemindedManId,RemindPostId,postId)
                 newwindow.$("#areaShowInfo").html(data);
                 newwindow.location.hash="#follow_post_"+RemindPostId;
                 //newwindow.opener.location.reload();
-            }
+            };
             location.reload();
             //location.replace(location.href);
            // var s=$("#simpleRemind");
@@ -84,8 +84,15 @@ function deleteTalkData(ReplyedManId,TalkPostId,postId)
         data: {ReplyedManId:ReplyedManId,TalkPostId:TalkPostId,postId:postId,},
         dataType : 'text',
         success: function (data) {
-            $("#areaShowInfo").html(data);
-            window.location.hash="#talk_post_"+TalkPostId;
+            var newwindow=window.open(hostname+'/course/discussion/discussion');
+            newwindow.onload=function(){
+                newwindow.$("#areaShowInfo").html(data);
+                newwindow.location.hash="#talk_post_"+TalkPostId;
+                //newwindow.opener.location.reload();
+            };
+            location.reload();
+            //$("#areaShowInfo").html(data);
+            //window.location.hash="#talk_post_"+TalkPostId;
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
@@ -102,13 +109,20 @@ function deleteReplyedData(ReplyedManId,ReplyPostId,postId)
         data: {ReplyedManId:ReplyedManId,ReplyPostId:ReplyPostId,postId:postId,},
         dataType : 'text',
         success: function (data) {
-            $("#areaShowInfo").html(data);
+            var newwindow=window.open(hostname+'/course/discussion/discussion');
+            newwindow.onload=function(){
+                newwindow.$("#areaShowInfo").html(data);
+                newwindow.location.hash="#follow_post_"+ReplyPostId;
+                //newwindow.opener.location.reload();
+            };
+            location.reload();
+            //$("#areaShowInfo").html(data);
             //var scroll_offset=$("#follow_post_56").offset();
             //$("body,html").animate({
             //    scrollTop:scroll_offset.top
             //},0);
             //scrollTo("#follow_post_56",150000);
-            window.location.hash="#follow_post_"+ReplyPostId;
+            //window.location.hash="#follow_post_"+ReplyPostId;
             //$("html,body").animate({scrollTop:$("#follow_post_56").offset});
             //确保当前元素可见
             //document.getElementById("follow_post_56").scrollIntoView();
