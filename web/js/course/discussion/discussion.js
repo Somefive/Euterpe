@@ -53,8 +53,20 @@ function deleteRemindedData(RemindedManId,RemindPostId,postId)
         data: {RemindedManId:RemindedManId,RemindPostId:RemindPostId,postId:postId,},
         dataType : 'text',
         success: function (data) {
-            $("#areaShowInfo").html(data);
-            window.location.hash="#follow_post_"+RemindPostId;
+           /* var openlink=$("<a target='_blank'>");
+            openlink.attr('href',hostname+'/course/discussion/discussion');
+            openlink[0].click();*/
+            var newwindow=window.open(hostname+'/course/discussion/discussion');
+            newwindow.onload=function(){
+                newwindow.$("#areaShowInfo").html(data);
+                newwindow.location.hash="#follow_post_"+RemindPostId;
+                //newwindow.opener.location.reload();
+            }
+            location.reload();
+            //location.replace(location.href);
+           // var s=$("#simpleRemind");
+            //s.click();
+            //$("#areaShowInfo").html(data);
             //$("html,body").animate({scrollTop:$("#follow_post_"+RemindPost).offset.top-offset});
 
         },
@@ -174,8 +186,9 @@ function changeLike(username,postId)
     });
 }
 
-function showWholeRemind(reminded,reply,talk)
+function showWholeRemind(reminded,reply,talk,talkNum,replyNum)
 {
+    alert("123");
     var load =
         '<div class="inner">\
             <div class="load-container load1">\
@@ -186,7 +199,7 @@ function showWholeRemind(reminded,reply,talk)
     $.ajax({
         type: "POST",
         url: hostname+'/course/discussion/show-whole-remind',
-        data: {reminded:reminded,reply:reply,talk:talk},
+        data: {reminded:reminded,reply:reply,talk:talk,talkNum:talkNum,replyNum:replyNum,},
         success: function (data) {
             $("#areaShowInfo").html(data);
         },

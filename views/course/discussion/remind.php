@@ -11,24 +11,22 @@ use yii\bootstrap\ActiveForm;
 use app\models\account\User;
 ?>
 <!-- This is a comment <div>
-    <ul>
-        <?php /*foreach($Remind as $RemindOne): ?>
-        <li><?php echo($RemindOne) ?></li>
-        <?php endforeach;*/ ?>
-    </ul>
 </div>-->
 
 <div style="">
 <div class="panel-group" id="reminderList" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default" style="width:750px">
+    <div class="panel panel-default" >
         <div class="panel-heading" role="tab" id="headingOne">
             <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    <?php echo('下列帖子中有人@你')      ?>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+                    <?php if($remindedNum==0)echo('<img src="/img/discussion/check.png"   style=""/>');
+                    else echo('<img src="/img/discussion/exclaim.png"  style=""/>');
+                    echo('&nbsp&nbsp'.$remindedNum.'个帖子中有人@你');
+                    ?>
                 </a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
             <div class="panel-body">
                 <table class="table table-striped table-bordered" style="text-align: center;">
                     <thead>
@@ -41,15 +39,17 @@ use app\models\account\User;
             </div>
         </div>
     </div>
-    <div class="panel panel-default" style="width:750px">
-        <div class="panel-heading" role="tab" id="headingOne">
+    <div class="panel panel-default" >
+        <div class="panel-heading" role="tab" id="headingTwo">
             <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <?php echo('下列帖子中有人回复你')      ?>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" class="collapsed">
+                    <?php if($replyNum==0)echo('<img src="/img/discussion/check.png"   style=""/>');
+                    else echo('<img src="/img/discussion/exclaim.png"  style=""/>');
+                    echo('&nbsp&nbsp'.$replyNum.'个帖子中有人回复你') ?>
                 </a>
             </h4>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div id="collapseTwo" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false">
             <div class="panel-body">
                 <table class="table table-striped table-bordered" style="text-align: center;">
                     <thead>
@@ -62,15 +62,17 @@ use app\models\account\User;
             </div>
         </div>
     </div>
-    <div class="panel panel-default" style="width:750px">
-        <div class="panel-heading" role="tab" id="headingOne">
+    <div class="panel panel-default" >
+        <div class="panel-heading" role="tab" id="headingThree">
             <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                    <?php echo('下列帖子中有人讨论')      ?>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" class="collapsed">
+                    <?php if($talkNum==0)echo('<img src="/img/discussion/check.png"   style=""/>');
+                    else echo('<img src="/img/discussion/exclaim.png"  style=""/>');
+                    echo('&nbsp&nbsp'.$talkNum.'个帖子在你的帖子下讨论');?>
                 </a>
             </h4>
         </div>
-        <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div id="collapseThree" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingThree" aria-expanded="false">
             <div class="panel-body">
                 <table class="table table-striped table-bordered" style="text-align: center;">
                     <thead>

@@ -37,29 +37,48 @@ class DiscussionController extends Controller
     {
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
-        $reminded=Remind::getRemindedData(User::getAppUserID());
-        $reply=Remind::getReplyedAData(User::getAppUserID());
-        $talk=Remind::getReplyedBData(User::getAppUserID());
-
-        $count=count($reminded);
+        $RemindDatas = Remind::getRemindedData(User::getAppUserID());
+        $ReplyDatas = Remind::getReplyedAData(User::getAppUserID());
+        $talkDatas=Remind::getReplyedBData(User::getAppUserID());
         $remindedNum=0;
         $replyNum=0;
         $talkNum=0;
-        foreach($reminded as $x){
-            $remindedNum+=count($x);
+        $Remind=array();
+        foreach ($RemindDatas as $RemindedPostId => $RemindData) {
+            foreach ($RemindData as $RemindManId => $RemindPostId) {
+                $RemindManName = User::getUsernameById($RemindManId);
+                $RemindPost = Post::find()->where(['postId' => $RemindPostId])->asArray()->one();
+                $simpleInfo = strip_tags(substr(ArrayHelper::getValue($RemindPost, 'content'), 0, 100));
+                $Remind[] = ['RemindedPostId' => $RemindedPostId, 'RemindManName' => $RemindManName, 'simpleInfo' => $simpleInfo, 'RemindPostId' => $RemindPostId, 'time' => ArrayHelper::getValue($RemindPost, 'time')];
+            }
+            $remindedNum+=count($RemindData);
         }
-        foreach($reply as $y){
-            $replyNum+=count($y);
+        $Reply = array();
+        foreach ($ReplyDatas as $ReplyedPostId => $ReplyData) {
+            foreach ($ReplyData as $ReplyManId => $ReplyPostId) {
+                $ReplyManName = User::getUsernameById($ReplyManId);
+                $ReplyPost = Post::find()->where(['PostId' => $ReplyPostId])->asArray()->one();
+                $simpleInfo = strip_tags(substr(ArrayHelper::getValue($ReplyPost, 'content'), 0, 100));
+                $Reply[] = ['ReplyedPostId' => $ReplyedPostId, 'ReplyManName' => $ReplyManName, 'simpleInfo' => $simpleInfo, 'ReplyPostId' => $ReplyPostId];
+            }
+            $replyNum+=count($ReplyData);
         }
-        foreach($talk as $z){
-            $talkNum+=count($z);
+        $Talk=array();
+        foreach ($talkDatas as $ReplyedPostId => $TalkedData) {
+            foreach ($TalkedData as $TalkManId => $TalkPostId) {
+                $TalkManName = User::getUsernameById($TalkManId);
+                $TalkPost = Post::find()->where(['PostId' => $TalkPostId])->asArray()->one();
+                $simpleInfo = strip_tags(substr(ArrayHelper::getValue($TalkPost, 'content'), 0, 100));
+                $Talk[] = ['ReplyedPostId' => $ReplyedPostId, 'TalkManName' => $TalkManName, 'simpleInfo' => $simpleInfo, 'TalkPostId' => $TalkPostId];
+            }
+            $talkNum+=count($TalkedData);
         }
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
             'allUsername' => $allUsername,
-            'reminded' => $reminded,
-            'reply' => $reply,
-            'talk'=>$talk,
+            'Remind' => $Remind,
+            'Reply' => $Reply,
+            'Talk'=>$Talk,
             'remindedNum' =>$remindedNum,
             'replyNum'=>$replyNum,
             'talkNum'=>$talkNum,
@@ -285,44 +304,14 @@ class DiscussionController extends Controller
 
     }
 
-    public function actionShowWholeRemind()
+ /*   public function actionShowWholeRemind()
     {
         if(Yii::$app->request->isAjax) {
             $ManId = User::getAppUser()->id;
-            $RemindDatas = Remind::getRemindedData($ManId);
-            $ReplyDatas = Remind::getReplyedAData($ManId);
-            $talkDatas=Remind::getReplyedBData($ManId);
-            $Remind=array();
-            foreach ($RemindDatas as $RemindedPostId => $RemindData) {
-                foreach ($RemindData as $RemindManId => $RemindPostId) {
-                    $RemindManName = User::getUsernameById($RemindManId);
-                    $RemindPost = Post::find()->where(['postId' => $RemindPostId])->asArray()->one();
-                    $simpleInfo = strip_tags(substr(ArrayHelper::getValue($RemindPost, 'content'), 0, 100));
-                    $Remind[] = ['RemindedPostId' => $RemindedPostId, 'RemindManName' => $RemindManName, 'simpleInfo' => $simpleInfo, 'RemindPostId' => $RemindPostId, 'time' => ArrayHelper::getValue($RemindPost, 'time')];
-                }
 
-            }
-            $Reply = array();
-            foreach ($ReplyDatas as $ReplyedPostId => $ReplyData) {
-                foreach ($ReplyData as $ReplyManId => $ReplyPostId) {
-                    $ReplyManName = User::getUsernameById($ReplyManId);
-                    $ReplyPost = Post::find()->where(['PostId' => $ReplyPostId])->asArray()->one();
-                    $simpleInfo = strip_tags(substr(ArrayHelper::getValue($ReplyPost, 'content'), 0, 100));
-                    $Reply[] = ['ReplyedPostId' => $ReplyedPostId, 'ReplyManName' => $ReplyManName, 'simpleInfo' => $simpleInfo, 'ReplyPostId' => $ReplyPostId];
-                }
-            }
-            $Talk=array();
-            foreach ($talkDatas as $ReplyedPostId => $TalkedData) {
-                foreach ($TalkedData as $TalkManId => $TalkPostId) {
-                    $TalkManName = User::getUsernameById($TalkManId);
-                    $TalkPost = Post::find()->where(['PostId' => $TalkPostId])->asArray()->one();
-                    $simpleInfo = strip_tags(substr(ArrayHelper::getValue($TalkPost, 'content'), 0, 100));
-                    $Talk[] = ['ReplyedPostId' => $ReplyedPostId, 'TalkManName' => $TalkManName, 'simpleInfo' => $simpleInfo, 'TalkPostId' => $TalkPostId];
-                }
-            }
             return $this->renderPartial('remind', ['Remind' => $Remind, 'Reply' => $Reply,'Talk'=>$Talk]);
         }
-    }
+    }*/
 
     public function beforeAction($action)
     {
