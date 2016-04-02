@@ -16,7 +16,6 @@ use yii\web\Controller;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\data\ActiveDataProvider;
-
 class DiscussionController extends Controller
 {
     public function actions()
@@ -27,7 +26,6 @@ class DiscussionController extends Controller
             ],
         ];
     }
-
     public function actionIndex()
     {
         return $this->render('index.php');

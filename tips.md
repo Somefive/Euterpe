@@ -35,14 +35,14 @@ tags: TODO,Question
 * 提交新帖子之后，前段动画效果与后台刷新之间的配合
 
 ## TODO
-1. <font color=blue>DONE:@列表的美化:whh</font>
+1. <font color=blue>DONE@列表的美化:whh</font>
 2. <font color=blue>DONE:*回帖和@的测试*:whh</font>
 3. <font color=green>**删除之后及时更新其他在线用户的列表**:wjf</font>
 4. <font color=green>主页背景使用一个模糊图片:ykd</font>
 5. <font color=blue>DONE:**离开编辑框需要进行询问(JS):wjf**</font>
 6. <font color=blue>DONE:增加返回顶部的js特效:whh</font>
 7. <font color=blue>DONE:发帖之后的动画效果:whh</font>
-8. 精简帖子列表，滚动条美化
+8. <font color=green>精简帖子列表，滚动条美化:whh</font>
 9. 列表分页或者自动加载
 10. 解决帖子列表的重叠，混乱问题，测试长帖子的显示
 11. 发帖失败的处理
