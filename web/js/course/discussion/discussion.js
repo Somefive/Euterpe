@@ -446,7 +446,7 @@ function keepAllSelectedRules()
 /*
  * 回复主贴的帖子
  */
-function replyPost(fatherPostId,postType,divIdNeedHide,divIdNeedHtml)
+function replyPost(fatherPostAId,postType,divIdNeedHide,divIdNeedHtml,fatherPostBId)
 {
     //alert(fatherPostId+","+postType+","+divIdNeedHide+","+divIdNeedHtml);
     //加载动画，load1，load2，load6
@@ -461,7 +461,7 @@ function replyPost(fatherPostId,postType,divIdNeedHide,divIdNeedHtml)
     $.ajax({
         type: "POST",
         url: hostname+'/course/discussion/reply-post',
-        data: {fatherPostId:fatherPostId,postType:postType},
+        data: {fatherPostAId:fatherPostAId,fatherPostBId:fatherPostBId,postType:postType},
         success: function (data) {
             $("#"+divIdNeedHtml).html(data);
             $(".redactor-editor").focus();

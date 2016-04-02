@@ -23,8 +23,10 @@ class ReplyPostForm extends Model
             [[ 'content'], 'required'],
         ];
     }
-    public function addReplyPost($fatherPostId,$postType)
+    public function addReplyPost($fatherPostAId,$postType,$fatherPostBId)
     {
+        $fatherPostId=$fatherPostAId;
+        if($fatherPostBId!=null)$fatherPostId=$fatherPostBId;
         if ($this->validate()) {
             $post = new Post();
             $post->postManId = User::getAppUserID();
@@ -53,8 +55,8 @@ class ReplyPostForm extends Model
                 else $fatherPost->nextPostId = ($fatherPost->nextPostId.'|'.$post->postId);
                 if($fatherPost->postManId!=$post->postManId)
                 {
-                    if($post->isPost==1)Remind::addReplyedOfA($fatherPost->postManId,$fatherPostId,$post->postManId,$post->postId);
-                    if($post->isPost==2)Remind::addReplyedOfB($fatherPost->postManId,$fatherPostId,$post->postManId,$post->postId);
+                    if($post->isPost==1)Remind::addReplyedOfA($fatherPost->postManId,$fatherPostAId,$post->postManId,$post->postId);
+                    if($post->isPost==2)Remind::addReplyedOfB($fatherPost->postManId,$fatherPostAId,$post->postManId,$post->postId);
                 }
                 return $fatherPost->save();
             }

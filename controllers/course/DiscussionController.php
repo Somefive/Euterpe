@@ -217,14 +217,15 @@ class DiscussionController extends Controller
         if (Yii::$app->request->isAjax) {
             $session = Yii::$app->session;
             $session->open();
-            $session['fatherPostId'] = ArrayHelper::getValue(Yii::$app->request->post(), 'fatherPostId');
+            $session['fatherPostAId'] = ArrayHelper::getValue(Yii::$app->request->post(), 'fatherPostAId');
+            $session['fatherPostBId'] = ArrayHelper::getValue(Yii::$app->request->post(), 'fatherPostBId');
             $session['postType'] = ArrayHelper::getValue(Yii::$app->request->post(),'postType');
             //return (Yii::$app->session->get('postType'));
         }
         $model = new ReplyPostForm();
         if($model->load(Yii::$app->request->post()))    {
             $session = Yii::$app->session;
-            if($model->addReplyPost($session->get('fatherPostId'),$session->get('postType')))   $msg = "发帖成功";
+            if($model->addReplyPost($session->get('fatherPostAId'),$session->get('postType'),$session->get('fatherPostBId')))   $msg = "发帖成功";
             else    $msg = "发帖失败,";
             $session->close();
             return $this->render('say', ['message' => $msg]);
