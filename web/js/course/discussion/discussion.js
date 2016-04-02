@@ -56,17 +56,16 @@ function deleteRemindedData(RemindedManId,RemindPostId,postId)
            /* var openlink=$("<a target='_blank'>");
             openlink.attr('href',hostname+'/course/discussion/discussion');
             openlink[0].click();*/
-            var newwindow=window.open(hostname+'/course/discussion/discussion');
-            newwindow.onload=function(){
-                newwindow.$("#areaShowInfo").html(data);
-                newwindow.location.hash="#follow_post_"+RemindPostId;
-                //newwindow.opener.location.reload();
-            };
-            location.reload();
             //location.replace(location.href);
            // var s=$("#simpleRemind");
             //s.click();
-            //$("#areaShowInfo").html(data);
+            $("#areaShowInfo").html(data);
+            location.hash="#follow_post_"+RemindPostId;
+            window.onpopstate = function() {
+                if (location.href.indexOf('#') == -1) {
+                    history.go(0);
+                }
+            }
             //$("html,body").animate({scrollTop:$("#follow_post_"+RemindPost).offset.top-offset});
 
         },
@@ -84,15 +83,21 @@ function deleteTalkData(ReplyedManId,TalkPostId,postId)
         data: {ReplyedManId:ReplyedManId,TalkPostId:TalkPostId,postId:postId,},
         dataType : 'text',
         success: function (data) {
-            var newwindow=window.open(hostname+'/course/discussion/discussion');
+           /* var newwindow=window.open(hostname+'/course/discussion/discussion');
             newwindow.onload=function(){
                 newwindow.$("#areaShowInfo").html(data);
                 newwindow.location.hash="#talk_post_"+TalkPostId;
                 //newwindow.opener.location.reload();
             };
-            location.reload();
-            //$("#areaShowInfo").html(data);
-            //window.location.hash="#talk_post_"+TalkPostId;
+            location.reload();*/
+
+            $("#areaShowInfo").html(data);
+            window.location.hash="#talk_post_"+TalkPostId;
+            window.onpopstate = function(){
+                if(location.href.indexOf('#')==-1){
+                    history.go(0);
+                }
+            };
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.statusText);
@@ -102,27 +107,37 @@ function deleteTalkData(ReplyedManId,TalkPostId,postId)
 
 function deleteReplyedData(ReplyedManId,ReplyPostId,postId)
 {
-    //var offset=10;
+    var i=0;
+    //alert(original);
     $.ajax({
         type: "POST",
         url:  hostname+'/course/discussion/delete-replyed-data',
         data: {ReplyedManId:ReplyedManId,ReplyPostId:ReplyPostId,postId:postId,},
         dataType : 'text',
         success: function (data) {
-            var newwindow=window.open(hostname+'/course/discussion/discussion');
-            newwindow.onload=function(){
-                newwindow.$("#areaShowInfo").html(data);
-                newwindow.location.hash="#follow_post_"+ReplyPostId;
-                //newwindow.opener.location.reload();
+            var reply=data;
+            $("#areaShowInfo").html(data);
+            /*var state=({
+                url:location.href,
+                title:document.title,
+            });*/
+            window.location.hash="#follow_post_"+ReplyPostId;
+            window.onpopstate = function(){
+                if(location.href.indexOf('#')==-1){
+                    history.go(0);
+                }
             };
-            location.reload();
+
+             /*window.addEventListener('popstate',function(evt){
+             var state=evt.state;
+             },false);*/
             //$("#areaShowInfo").html(data);
             //var scroll_offset=$("#follow_post_56").offset();
             //$("body,html").animate({
             //    scrollTop:scroll_offset.top
             //},0);
             //scrollTo("#follow_post_56",150000);
-            //window.location.hash="#follow_post_"+ReplyPostId;
+
             //$("html,body").animate({scrollTop:$("#follow_post_56").offset});
             //确保当前元素可见
             //document.getElementById("follow_post_56").scrollIntoView();
@@ -202,7 +217,6 @@ function changeLike(username,postId)
 
 function showWholeRemind(reminded,reply,talk,talkNum,replyNum)
 {
-    alert("123");
     var load =
         '<div class="inner">\
             <div class="load-container load1">\

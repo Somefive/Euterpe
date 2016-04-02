@@ -187,6 +187,7 @@ class DiscussionController extends Controller
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
             Post::addReadList($postId);
+           
             return $this->renderPartial('showWholePost.php',[
                 'selectedPost' => $selectedPost,
                 'replyPosts' => $replyPosts,

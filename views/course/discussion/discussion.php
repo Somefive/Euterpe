@@ -28,7 +28,7 @@ $this->registerCssFile('/css/discussion/changLike.css');
 ?>
 
 
-<div class="container-fluid" style="background-image:url(/img/discussion/4.jpg)">
+<div class="container-fluid" style="background-image:url(/img/discussion/4.jpg); background-attachment:fixed">
     <div class="row" >
         <div class="col-md-4">
 
