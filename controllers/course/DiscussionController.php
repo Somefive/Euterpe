@@ -303,14 +303,17 @@ class DiscussionController extends Controller
 
     }
 
- /*   public function actionShowWholeRemind()
-    {
-        if(Yii::$app->request->isAjax) {
-            $ManId = User::getAppUser()->id;
-
-            return $this->renderPartial('remind', ['Remind' => $Remind, 'Reply' => $Reply,'Talk'=>$Talk]);
+    public function actionGetSimplePage()
+    {        
+        if (Yii::$app->request->isAjax) {
+            $ajaxInfo = Yii::$app->request->post();
+            $pageNumber = ArrayHelper::getValue($ajaxInfo,'pageNumber');
+            $simplePosts = Post::getSimplePosts($pageNumber);
+            return $this->renderAjax('simplePostList.php', [
+                        'simplePosts' => $simplePosts,
+                    ]);
         }
-    }*/
+    }
 
     public function beforeAction($action)
     {

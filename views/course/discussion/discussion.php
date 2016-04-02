@@ -14,6 +14,7 @@ $this->params['breadcrumbs'] = [
 $this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
 
 $this->registerJsFile('/js/course/discussion/discussion.js');
+$this->registerJsFile('/js/course/discussion/simplePostList.js');
 $this->registerJsFile('/js/course/discussion/prefixfree.min.js');
 $this->registerJsFile('/js/course/discussion/jquery.fly.min.js');
 $this->registerJsFile('/js/course/discussion/requestAnimationFrame.js');
@@ -76,10 +77,12 @@ $this->registerCssFile('/css/discussion/changLike.css');
                 </div>
             </div><br/>
 
-            <div id = "simplePostList" style="height:500px; overflow:auto;border:	#A0A0A0 solid thin;">
+            <div id = "simplePostList" style="height:480px; overflow:auto;border:#A0A0A0 solid thin;">
+                <ul id="simplePostUl">
                     <?php echo \Yii::$app->view->renderFile('@app/views/course/discussion/simplePostList.php', [
                         'simplePosts' => $simplePosts,
                     ]); ?>
+                </ul>
             </div>
         </div>
 
@@ -94,7 +97,7 @@ $this->registerCssFile('/css/discussion/changLike.css');
                     'Reply'=>$Reply,
                     'Talk'=>$Talk,
                 ]);?>
-                </div>
+            </div>
         </div>
     </div>
 </div>

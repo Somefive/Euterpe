@@ -20,10 +20,12 @@ class Post extends ActiveRecord
     }
 
     //得到页面左侧渲染的帖子列表的精简信息
-    public static function getSimplePosts()
+    public static function getSimplePosts($pageNumber = 0)
     {
+        $pageCount = 5;
         $lastestPosts = static::find()->where(['isPost' => 0])->asArray()->all();
-        ArrayHelper::multisort($lastestPosts, 'time', SORT_DESC);
+        $lastestPosts = array_reverse($lastestPosts);
+        $lastestPosts = array_slice($lastestPosts,$pageNumber*$pageCount,$pageCount);
         $lastestPosts = array_map("static::parseSimpleInfo", $lastestPosts);
         return $lastestPosts;
     }
