@@ -56,7 +56,7 @@ class NewPostForm extends Model
             $postManName = User::getAppUser()->getUserName();
             $simpleTime = substr($post->time,0,10);
 
-            $post->simpleInfo =$post->postManId.'|'. $postManName.'|'.$this->title.'|'.substr($this->content,0,100).'|'.$simpleTime.'|'.$post->anoymous.'|'.$post->shieldteacher;
+            $post->simpleInfo =$post->postManId.'|'. $postManName.'|'.substr($this->title,0,18).'|'.substr($this->content,0,100).'|'.$simpleTime.'|'.$post->anoymous.'|'.$post->shieldteacher;
 
             if($post->save())   {
                 foreach($this->remindNamesNeedSave as $remindName)  {
