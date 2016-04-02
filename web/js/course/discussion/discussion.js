@@ -53,8 +53,19 @@ function deleteRemindedData(RemindedManId,RemindPostId,postId)
         data: {RemindedManId:RemindedManId,RemindPostId:RemindPostId,postId:postId,},
         dataType : 'text',
         success: function (data) {
+           /* var openlink=$("<a target='_blank'>");
+            openlink.attr('href',hostname+'/course/discussion/discussion');
+            openlink[0].click();*/
+            //location.replace(location.href);
+           // var s=$("#simpleRemind");
+            //s.click();
             $("#areaShowInfo").html(data);
-            //window.location.hash="#follow_post_"+RemindPostId;
+            location.hash="#follow_post_"+RemindPostId;
+            window.onpopstate = function() {
+                if (location.href.indexOf('#') == -1) {
+                    history.go(0);
+                }
+            }
             //$("html,body").animate({scrollTop:$("#follow_post_"+RemindPost).offset.top-offset});
 
         },
@@ -64,22 +75,69 @@ function deleteRemindedData(RemindedManId,RemindPostId,postId)
     });
 }
 
+function deleteTalkData(ReplyedManId,TalkPostId,postId)
+{
+    $.ajax({
+        type: "POST",
+        url:  hostname+'/course/discussion/delete-talk-data',
+        data: {ReplyedManId:ReplyedManId,TalkPostId:TalkPostId,postId:postId,},
+        dataType : 'text',
+        success: function (data) {
+           /* var newwindow=window.open(hostname+'/course/discussion/discussion');
+            newwindow.onload=function(){
+                newwindow.$("#areaShowInfo").html(data);
+                newwindow.location.hash="#talk_post_"+TalkPostId;
+                //newwindow.opener.location.reload();
+            };
+            location.reload();*/
+
+            $("#areaShowInfo").html(data);
+            window.location.hash="#talk_post_"+TalkPostId;
+            window.onpopstate = function(){
+                if(location.href.indexOf('#')==-1){
+                    history.go(0);
+                }
+            };
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.statusText);
+        }
+    });
+}
+
 function deleteReplyedData(ReplyedManId,ReplyPostId,postId)
 {
-    //var offset=10;
+    var i=0;
+    //alert(original);
     $.ajax({
         type: "POST",
         url:  hostname+'/course/discussion/delete-replyed-data',
         data: {ReplyedManId:ReplyedManId,ReplyPostId:ReplyPostId,postId:postId,},
         dataType : 'text',
         success: function (data) {
+            var reply=data;
             $("#areaShowInfo").html(data);
-            var scroll_offset=$("#follow_post_56").offset();
-            $("body,html").animate({
-                scrollTop:scroll_offset.top
-            },0);
+            /*var state=({
+                url:location.href,
+                title:document.title,
+            });*/
+            window.location.hash="#follow_post_"+ReplyPostId;
+            window.onpopstate = function(){
+                if(location.href.indexOf('#')==-1){
+                    history.go(0);
+                }
+            };
+
+             /*window.addEventListener('popstate',function(evt){
+             var state=evt.state;
+             },false);*/
+            //$("#areaShowInfo").html(data);
+            //var scroll_offset=$("#follow_post_56").offset();
+            //$("body,html").animate({
+            //    scrollTop:scroll_offset.top
+            //},0);
             //scrollTo("#follow_post_56",150000);
-            //window.location.hash="#follow_post_56";
+
             //$("html,body").animate({scrollTop:$("#follow_post_56").offset});
             //确保当前元素可见
             //document.getElementById("follow_post_56").scrollIntoView();
@@ -157,7 +215,7 @@ function changeLike(username,postId)
     });
 }
 
-function showWholeRemind(reminded,reply,talk)
+function showWholeRemind(reminded,reply,talk,talkNum,replyNum)
 {
     var load =
         '<div class="inner">\
@@ -169,7 +227,7 @@ function showWholeRemind(reminded,reply,talk)
     $.ajax({
         type: "POST",
         url: hostname+'/course/discussion/show-whole-remind',
-        data: {reminded:reminded,reply:reply,talk:talk},
+        data: {reminded:reminded,reply:reply,talk:talk,talkNum:talkNum,replyNum:replyNum,},
         success: function (data) {
             $("#areaShowInfo").html(data);
         },

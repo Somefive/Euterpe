@@ -28,7 +28,7 @@ $this->registerCssFile('/css/discussion/changLike.css');
 ?>
 
 
-<div class="container-fluid" style="background-image:url(/img/discussion/4.jpg)">
+<div class="container-fluid" style="background-image:url(/img/discussion/4.jpg); background-attachment:fixed">
     <div class="row" >
         <div class="col-md-4">
 
@@ -84,40 +84,16 @@ $this->registerCssFile('/css/discussion/changLike.css');
         </div>
 
         <div id="areaShowInfo" class="col-md-8" >
-            <div style=" margin-top:80px;margin-left:10px;">
-                <?php /*echo \Yii::$app->view->renderFile('@app/views/course/discussion/remind.php', [
+            <div style=" margin-top:55px;margin-left:10px;">
+                <?php echo \Yii::$app->view->renderFile('@app/views/course/discussion/remind.php', [
                     'remindedNum'=>$remindedNum,
+                    'talkNum'=>$talkNum,
                     'simplePosts' => $simplePosts,
                     'replyNum'=>$replyNum,
-                ]);*/ ?>
-                <ul>
-                    <li  id="simpleRemind" >
-                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息" onclick="showWholeRemind('<?= $reminded?>','<?= $reply?>','<?= $talk?>')">
-                            <?php if($remindedNum==0)echo('<img src="https://piazza.com/images/piazza/dashboard/check.png"   style=""/>');
-                                   else echo('<img src="https://piazza.com/images/piazza/dashboard/exclaim.png"  style=""/>');
-                                   echo('&nbsp&nbsp'.$remindedNum.'个帖子中有人@你');
-
-                            ?>
-                        </div>
-                        <hr size="5" color="#202020"/>
-                    </li>
-                    <li  id="simpleRply"  >
-                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息"  onclick="showWholeRemind('<?= $reminded?>','<?= $reply?>','<?= $talk?>')">
-                            <?php if($replyNum==0)echo('<img src="https://piazza.com/images/piazza/dashboard/check.png"   style=""/>');
-                                    else echo('<img src="https://piazza.com/images/piazza/dashboard/exclaim.png"  style=""/>');
-                                echo('&nbsp&nbsp'.$replyNum.'个帖子中有人回复你') ?>
-                        </div>
-                        <hr size="5" color="#202020"/>
-                    </li>
-                    <li  id="simpleTalk"  >
-                        <div style="position: relative; cursor:pointer;" title="view all information 查看详细信息"  onclick="showWh   oleRemind('<?= $reminded?>','<?= $reply?>','<?= $talk?>')">
-                            <?php if($talkNum==0)echo('<img src="https://piazza.com/images/piazza/dashboard/check.png"   style=""/>');
-                            else echo('<img src="https://piazza.com/images/piazza/dashboard/exclaim.png"  style=""/>');
-                            echo('&nbsp&nbsp'.$talkNum.'个帖子在你的帖子下讨论');?>
-
-                        </div>
-                    </li>
-                </ul>
+                    'Remind'=>$Remind,
+                    'Reply'=>$Reply,
+                    'Talk'=>$Talk,
+                ]);?>
                 </div>
         </div>
     </div>
