@@ -43,7 +43,7 @@ tags: TODO,Question
 6. <font color=blue>DONE:增加返回顶部的js特效:whh</font>
 7. <font color=blue>DONE:发帖之后的动画效果:whh</font>
 8. <font color=green>精简帖子列表，滚动条美化:whh</font>
-9. 列表分页或者自动加载
+9. <font color=blue>DONE:列表分页或者自动加载</font>
 10. 解决帖子列表的重叠，混乱问题，测试长帖子的显示
 11. 发帖失败的处理
 
