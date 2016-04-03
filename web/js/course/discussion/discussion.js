@@ -318,33 +318,7 @@ function placeCaretAtEnd(el) {
     }
 }
 
-function submitNewPost()
-{
-    var originHtml = $(".redactor-editor").html();
-    $('#contentLoader').val(originHtml);
-    //alert(originHtml);
 
-    //$(".redactor-toolbar").destory();
-    var offset = $("#end").offset();
-    var flyer = $("#areaShowInfo");
-    flyer.fly({
-        start: {
-            left: event.pageX,
-            top: event.pageY
-        },
-        end: {
-            left: 10,
-            top: offset.top+10,
-            width: 0,
-            height: 0
-        },
-        onEnd: function(){
-            $("#areaShowInfo").hide();
-            $("#hintPostSuccess").show().animate({width: '250px'}, 500).fadeOut(1000);
-            //$(".redactor-editor").destory();
-        }
-    });
-}
 /**
  * 取消unread筛选，显示所有的帖子
  * 被调用在views\course\discussion\discussion.php

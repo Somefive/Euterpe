@@ -30,8 +30,8 @@ $this->registerJsFile('/js/course/discussion/editnewPost.js');
 ) ?>
 <input type='text' id='contentLoader' name='content' value='' style='display: none;'>
 <?= $form->field($model,'option')->checkboxList(['1' => '匿名 ', '2' => '屏蔽',]);?>
-    <div class="form-group">
-        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary','onclick'=>'submitNewPost()']) ?>
+    <div class="form-group" id="formgroup"  >
+        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary','id'=>'submit']) ?>
     </div>
 <?php ActiveForm::end(); ?>
 
@@ -48,7 +48,7 @@ $this->registerJsFile('/js/course/discussion/editnewPost.js');
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="getSelectedRemindName()">OK</button>
+                <button type="button"  class="btn btn-primary" onclick="getSelectedRemindName()">OK</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
