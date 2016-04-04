@@ -35,7 +35,6 @@ function getPage(pageNumber)	{
         }
     });
 }
-
 function show()
 {
 	viewH =$("#simplePostList").height(),//可见高度  

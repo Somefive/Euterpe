@@ -6,11 +6,6 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 $this->title = 'Discussion';
-$this->params['breadcrumbs'] = [
-    ['label'=>'course','url'=>'/course/index'],
-    ['label'=>'discussion','url'=>'/course/discussion/index'],
-    $this->title
-];
 $this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
 
 $this->registerJsFile('/js/course/discussion/discussion.js');
@@ -30,7 +25,7 @@ $this->registerCssFile('/css/discussion/changLike.css');
 <div class="container-fluid" style="background-image:url(/img/discussion/4.jpg); background-attachment:fixed">
     <div class="row" >
         <div class="col-md-4">
-
+        <div id="nav" class="nav hidden-xs hidden-sm affix" data-spy="affix">
             <i id="end"></i>
             <div id="hintPostSuccess">发帖成功！</div>
 
@@ -80,6 +75,7 @@ $this->registerCssFile('/css/discussion/changLike.css');
                         'simplePosts' => $simplePosts,
                     ]); ?>
             </div>
+        </div>
         </div>
 
         <div id="areaShowInfo" class="col-md-8" >

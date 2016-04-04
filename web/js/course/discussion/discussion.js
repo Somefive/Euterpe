@@ -501,7 +501,7 @@ function deletePost(postType,fatherPostId,postId)
             $backToTopEle.css("top", st + winh - 166);
         }
     };
-    $(".backToTop").hover(                  function()
+    $(".backToTop").hover(function()
     {$(this).css("background","red");},function(){
         $(this).css("background","#000");
     });
