@@ -486,10 +486,6 @@ function deletePost(postType,fatherPostId,postId)
     }
 }
 
-function say()
-{
-    alert("hello");
-}
 
 //回到顶部
 (function() {
@@ -512,3 +508,19 @@ function say()
     $(window).bind("scroll", $backToTopFun);
     $(function() { $backToTopFun(); });
 })();
+
+function say()
+{    
+    $.ajax({
+        type: "POST",
+        url:  hostname+'/course/discussion/say',
+        data: {nullData:"nullData"},
+        dataType : 'text',
+        success: function (data) {
+            alert(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.statusText);
+        }
+    });
+}

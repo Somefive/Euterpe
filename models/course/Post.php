@@ -33,17 +33,24 @@ class Post extends ActiveRecord
     //帖子被看的时候，改变帖子的readMenList
     public static function addReadList($postId)
     {
+        $postId = implode(" ",$postId);
         $session = Yii::$app->session;
         $session->open();
         $timeKey = $postId.'_readTime';
         if($session[$timeKey] == null)  {
             $session[$timeKey] = time();
+            //static::alert("now is null,new time is ".$session[$timeKey]);
         }else   {
             $lastTime = $session[$timeKey];
             $session[$timeKey] = time();
             $timeInterval = time() -$lastTime;
             $session->close();
-            //if($timeInterval < 60) return;
+            //static::alert("timeInterval is ".$timeInterval);
+            if($timeInterval < 60) { 
+                //static::alert("timeInterval is ".$timeInterval).",will return"; 
+                return;
+            }
+            //static::alert("timeInterval is ".$timeInterval.",>60");
         }
         $selectedPost = Post::findOne($postId);
         if (User::getAppUserID() == $selectedPost->postManId)
@@ -302,5 +309,10 @@ class Post extends ActiveRecord
         }
         return $Talks;
     }
-
+    public static function alert($str="")
+    {
+        if(is_array($str))
+            $str = "ARRAY:".implode(" ",$str);
+        echo "<script type='text/javascript'>alert('$str');</script>";
+    }
 }

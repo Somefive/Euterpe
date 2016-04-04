@@ -96,7 +96,6 @@ document.getElementById('submit').addEventListener('click',function submitNewPos
         onEnd: function(){
             $("#areaShowInfo").hide();
             $("#hintPostSuccess").show().animate({width: '250px'}, 500).fadeOut(1000);
-            //$(".redactor-editor").destory();
         }
     });
 },false);

@@ -33,6 +33,7 @@ class DiscussionController extends Controller
     //讨论区的主页面
     public function actionDiscussion()
     {
+
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
         $RemindDatas = Remind::getRemindedData(User::getAppUserID());
@@ -87,10 +88,9 @@ class DiscussionController extends Controller
     {
         if (Yii::$app->request->isAjax) {
             $postId = Yii::$app->request->post();
+            Post::addReadList($postId);
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
-            //Yii::warning($replyPosts);
-            Post::addReadList($postId);
             Remind::deleteRemindedData(User::getAppUserID(),$postId['postId']);
              return $this->renderPartial('showWholePost.php',[
                  'selectedPost' => $selectedPost,
@@ -128,12 +128,10 @@ class DiscussionController extends Controller
         $model = new NewPostForm;
         if($model->load(Yii::$app->request->post()))    {
             $model->content = ArrayHelper::getValue(Yii::$app->request->post(),'content');
-            //return $this->render('say', ['message' => $msg]);
-
             if($model->addPost())   {
                 sleep(1);
-                return $this->redirect(array('course/discussion/discussion'));
-                //return $this->sleep();
+                $this->redirect(array('course/discussion/discussion'));
+                return;
             }
             else return $this->render('say', ['message' => '发帖失败']);
         }
@@ -225,7 +223,8 @@ class DiscussionController extends Controller
         $model = new ReplyPostForm();
         if($model->load(Yii::$app->request->post()))    {
             $session = Yii::$app->session;
-            if($model->addReplyPost($session->get('fatherPostAId'),$session->get('postType'),$session->get('fatherPostBId')))   $msg = "发帖成功";
+            if($model->addReplyPost($session->get('fatherPostAId'),$session->get('postType'),$session->get('fatherPostBId')))   
+                $msg = "发帖成功";
             else    $msg = "发帖失败,";
             $session->close();
             return $this->render('say', ['message' => $msg]);
