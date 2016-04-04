@@ -257,9 +257,6 @@ class DiscussionController extends Controller
 
             $msg = call_user_func(array("app\models\course\Post", $orderRule));
 
-
-            $simplePosts = Post::getSimplePosts();
-            Yii::warning($simplePosts);
             return $this->renderPartial('simplePostList.php',[
                 'simplePosts' => $msg,
             ]);

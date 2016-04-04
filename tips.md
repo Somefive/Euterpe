@@ -11,7 +11,8 @@ tags: TODO,Question
 * @列表第二次点开取消选择某人没用
 * <font color=blue>DONE:删除帖子同时要删除包含的图片视频等</font>
 * 回帖时的@问题
-* 
+* orderBy分页问题
+* 提交新帖子之后，前段动画效果与后台刷新之间的配合
 
 ### ykd
 * 发帖界面复选框,按钮的美化
@@ -31,7 +32,7 @@ tags: TODO,Question
 * 直接访问http://59.66.134.208:8080/course/discussion/discussion
 * 加入图片形式 img src="/img/discussion/XX.png"
 * $(this).destory();析构元素
-* 提交新帖子之后，前段动画效果与后台刷新之间的配合
+* <font color=red>reset之前一定要commit!</font>
 
 ## TODO
 1. <font color=blue>DONE@列表的美化:whh</font>
