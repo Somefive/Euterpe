@@ -46,8 +46,9 @@ tags: TODO,Question
 3. <font color=green>**删除之后及时更新其他在线用户的列表**:wjf</font>
 4. <font color=green>主页背景使用一个模糊图片:ykd</font>
 8. <font color=green>精简帖子列表，滚动条美化:whh</font>
-1. 阅读之间相差的时间,可能导致刷新还是未读
+1. <font color=green>阅读之间相差的时间,可能导致刷新还是未读:whh</font>
 1. showholepost页面用到piazza的样式要更改
 1. 打开帖子时应对帖子不存在的问题,提醒方面也要做处理
-1. 发帖/回帖之后刷新显示当前的帖子(调用JS)
+1. <font color="green">发帖/回帖之后刷新显示当前的帖子(调用JS):ykd</font>
+
 # **大家有问题或者什么经验都记在这里呀**
