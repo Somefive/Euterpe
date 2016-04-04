@@ -10,7 +10,7 @@ use yii\helpers\Html;
 use app\controllers\course\DiscussionController;
 use app\models\account\User;
 ?>
-
+<ul id="simplePostUl">
 <?php foreach ($simplePosts as $simplePost):?>
     <?php $postId = ArrayHelper::getValue($simplePost,'postId');?>
     <!--li class="hasread/unread postManName_$postManName anoymous/canview simplePost" id="li_postId_$postId" onclick="showWholePost($postId)"-->
@@ -46,3 +46,4 @@ use app\models\account\User;
          </div>
     </li>
 <?php endforeach;?>
+</ul>

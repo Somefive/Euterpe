@@ -25,7 +25,8 @@ class Post extends ActiveRecord
         $pageCount = 5;
         $lastestPosts = static::find()->where(['isPost' => 0])->asArray()->all();
         $lastestPosts = array_reverse($lastestPosts);
-        $lastestPosts = array_slice($lastestPosts,$pageNumber*$pageCount,$pageCount);
+        if($pageNumber > -1)
+            $lastestPosts = array_slice($lastestPosts,$pageNumber*$pageCount,$pageCount);
         $lastestPosts = array_map("static::parseSimpleInfo", $lastestPosts);
         return $lastestPosts;
     }
@@ -158,16 +159,13 @@ class Post extends ActiveRecord
 
 
     public static function orderByTime()
-    {
-        $wholePostList = static::find()->where(['isPost' => 0])->asArray()->all();
-        ArrayHelper::multisort($wholePostList, 'time', SORT_DESC);
-        return array_map("static::parseSimpleInfo", $wholePostList);
-        return $lastestPosts;
+    {      
+        return Post::getSimplePosts(-1);
     }
 
     public static function orderByHot()
     {
-        $simplePostList = Post::getSimplePosts();
+        $simplePostList = Post::getSimplePosts(-1);
         ArrayHelper::multisort($simplePostList, 'likeMenCount', SORT_DESC);
         return $simplePostList;
     }
