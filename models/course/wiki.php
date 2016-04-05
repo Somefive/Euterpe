@@ -22,4 +22,31 @@ class Wiki extends ActiveRecord
         $wiki = Wiki::findOne(['id' => $wikiid]);
         return $wiki;
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'studentid' => '',
+            'tag' => 'Tag 分隔符为;'
+        ];
+    }
+
+    public function rules()
+    {
+        return [
+            [['studentid','title'],'required'],
+            [['detail','tag'],'default','value'=>''],
+        ];
+    }
+
+    public function Flush(){
+        $wiki = static::findOne(['id'=>$this->id]);
+        if($wiki==null){
+            if(static::findOne(['title'=>$this->title])!=null)
+                return false;
+            return $this->insert();
+        }
+        else
+            return $this->update();
+    }
 }

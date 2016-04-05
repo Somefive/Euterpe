@@ -25,5 +25,8 @@ $(function(){
             $(this).siblings("div").fadeIn();
         }
     });
+    $('#focuswikisubmit').click(function(){
+        $('#wiki-form').submit();
+    });
 
 });

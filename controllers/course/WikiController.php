@@ -42,15 +42,22 @@ class WikiController extends Controller
 
     public function actionIndex()
     {
+        $focuswiki = new Wiki();
+        if(!empty($_POST['operate']) and $_POST['operate']=='create' and $focuswiki->load(Yii::$app->request->post()) and $focuswiki->validate()){
+            $focuswiki->flush();
+            $focuswiki = new Wiki();
+        }
+        $focuswiki->studentid = User::getAppUser()->id;
         $wikis = Wiki::find()->all();
         return $this->render('index',[
             'wikis' => $wikis,
+            'focuswiki' => $focuswiki,
         ]);
     }
-    public function actionCreatewiki()
-    {
-        return $this->render('createwiki.php');
-    }
+//    public function actionCreatewiki()
+//    {
+//        return $this->render('createwiki.php');
+//    }
 
     public function actionMywiki()
     {
