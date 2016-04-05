@@ -94,3 +94,28 @@ $this->registerCssFile('/css/discussion/changLike.css');
         </div>
     </div>
 </div>
+
+
+
+<script type="text/javascript">
+    if(<?=$need_show?>!=-1){
+       setTimeout(function() {
+            if(document.all) {
+                document.getElementById("li_postId_"+<?=$need_show?>).click();
+            }
+            else {
+                var e = document.createEvent("MouseEvents");
+                e.initEvent("click", true, true);
+                document.getElementById("li_postId_"+<?=$need_show?>).dispatchEvent(e);
+            }
+        }, 10); 
+   }        
+   
+    </script>
+// <!-- <? //php
+//     if($need_show != -2)    {
+//         echo
+//         ''
+        ;
+    }
+?> -->

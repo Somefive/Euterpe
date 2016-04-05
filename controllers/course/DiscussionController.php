@@ -72,6 +72,13 @@ class DiscussionController extends Controller
             }
             $talkNum+=count($TalkedData);
         }
+        $need_show = -1;
+        $session = Yii::$app->session;
+        $session->open();
+        if($session['need_show'] != null) {
+            $need_show = $session['need_show'];
+        }
+        $session['need_show']=-1;
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
             'allUsername' => $allUsername,
@@ -81,6 +88,7 @@ class DiscussionController extends Controller
             'remindedNum' =>$remindedNum,
             'replyNum'=>$replyNum,
             'talkNum'=>$talkNum,
+            'need_show'=>$need_show,
         ]);
     }
     //用来显示页面右侧的帖子的完整信息
@@ -119,12 +127,10 @@ class DiscussionController extends Controller
                 $this->render('say', ['message' => $model]);
                 sleep(1);
                 $postId=post::getMaxPostId();
-                $selectedPost = Post::getPostByPostId($postId);
-                $replyPosts = Post::getnextPosts($selectedPost);
-                return $this->renderPartial('showWholePost.php',[
-                    'selectedPost' => $selectedPost,
-                    'replyPosts' => $replyPosts,
-                ],false,true);
+                $session = Yii::$app->session;
+                $session->open();
+                $session['need_show'] = $postId;
+                $this->redirect(array('course/discussion/discussion'));
                 return;
             }
             else return $this->render('say', ['message' => '发帖失败']);
@@ -212,16 +218,18 @@ class DiscussionController extends Controller
             $session['fatherPostAId'] = ArrayHelper::getValue(Yii::$app->request->post(), 'fatherPostAId');
             $session['fatherPostBId'] = ArrayHelper::getValue(Yii::$app->request->post(), 'fatherPostBId');
             $session['postType'] = ArrayHelper::getValue(Yii::$app->request->post(),'postType');
+             //Post::alert($session['fatherPostBId']);
             //return (Yii::$app->session->get('postType'));
         }
         $model = new ReplyPostForm();
         if($model->load(Yii::$app->request->post()))    {
             $session = Yii::$app->session;
-            if($model->addReplyPost($session->get('fatherPostAId'),$session->get('postType'),$session->get('fatherPostBId')))   
-                $msg = "发帖成功";
-            else    $msg = "发帖失败,";
+            $session['need_show']=$session['fatherPostAId'];
+            Post::alert($session['need_show']);
+            $model->addReplyPost($session->get('fatherPostAId'),$session->get('postType'),$session->get('fatherPostBId'));
             $session->close();
-            return $this->render('say', ['message' => $msg]);
+            $this->redirect(array('course/discussion/discussion'));
+                return;
         }
         return $this->renderAjax('replyPost.php', [
             'model' => $model,
