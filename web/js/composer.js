@@ -28,19 +28,39 @@
             }
         });
 
+        $(this).find(".op").each(
+            function(){
+                var op_type = $(this).attr('op-type');
+                $(this).attr('data-toggle','popover').attr('data-html','true').attr('data-placement','bottom');
+                $(this).attr('data-title','new '+op_type);
+                $(this).attr('data-template','\
+                <div class="popover" role="tooltip" style="min-width:400px;">\
+                    <div class="popover-title" style="font-size:16px;"></div>\
+                    <div style="margin:5px;">\
+                        <textarea class="form-control" style="overflow-y: visible;"></textarea>\
+                        <button type="button" class="btn btn-success" style="float:right;margin:5px;">OK</button>\
+                    </div>\
+                </div>\
+                ');
+                $(this).attr('data-content','<div><div class="input-group" style="margin:5px;"><span class="input-group-addon" id="basic-addon-add'+op_type+'">Note:</span><textarea class="form-control" placeholder="'+op_type+'Content" aria-describedby="basic-addon-add'+op_type+'"></textarea></div><div class="btn-group" role="group" style="float:right" style="margin:5px;"><button type="button" data-toggle="tooltip" class="btn btn-success">Add</button><button type="button" data-toggle="tooltip" class="btn btn-default">Cancel</button></div></div>');
+            }
+        );
+
         $(this).find('.btn-reset').click(function(){
             var composer = $(this).parents('.composer');
             composer.find('.composer-textedit').html(backup);
             composer.find('.switch[status="on"]').click();
             $('[data-toggle="tooltip"]').tooltip();
             $('[data-toggle="popover"]').popover();
+
+            x = $(this);
         });
 
         $(this).find('.btn-cancel').click(function(){
             var composer = $(this).parents('.composer');
             composer.find('.composer-textedit').html('');
             composer.find('.switch[status="on"]').click();
-        })
+        });
 
         var backup = $(this).find(".composer-textedit").html();
         //$(this).children("span.emphasis").click(function(){
@@ -79,8 +99,24 @@
         //});
     };
 })(jQuery);
+
 $(function(){
     $('.composer').composer();
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
 });
+
+var cursor = 0;
+var cursorparentobj;
+
+document.onselectionchange = function(){
+    if(document.activeElement!=$('.composer-textedit').get(0))
+        return;
+    cursor = window.getSelection().getRangeAt(0).startOffset;
+};
+
+function AddToCursorPos(html)
+{
+    var position = window.getSelection().getRangeAt(0).startOffset;
+    return position;
+}

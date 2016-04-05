@@ -1,0 +1,20 @@
+.panel-heading{
+    font-size: x-large;
+}
+
+.panel-heading:hover{
+    cursor: pointer;
+}
+
+.panel-body{
+    font-size: large;
+    font-weight: 700;
+}
+
+span.tag{
+    margin: 5px;
+    padding: 5px;
+    background-color: #9acfea;
+    border-radius: 3px;
+    font-size: medium;
+}
