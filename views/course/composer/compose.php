@@ -25,15 +25,15 @@ $this->params['breadcrumbs'] = [
         <div class="composer-topbar">
             <span class="composition-fulltitle"> Title: <input type="text" maxlength="60" class="composition-title" contenteditable="true" value="DefaultTitle"></span>
             <div class="btn-group" role="group" style="float:right">
-                <button type="button" class="btn btn-default op-note">Note</button>
                 <?php if(\app\models\account\User::IsAppUserTeacher()): ?>
-                <button type="button" class="btn btn-default op-comment">Comment</button>
-                <button type="button" class="btn btn-default op-remark">Remark</button>
-                <button type="button" class="btn btn-default op-score">Score</button>
+                <button type="button" class="btn btn-default op op-note" op-type="note">Note</button>
+                <button type="button" class="btn btn-default op op-comment" op-type="comment">Comment</button>
+                <button type="button" class="btn btn-default">Remark</button>
+                <button type="button" class="btn btn-default">Score</button>
                 <?php endif ?>
             </div>
         </div>
-        <div class="composer-textedit" contenteditable="true">
+        <div class="composer-textedit" contenteditable="plaintext-only">
             <span class="composer-normal">Normal</span>
             <span class="composer-history" title="history"></span>
             <span class="composer-note" title="note"></span>

@@ -6,19 +6,20 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 $this->title = 'Discussion';
-$this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
 
+$this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
 $this->registerJsFile('/js/course/discussion/discussion.js');
 $this->registerJsFile('/js/course/discussion/simplePostList.js');
 $this->registerJsFile('/js/course/discussion/prefixfree.min.js');
 $this->registerJsFile('/js/course/discussion/jquery.fly.min.js');
 $this->registerJsFile('/js/course/discussion/requestAnimationFrame.js');
+
 $this->registerCssFile('/css/discussion/discussion.css');
-$this->registerCssFile('/css/discussion/discussionSimpleList.css');
-$this->registerCssFile('/css/discussion/discussionShowWholePost.css');
-$this->registerCssFile('/css/discussion/prefixfree.css');
+$this->registerCssFile('/css/discussion/simplePostList.css');
+$this->registerCssFile('/css/discussion/showWholePost.css');
+$this->registerCssFile('/css/discussion/editNewPost.css');
 $this->registerCssFile('/css/discussion/css_load.css');
-$this->registerCssFile('/css/discussion/discussionEditPost.css');
+$this->registerCssFile('/css/discussion/prefixfree.css');
 $this->registerCssFile('/css/discussion/changLike.css');
 
 ?>

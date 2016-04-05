@@ -8,8 +8,6 @@ use app\models\account\User;
 <?php echo($userId);echo($postId)?>
 <div class="post_region_box question_note_view dashboard_element">
     <div class="post_region_header clearFix">
-        <div class="post_icon note "></div>
-
         <div class="post_title">note</div>
         <div class="post_view_count"><span class="count"><?php echo(ArrayHelper::getValue($selectedPost,'readMenCount'));?></span> views</div>
     </div>
@@ -46,7 +44,7 @@ use app\models\account\User;
             </div>
            <!--删除帖子-->
             <?php if(ArrayHelper::getValue($selectedPost,'postManId') == User::getAppUserID()):?>
-            <div align="right"> <a  style="color: darkred" onclick="deletePost(0,-1,<?=ArrayHelper::getValue($selectedPost,'postId')?>)">删除</a></div>
+            <div align="right"> <a class="deleteLink" onclick="deletePost(0,-1,<?=ArrayHelper::getValue($selectedPost,'postId')?>)">删除</a></div>
             <?php endif?>
             </p>
 
@@ -57,7 +55,6 @@ use app\models\account\User;
 <div id="clarifying_discussion" class="post_region_box clarifying_discussion dashboard_element">
     <div class="post_region_header clearFix">
         <div class="post_title">followup discussions</div>
-        <div class="post_subtitle">for lingering questions and comments</div>
     </div>
 
     <div class="follow_all post_region_content clarifying_discussion ">
@@ -83,7 +80,7 @@ use app\models\account\User;
                 <!--删除帖子-->
                 <div style="float:right;margin-top:15px;">
                 <?php if(ArrayHelper::getValue($replyPost,'postManId') == User::getAppUserID()):?>
-                    <a style="color: darkred" onclick="deletePost(1,<?=ArrayHelper::getValue($selectedPost,'postId')?>,<?=ArrayHelper::getValue($replyPost,'postId')?>)">删除</a>
+                    <a class="deleteLink" onclick="deletePost(1,<?=ArrayHelper::getValue($selectedPost,'postId')?>,<?=ArrayHelper::getValue($replyPost,'postId')?>)">删除</a>
                 <?php endif?>
             </div>
                 </div>
@@ -104,7 +101,7 @@ use app\models\account\User;
                         <span class="talk_time"><?= ArrayHelper::getValue($talk,'time') ?></span>
                         <!--删除帖子-->
                         <?php if(ArrayHelper::getValue($talk,'postManId') == User::getAppUserID()):?>
-                            <a style="color: darkred" onclick="deletePost(2,<?=ArrayHelper::getValue($replyPost,'postId')?>,<?=ArrayHelper::getValue($talk,'postId')?>)">删除</a>
+                            <a class="deleteLink" onclick="deletePost(2,<?=ArrayHelper::getValue($replyPost,'postId')?>,<?=ArrayHelper::getValue($talk,'postId')?>)">删除</a>
                         <?php endif?>
                     </div>
                     <div class="chat_content_top"><?= ArrayHelper::getValue($talk,'content') ?></div>
@@ -116,7 +113,7 @@ use app\models\account\User;
             <!--talk回复-->
             <div class="compose_reply clearFix start_reply" id="start_reply_followup_<?= ArrayHelper::getValue($replyPost,'postId')?>"
                  onclick="replyPost(<?=ArrayHelper::getValue($selectedPost,'postId')?>,2,'start_reply_followup_<?= ArrayHelper::getValue($replyPost,'postId')?>','create_reply_followup_<?=  ArrayHelper::getValue($replyPost,'postId')?>',<?= ArrayHelper::getValue($replyPost,'postId')?>)">
-                Reply to this followup discussion
+                Talk:
             </div>
             <!--下面的div原先class="discussion_replies new edit_mode"，但是这样却没办法显示，暂时去掉-->
             <div id="create_reply_followup_<?=  ArrayHelper::getValue($replyPost,'postId')?>">

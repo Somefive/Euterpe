@@ -10,10 +10,27 @@ namespace app\controllers\course;
 use app\models\account\User;
 use app\models\course\Wiki;
 use yii\web\Controller;
+use yii\filters\AccessControl;
 use Yii;
 
 class WikiController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+
+        ];
+    }
+
     public function actions()
     {
         return [
@@ -25,15 +42,39 @@ class WikiController extends Controller
 
     public function actionIndex()
     {
+        $focuswiki = new Wiki();
+        if(!empty($_POST['operate']) and $focuswiki->load(Yii::$app->request->post()) and $focuswiki->validate()){
+            if($_POST['operate']=='create') {
+                $focuswiki->id = '';
+                $focuswiki->flush();
+                $focuswiki = new Wiki();
+            }
+            else if($_POST['operate']=='edit'){
+                $oriwiki = Wiki::getWikiById($focuswiki->id);
+                if($oriwiki!=null and $oriwiki->studentid==$focuswiki->studentid and $oriwiki->studentid==User::getAppUserID()){
+                    $focuswiki->flush();
+                    $focuswiki = new Wiki();
+                }
+            }
+            else if($_POST['operate']=='delete'){
+                $oriwiki = Wiki::getWikiById($focuswiki->id);
+                if($oriwiki!=null and $oriwiki->studentid==$focuswiki->studentid and $oriwiki->studentid==User::getAppUserID()){
+                    $oriwiki->delete();
+                    $focuswiki = new Wiki();
+                }
+            }
+        }
+        $focuswiki->studentid = User::getAppUser()->id;
         $wikis = Wiki::find()->all();
         return $this->render('index',[
             'wikis' => $wikis,
+            'focuswiki' => $focuswiki,
         ]);
     }
-    public function actionCreatewiki()
-    {
-        return $this->render('createwiki.php');
-    }
+//    public function actionCreatewiki()
+//    {
+//        return $this->render('createwiki.php');
+//    }
 
     public function actionMywiki()
     {
@@ -51,11 +92,9 @@ class WikiController extends Controller
         $wiki->tag = $_POST['tag'];
         $wiki->detail = $_POST['detail'];
         if($wiki->save())
-        {
-            echo '添加成功';
-        }
+            return $this->redirect('/site/say?message=添加成功');
         else {
-            echo '添加失败';
+            return $this->redirect('/site/say?message=添加失败');
         }
     }
 
@@ -63,7 +102,7 @@ class WikiController extends Controller
     {
         $wikiid = $_POST['wikiid'];
         Wiki::deleteAll(['id'=>$wikiid]);
-        echo '删除成功！';
+        return $this->redirect('/site/say?message=删除成功');
     }
 
     public function actionCompilewiki()
@@ -78,21 +117,5 @@ class WikiController extends Controller
         $wikiid = Yii::$app->request->get('wikiid');
         $wiki = Wiki::getWikiById($wikiid);
         return $this->render('wiki',['wiki'=>$wiki,]);
-    }
-
-    public function beforeAction($action)
-    {
-        $message = '';
-        if(\Yii::$app->user->isGuest)
-            $message = 'Please Login First 请先登录';
-        //else{
-        //    $courseid = $_COOKIE['courseid'];
-        //    $studentid = User::getAppUser()->id;
-        //    if(!$courseid || !Courseenrollment::findOne(['courseid'=>$courseid,'studentid'=>$studentid]))
-        //        $message = 'Please Enter Course First 请先进入课程';
-        //}
-        if($message!='')
-            $this->redirect('/site/say?message='.urlencode($message));
-        return parent::beforeAction($action);
     }
 }
