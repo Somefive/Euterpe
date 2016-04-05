@@ -97,18 +97,12 @@
     filter: Alpha(opacity=60);
 }
 
-/*发帖成功的提示*/
-#hintPostSuccess{
-    position:fixed;
-    /*top:300px;
-    right:35px;*/
-    z-index:10000;
-    width:1px;
-    height:52px;
-    line-height:52px;
-    font-size:20px;
-    text-align:center;
-    color:#fff;
-    background:#360;
-    display:none
+/*删除link*/
+.deleteLink{
+    color: red;
+    cursor:pointer;
+}
+.deleteLink:hover{
+    color: red;
+    cursor:pointer;
 }
