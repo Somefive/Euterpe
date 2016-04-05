@@ -24,7 +24,7 @@ $this->params['breadcrumbs']= [
         <br>
         <div class="input-group">
             <label class="input-group-addon" id="basic-addon1">Tag</label>
-            <input type="text" name="content" id="tag" class="form-control" placeholder="" aria-describedby="basic-addon1">
+            <input type="text" name="tag" id="tag" class="form-control" placeholder="" aria-describedby="basic-addon1">
         </div>
         <br>
         <div class="input-group">

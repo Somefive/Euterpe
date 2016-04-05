@@ -12,3 +12,18 @@ $(function(){
     });
     $('[data-toggle="tooltip"]').tooltip();
 });
+
+$(function(){
+
+    $('.panel-heading').click(function(){
+        if($(this).attr('folded')=="false"){
+            $(this).attr('folded','true');
+            $(this).siblings("div").fadeOut();
+        }
+        else{
+            $(this).attr('folded','false');
+            $(this).siblings("div").fadeIn();
+        }
+    });
+
+});
