@@ -99,6 +99,10 @@
 
 /*删除link*/
 .deleteLink{
-    color: darkred;
+    color: red;
+    cursor:pointer;
+}
+.deleteLink:hover{
+    color: red;
     cursor:pointer;
 }

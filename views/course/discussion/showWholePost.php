@@ -8,7 +8,6 @@ use app\models\account\User;
 <?php echo($userId);echo($postId)?>
 <div class="post_region_box question_note_view dashboard_element">
     <div class="post_region_header clearFix">
-
         <div class="post_title">note</div>
         <div class="post_view_count"><span class="count"><?php echo(ArrayHelper::getValue($selectedPost,'readMenCount'));?></span> views</div>
     </div>
@@ -56,7 +55,6 @@ use app\models\account\User;
 <div id="clarifying_discussion" class="post_region_box clarifying_discussion dashboard_element">
     <div class="post_region_header clearFix">
         <div class="post_title">followup discussions</div>
-        <div class="post_subtitle">for lingering questions and comments</div>
     </div>
 
     <div class="follow_all post_region_content clarifying_discussion ">
@@ -115,7 +113,7 @@ use app\models\account\User;
             <!--talk回复-->
             <div class="compose_reply clearFix start_reply" id="start_reply_followup_<?= ArrayHelper::getValue($replyPost,'postId')?>"
                  onclick="replyPost(<?=ArrayHelper::getValue($selectedPost,'postId')?>,2,'start_reply_followup_<?= ArrayHelper::getValue($replyPost,'postId')?>','create_reply_followup_<?=  ArrayHelper::getValue($replyPost,'postId')?>',<?= ArrayHelper::getValue($replyPost,'postId')?>)">
-                Reply to this followup discussion
+                Talk:
             </div>
             <!--下面的div原先class="discussion_replies new edit_mode"，但是这样却没办法显示，暂时去掉-->
             <div id="create_reply_followup_<?=  ArrayHelper::getValue($replyPost,'postId')?>">
