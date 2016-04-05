@@ -22,10 +22,10 @@ $this->registerCssFile('/css/discussion/discussionEditPost.css');
 $this->registerCssFile('/css/discussion/changLike.css');
 
 ?>
-<div class="container-fluid" style="background-image:url(/img/discussion/4.jpg); background-attachment:fixed">
+<div class="container-fluid" style="background-image:url(/img/discussion/4.jpg); background-attachment:fixed;width: 1200px;height: 500px">
     <div class="row" >
-        <div class="col-md-4">
-        <div id="nav" class="nav hidden-xs hidden-sm affix" data-spy="affix">
+        <div class="col-md-4" >
+        <div id="nav" class="nav hidden-xs hidden-sm affix" data-spy="affix" >
             <i id="end"></i>
             <div id="hintPostSuccess">发帖成功！</div>
 

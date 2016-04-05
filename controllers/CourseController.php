@@ -60,6 +60,7 @@ class CourseController extends Controller
         return $this->render('say',['message'=>$message]);
     }
 
+
     public function actionEntercourse()
     {
         $courseid = Yii::$app->request->get('courseid');

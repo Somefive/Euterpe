@@ -30,7 +30,9 @@ class Post extends ActiveRecord
         $lastestPosts = array_map("static::parseSimpleInfo", $lastestPosts);
         return $lastestPosts;
     }
-
+    public static function getMaxPostId(){
+        return static::find()->select('PostId')->max('PostId');
+    }
     //帖子被看的时候，改变帖子的readMenList
     public static function addReadList($postId)
     {

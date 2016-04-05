@@ -89,13 +89,13 @@ class DiscussionController extends Controller
         if (Yii::$app->request->isAjax) {
             $postId = Yii::$app->request->post();
             Post::addReadList($postId);
+            Remind::deleteRemindedData(User::getAppUserID(),$postId['postId']);
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
-            Remind::deleteRemindedData(User::getAppUserID(),$postId['postId']);
-             return $this->renderPartial('showWholePost.php',[
-                 'selectedPost' => $selectedPost,
-                 'replyPosts' => $replyPosts,
-             ],false,true);
+            return $this->renderPartial('showWholePost.php',[
+                'selectedPost' => $selectedPost,
+                'replyPosts' => $replyPosts,
+            ],false,true);
         }
     }
 
@@ -108,19 +108,6 @@ class DiscussionController extends Controller
         }
     }
 
-    //展示全部的提醒的帖子
-   /* public function actionShowWholeRemind(){
-        if(Yii::$app->request->isAjax){
-            $data='';
-            $reminded=Yii::$app->request->post();
-            foreach($reminded as $remind){
-                foreach($remind as $x=>$y){
-                    $data.=User::getUsernameById($x)."在";
-                }
-            }
-
-        }
-    }*/
     //发新帖子
     public function actionEditNewPost()
     {
@@ -129,8 +116,15 @@ class DiscussionController extends Controller
         if($model->load(Yii::$app->request->post()))    {
             $model->content = ArrayHelper::getValue(Yii::$app->request->post(),'content');
             if($model->addPost())   {
+                $this->render('say', ['message' => $model]);
                 sleep(1);
-                $this->redirect(array('course/discussion/discussion'));
+                $postId=post::getMaxPostId();
+                $selectedPost = Post::getPostByPostId($postId);
+                $replyPosts = Post::getnextPosts($selectedPost);
+                return $this->renderPartial('showWholePost.php',[
+                    'selectedPost' => $selectedPost,
+                    'replyPosts' => $replyPosts,
+                ],false,true);
                 return;
             }
             else return $this->render('say', ['message' => '发帖失败']);
