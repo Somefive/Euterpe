@@ -1,3 +1,189 @@
+
+.page_feed .hidingIcons .feed_item .metadata .icons .feed_icon.note,
+.page_feed .hidingIcons .feed_item .metadata .icons .feed_icon.ir_icon,
+.page_feed .hidingIcons .feed_item .metadata .icons .feed_icon.sr_icon,
+.page_feed .hidingIcons .feed_item .metadata .icons .feed_icon.mem_icon,
+.page_feed .hidingIcons .feed_item .metadata .icons .feed_icon.exp_icon,
+.page_feed .hidingIcons .feed_item .metadata .icons .feed_icon.poll_icon {
+  visibility: hidden;
+}
+.page_feed .hidingIcons .feed_item .metadata .icons .feed_icon.new_activity_icon {
+  float: right;
+}
+.page_feed .hidingIcons .feed_item.has_ir:hover .metadata .icons .feed_icon.ir_icon {
+  visibility: visible;
+}
+.page_feed .hidingIcons .feed_item.has_sr:hover .metadata .icons .feed_icon.sr_icon {
+  visibility: visible;
+}
+.page_feed .hidingIcons .feed_item.has_mem:hover .metadata .icons .feed_icon.mem_icon {
+  visibility: visible;
+}
+.page_feed .hidingIcons .feed_item.has_exp:hover .metadata .icons .feed_icon.exp_icon {
+  visibility: visible;
+}
+.page_feed .hidingIcons .feed_item.note:hover .metadata .icons .feed_icon.note {
+  visibility: visible;
+}
+.page_feed .hidingIcons .feed_item.poll:hover .metadata .icons .feed_icon.poll_icon {
+  visibility: visible;
+}
+.page_feed .compact_view .feed_item {
+  min-height: 16px;
+}
+.page_feed .compact_view .feed_item:hover .unread_indicator {
+  visibility: hidden;
+}
+.page_feed .compact_view .feed_item.has_unresolved_followups,
+.page_feed .compact_view .feed_item.instructor_endorsed_post {
+  min-height: 32px;
+}
+.page_feed .compact_view .feed_item.has_unresolved_followups.instructor_endorsed_post {
+  min-height: 47px;
+}
+.page_feed .compact_view .feed_item .feed_item_dropdown_selector .feed_item_dropdown_arrow {
+  height: 27px;
+  line-height: 29px;
+  margin-right: 5px;
+}
+.page_feed .compact_view .feed_item .content .snippet {
+  display: none;
+}
+.page_feed .compact_view .feed_item .tags {
+  display: none;
+}
+.page_feed .compact_view .feed_item .metadata .counts {
+  display: none;
+}
+.page_feed .compact_view .feed_item .metadata .timestamp {
+  display: none;
+}
+
+
+/*timestamp*/
+
+.page_feed .compact_view .feed_item .metadata .timestamp {
+  display: none;
+}
+
+.page_feed .feed_item .metadata .timestamp {
+  color: #888;
+  font-size: 90%;
+  height: 16px;
+  line-height: 16px;
+  margin-bottom: 3px;
+  text-align: right;
+}
+/*title*/
+
+.page_feed .feed_item .content {
+  margin-left: 26px;
+  margin-right: 61px;
+}
+.page_feed .feed_item .content .title {
+  color: #30424D;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.page_feed .feed_item .content .title .title_text {
+  float: left;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+.page_feed .feed_item .content .private_icon {
+  background: #eee;
+  color: #666;
+  font-weight: 500;
+  display: none;
+  float: left;
+  font-size: 11px;
+  margin-right: 4px;
+  padding: 0 4px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  text-shadow: none;
+  line-height: 1.6;
+}
+.page_feed .feed_item .content .private_icon .private_icon_indicator {
+  height: 8px;
+  width: 8px;
+  background: black;
+  float: left;
+  margin: 5px 5px 5px 0px;
+}
+.page_feed .feed_item .content .private_icon .private_icon_indicator.private {
+  background: #666;
+}
+.page_feed .feed_item .content .private_icon .private_icon_indicator.inst_note {
+  background: #f8b01e;
+}
+.page_feed .feed_item .content .private_icon .private_icon_indicator.sections {
+  background: #1FB6DB;
+}
+.page_feed .feed_item .content .attach_icon {
+  background: url('/images/dashboard/question-feed/question-feed-icons.png') no-repeat scroll -70px -10px transparent;
+  display: inline-block;
+  height: 10px;
+  margin-left: 5px;
+  margin-top: 6px;
+  width: 10px;
+}
+.page_feed .feed_item .content .snippet {
+  color: #80858A;
+  font-family: 'Lucida Grande', Lucida, Arial, sans-serif;
+  font-size: 11px;
+  max-height: 39px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+.page_feed .feed_item .content .messages {
+  width: 100%;
+  list-style: disc;
+  margin-left: 15px;
+}
+.page_feed .feed_item .content .messages > li {
+  display: none;
+  font-weight: bold;
+  list-style: disc;
+  margin-top: 3px;
+  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  line-height: 12px;
+}
+.page_feed .feed_item.unread .unread_indicator {
+  background: transparent url(https://piazza.com/images/piazza/dashboard/icon-unread-dot.png) 7px center no-repeat;
+}
+.page_feed .feed_item.unread .feed_item_dropdown_selector .mark_unread_action {
+  display: none;
+}
+.page_feed .feed_item.unanswered .content .title {
+  color: #900;
+}
+.page_feed .feed_item.private .content .private_icon {
+  display: block;
+}
+.page_feed .feed_item.has_unresolved_followups .content .messages .unresolved_followups {
+  color: #900;
+  display: list-item;
+}
+.page_feed .feed_item.has_open_teammate_searches .content .messages .open_teammate_searches {
+  color: #900;
+  display: list-item;
+}
+.page_feed .feed_item.instructor_endorsed_post .content .messages .instructor_endorsed {
+  color: #008000;
+  display: list-item;
+}
 /*!
  * Hover.css (http://ianlunn.github.io/Hover/)
  * Version: 2.0.2
