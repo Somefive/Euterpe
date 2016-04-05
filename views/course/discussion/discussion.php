@@ -72,9 +72,11 @@ $this->registerCssFile('/css/discussion/changLike.css');
             </div><br/>
 
             <div id = "simplePostList" style="height:480px; overflow:auto;border:#A0A0A0 solid thin;">               
+                <ul id="simplePostUl">
                     <?php echo \Yii::$app->view->renderFile('@app/views/course/discussion/simplePostList.php', [
                         'simplePosts' => $simplePosts,
                     ]); ?>
+                </ul>        
             </div>
         </div>
         </div>
