@@ -26,6 +26,7 @@ class Wiki extends ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => '',
             'studentid' => '',
             'tag' => 'Tag 分隔符为;'
         ];
@@ -35,7 +36,7 @@ class Wiki extends ActiveRecord
     {
         return [
             [['studentid','title'],'required'],
-            [['detail','tag'],'default','value'=>''],
+            [['detail','tag','id'],'default','value'=>''],
         ];
     }
 
@@ -44,9 +45,14 @@ class Wiki extends ActiveRecord
         if($wiki==null){
             if(static::findOne(['title'=>$this->title])!=null)
                 return false;
+            $this->isNewRecord = true;
             return $this->insert();
         }
-        else
-            return $this->update();
+        else{
+            $wiki->title = $this->title;
+            $wiki->detail = $this->detail;
+            $wiki->tag = $this->tag;
+            return $wiki->save();
+        }
     }
 }

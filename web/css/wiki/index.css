@@ -1,9 +1,5 @@
-.panel-heading{
+.panel-title{
     font-size: x-large;
-}
-
-.panel-heading:hover{
-    cursor: pointer;
 }
 
 .panel-body{
@@ -17,4 +13,15 @@ span.tag{
     background-color: #9acfea;
     border-radius: 3px;
     font-size: medium;
+}
+
+.editbar{
+    color: black;
+    margin: 5px;
+    font-size: large;
+}
+
+.editbar:hover{
+    color: #00aa00;
+    cursor: pointer;
 }

@@ -43,9 +43,26 @@ class WikiController extends Controller
     public function actionIndex()
     {
         $focuswiki = new Wiki();
-        if(!empty($_POST['operate']) and $_POST['operate']=='create' and $focuswiki->load(Yii::$app->request->post()) and $focuswiki->validate()){
-            $focuswiki->flush();
-            $focuswiki = new Wiki();
+        if(!empty($_POST['operate']) and $focuswiki->load(Yii::$app->request->post()) and $focuswiki->validate()){
+            if($_POST['operate']=='create') {
+                $focuswiki->id = '';
+                $focuswiki->flush();
+                $focuswiki = new Wiki();
+            }
+            else if($_POST['operate']=='edit'){
+                $oriwiki = Wiki::getWikiById($focuswiki->id);
+                if($oriwiki!=null and $oriwiki->studentid==$focuswiki->studentid and $oriwiki->studentid==User::getAppUserID()){
+                    $focuswiki->flush();
+                    $focuswiki = new Wiki();
+                }
+            }
+            else if($_POST['operate']=='delete'){
+                $oriwiki = Wiki::getWikiById($focuswiki->id);
+                if($oriwiki!=null and $oriwiki->studentid==$focuswiki->studentid and $oriwiki->studentid==User::getAppUserID()){
+                    $oriwiki->delete();
+                    $focuswiki = new Wiki();
+                }
+            }
         }
         $focuswiki->studentid = User::getAppUser()->id;
         $wikis = Wiki::find()->all();
@@ -100,13 +117,5 @@ class WikiController extends Controller
         $wikiid = Yii::$app->request->get('wikiid');
         $wiki = Wiki::getWikiById($wikiid);
         return $this->render('wiki',['wiki'=>$wiki,]);
-    }
-
-    public function beforeAction($action)
-    {
-        $message = '';
-        if($message!='')
-            $this->redirect('/site/say?message='.urlencode($message));
-        return parent::beforeAction($action);
     }
 }
