@@ -23,10 +23,14 @@ $this->registerCssFile('/css/discussion/prefixfree.css');
 $this->registerCssFile('/css/discussion/changLike.css');
 
 ?>
+<<<<<<< HEAD
 <div class="container-fluid" style="background-image:url(/img/discussion/!4.jpg); background-attachment:fixed">
+=======
+<div class="container-fluid" style="background-image:url(/img/discussion/4.jpg); background-attachment:fixed;width: 1200px;height: 500px">
+>>>>>>> afb89449d9eaf9708ab8fc185a0dc6e7539589c6
     <div class="row" >
-        <div class="col-md-4">
-        <div id="nav" class="nav hidden-xs hidden-sm affix" data-spy="affix">
+        <div class="col-md-4" >
+        <div id="nav" class="nav hidden-xs hidden-sm affix" data-spy="affix" >
             <i id="end"></i>
             <div id="hintPostSuccess">发帖成功！</div>
 
@@ -96,3 +100,28 @@ $this->registerCssFile('/css/discussion/changLike.css');
         </div>
     </div>
 </div>
+
+
+
+<script type="text/javascript">
+    if(<?=$need_show?>!=-1){
+       setTimeout(function() {
+            if(document.all) {
+                document.getElementById("li_postId_"+<?=$need_show?>).click();
+            }
+            else {
+                var e = document.createEvent("MouseEvents");
+                e.initEvent("click", true, true);
+                document.getElementById("li_postId_"+<?=$need_show?>).dispatchEvent(e);
+            }
+        }, 10); 
+   }        
+   
+    </script>
+// <!-- <? //php
+//     if($need_show != -2)    {
+//         echo
+//         ''
+        ;
+    }
+?> -->
