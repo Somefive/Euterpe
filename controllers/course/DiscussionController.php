@@ -162,7 +162,7 @@ class DiscussionController extends Controller
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
-            Post::addReadList($postId);
+            //Post::addReadList($postId);
             return $this->renderPartial('showWholePost.php',[
                 'RemindPostId'=>$RemindPostId,
                 'selectedPost' => $selectedPost,
@@ -182,7 +182,7 @@ class DiscussionController extends Controller
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
-            Post::addReadList($postId);
+            //Post::addReadList($postId);
            
             return $this->renderPartial('showWholePost.php',[
                 'selectedPost' => $selectedPost,
@@ -202,7 +202,7 @@ class DiscussionController extends Controller
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
-            Post::addReadList($postId);
+            //Post::addReadList($postId);
             return $this->renderPartial('showWholePost.php',[
                 'selectedPost' => $selectedPost,
                 'replyPosts' => $replyPosts,

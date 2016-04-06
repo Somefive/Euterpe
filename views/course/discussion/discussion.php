@@ -23,7 +23,11 @@ $this->registerCssFile('/css/discussion/prefixfree.css');
 $this->registerCssFile('/css/discussion/changLike.css');
 
 ?>
+<<<<<<< HEAD
+<div class="container-fluid" style="background-image:url(/img/discussion/!4.jpg); background-attachment:fixed">
+=======
 <div class="container-fluid" style="background-image:url(/img/discussion/4.jpg); background-attachment:fixed;width: 1200px;height: 500px">
+>>>>>>> afb89449d9eaf9708ab8fc185a0dc6e7539589c6
     <div class="row" >
         <div class="col-md-4" >
         <div id="nav" class="nav hidden-xs hidden-sm affix" data-spy="affix" >
@@ -72,9 +76,11 @@ $this->registerCssFile('/css/discussion/changLike.css');
             </div><br/>
 
             <div id = "simplePostList" style="height:480px; overflow:auto;border:#A0A0A0 solid thin;">               
+                <ul id="simplePostUl">
                     <?php echo \Yii::$app->view->renderFile('@app/views/course/discussion/simplePostList.php', [
                         'simplePosts' => $simplePosts,
                     ]); ?>
+                </ul>        
             </div>
         </div>
         </div>

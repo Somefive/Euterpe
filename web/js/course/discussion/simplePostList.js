@@ -24,7 +24,6 @@ function getPage(pageNumber)	{
         data: {pageNumber:pageNumber},
         dataType : 'text',
         success: function (data) {
-        	//alert("will getPage:"+pageNumber);
         	if(data.length<5)	hasMoreContent = false;
         	$(".loading").remove();
         	$("#simplePostUl").append(data);
