@@ -64,7 +64,7 @@ class NewPostForm extends Model
                     $remindedManId = User::getUserIdByName($remindName);
                     Remind::addRemindedData($remindedManId,$post->postId,  User::getAppUserID(), $post->postId);
                 }
-                return true;
+                return $post->postId;
            }
         }
         return false;
@@ -104,7 +104,6 @@ class NewPostForm extends Model
     {
         // 通常: $matches[0]是完成的匹配
         //$matches[1]的信息是<!--<start-->.*<end>
-        Yii::warning($matches[1]);
         $result = "";
         preg_match("/<!--<start-->(.*)<end>/", $matches[1], $atInfo);
         $atNames =  explode('@',$atInfo[1]);

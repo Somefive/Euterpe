@@ -36,7 +36,9 @@ class Post extends ActiveRecord
     //帖子被看的时候，改变帖子的readMenList
     public static function addReadList($postId)
     {
-        $postId = implode(" ",$postId);
+        //Post::alert($postId);
+        if(is_array($postId))
+            $postId = implode(" ",$postId);
         $session = Yii::$app->session;
         $session->open();
         $timeKey = $postId.'_readTime';
