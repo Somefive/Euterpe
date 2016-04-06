@@ -218,12 +218,13 @@ class DiscussionController extends Controller
             $session['fatherPostAId'] = ArrayHelper::getValue(Yii::$app->request->post(), 'fatherPostAId');
             $session['fatherPostBId'] = ArrayHelper::getValue(Yii::$app->request->post(), 'fatherPostBId');
             $session['postType'] = ArrayHelper::getValue(Yii::$app->request->post(),'postType');
-             //Post::alert($session['fatherPostBId']);
+             //Post::alert($session['fatherPostAId']);
             //return (Yii::$app->session->get('postType'));
         }
         $model = new ReplyPostForm();
         if($model->load(Yii::$app->request->post()))    {
             $session = Yii::$app->session;
+            $session->open();
             $session['need_show']=$session['fatherPostAId'];
             Post::alert($session['need_show']);
             $model->addReplyPost($session->get('fatherPostAId'),$session->get('postType'),$session->get('fatherPostBId'));
