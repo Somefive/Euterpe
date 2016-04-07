@@ -66,10 +66,10 @@ class WikiController extends Controller
         }
         $focuswiki->studentid = User::getAppUser()->id;
         if($query=Yii::$app->request->get('query')){
-            $wikis = Wiki::find()->where(['or',['like','tag',$query],['like','title',$query]])->all();
+            $wikis = Wiki::find()->where(['or',['like','tag',$query],['like','title',$query]])->orderBy(['favor'=>SORT_DESC])->all();
         }
         else {
-            $wikis = Wiki::find()->all();
+            $wikis = Wiki::find()->orderBy(['favor'=>SORT_DESC])->all();
         }
         return $this->render('index',[
             'wikis' => $wikis,
@@ -122,5 +122,15 @@ class WikiController extends Controller
         $wikiid = Yii::$app->request->get('wikiid');
         $wiki = Wiki::getWikiById($wikiid);
         return $this->render('wiki',['wiki'=>$wiki,]);
+    }
+
+    public function actionFavor(){
+        $wikiid = Yii::$app->request->get('wikiid');
+        $wiki = Wiki::findOne(['id'=>$wikiid]);
+        if(!$wiki)
+            return null;
+        $wiki->favor++;
+        $wiki->save();
+        return json_encode(['wikiid'=>$wikiid,'favor'=>$wiki->favor]);
     }
 }
