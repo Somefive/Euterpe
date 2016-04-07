@@ -65,7 +65,12 @@ class WikiController extends Controller
             }
         }
         $focuswiki->studentid = User::getAppUser()->id;
-        $wikis = Wiki::find()->all();
+        if($query=Yii::$app->request->get('query')){
+            $wikis = Wiki::find()->where(['or',['like','tag',$query],['like','title',$query]])->all();
+        }
+        else {
+            $wikis = Wiki::find()->all();
+        }
         return $this->render('index',[
             'wikis' => $wikis,
             'focuswiki' => $focuswiki,

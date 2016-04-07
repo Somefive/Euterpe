@@ -15,6 +15,10 @@ span.tag{
     font-size: medium;
 }
 
+span.tag:hover{
+    cursor: pointer;
+}
+
 .editbar{
     color: black;
     margin: 5px;

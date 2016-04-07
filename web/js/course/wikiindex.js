@@ -46,4 +46,7 @@ $(function(){
         $('#wiki-tag').val($(this).parent().siblings('.panel-tag').text());
         $('#wiki-form').submit();
     });
+    $('span.tag').click(function(){
+        window.location = '/course/wiki/index?query='+$(this).text();
+    });
 });
