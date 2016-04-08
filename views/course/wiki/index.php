@@ -13,11 +13,23 @@ $this->params['breadcrumbs'][] = 'Index';
 $wikis;
 ?>
 <div class="wiki-index">
+
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-success newwiki">New Wiki <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span></button>
-    </div>
+    <span style="float:right;">
+        <form method="get">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success newwiki">New Wiki <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span></button>
+                </span>
+                <input type="text" name="query" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default" type="button">Search!</button>
+                </span>
+            </div>
+        </form>
+    </span>
+
     <br/><br/>
     <?php foreach($wikis as $wiki):?>
         <div class="panel panel-success" wikiid="<?=$wiki->id?>">
@@ -28,6 +40,7 @@ $wikis;
                     <span class="editbar glyphicon glyphicon-pencil editbtn" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Edit"></span>
                     <span class="editbar glyphicon glyphicon-trash deletebtn" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Delete"></span>
                 <?php endif?>
+                <span class="editbar glyphicon glyphicon-heart favorbtn" aria-hidden="true"><?=$wiki->favor?></span>
             </div>
             <div class="panel-body"><?=Html::encode($wiki->detail)?></div>
             <div class="panel-footer">

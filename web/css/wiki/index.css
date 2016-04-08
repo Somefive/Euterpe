@@ -15,13 +15,22 @@ span.tag{
     font-size: medium;
 }
 
+span.tag:hover{
+    cursor: pointer;
+}
+
 .editbar{
     color: black;
     margin: 5px;
     font-size: large;
+    float: right;
 }
 
 .editbar:hover{
     color: #00aa00;
     cursor: pointer;
+}
+
+.glyphicon-heart{
+    color: crimson;
 }
