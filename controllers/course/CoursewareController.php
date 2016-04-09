@@ -22,8 +22,6 @@ class CoursewareController extends Controller
     }
     public function actionTest()
     {
-	    $pdf = Yii::$app->pdf;
-	    $pdf->content = "123";
-	    return $pdf->render();
+	    return $this->render("test");
     }
 }
