@@ -1,5 +1,5 @@
 <?php
-
+use kartik\mpdf\Pdf;
 $params = require(__DIR__ . '/params.php');
 $aliases = require(__DIR__ . '/aliases.php');
 
@@ -70,6 +70,13 @@ $config = [
             ],
             // ...
         ],
+        'pdf' => [
+            'class' => Pdf::classname(),
+            'format' => Pdf::FORMAT_A4,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+            // refer settings section for all configuration options
+        ]
     ],
     'params' => $params,
     'aliases' => $aliases,

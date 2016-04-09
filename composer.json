@@ -21,7 +21,8 @@
         "yiisoft/yii2-swiftmailer": "*",
         "yiidoc/yii2-redactor": "*",
         "pjkui/kindeditor": "dev-master",
-        "kucha/ueditor": "*"
+        "kucha/ueditor": "*",
+        "kartik-v/yii2-mpdf": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
