@@ -8,8 +8,10 @@ namespace app\controllers\course;
 use yii\web\Controller;
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\data\ActiveDataProvider;
 use kartik\mpdf\Pdf;
+use yii\web\UploadedFile;
+use app\models\course\courseware\UploadForm;
+
 class CoursewareController extends Controller
 {
     public function actions()
@@ -20,6 +22,26 @@ class CoursewareController extends Controller
             ],
         ];
     }
+
+    public function actionUploadCourseware()
+    {
+    	//UploadForm::alert(phpinfo());
+    	$model = new UploadForm();
+		if (Yii::$app->request->isPost) {
+			$model->title = Yii::$app->request->post()['UploadForm']['title'];
+			Yii::warning(Yii::$app->request->post());
+			Yii::warning($model->title);
+			$model->coursewareFile = UploadedFile::getInstance($model, 'coursewareFile');
+			if ($model->save()) {
+				return $this->render('say',['message'=>'上传成功']);
+			}
+			else
+				return $this->render('say',['message'=>'上传失败']);
+		}
+
+		return $this->render('uploadCourseware', ['model' => $model]);
+    }
+
     public function actionTest()
     {
 	    return $this->render("test");
