@@ -100,7 +100,7 @@ $this->registerCssFile('/css/discussion/changLike.css');
 
 
 <script type="text/javascript">
-    if(<?=$need_show?>!=-1){        
+    if(<?=$need_show?>!=-1){
        setTimeout(function() {
             if(document.all) {
                 document.getElementById("li_postId_"+<?=$need_show?>).click();
@@ -109,15 +109,7 @@ $this->registerCssFile('/css/discussion/changLike.css');
                 var e = document.createEvent("MouseEvents");
                 e.initEvent("click", true, true);
                 document.getElementById("li_postId_"+<?=$need_show?>).dispatchEvent(e);
-                //window.location.hash="li_postId_"+<?=$need_show?>;
             }
-<<<<<<< HEAD
-        }, 500); 
-   }        
-
-    </script>
-=======
         }, 100); 
    }        
 </script>
->>>>>>> 40a8901edcbfe64b02e2cc41a049d8e9d8df56d8
