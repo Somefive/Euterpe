@@ -23,11 +23,7 @@ $this->registerCssFile('/css/discussion/prefixfree.css');
 $this->registerCssFile('/css/discussion/changLike.css');
 
 ?>
-<<<<<<< HEAD
 <div class="container-fluid" style="background-image:url(/img/discussion/!4.jpg); background-attachment:fixed">
-=======
-<div class="container-fluid" style="background-image:url(/img/discussion/4.jpg); background-attachment:fixed;width: 1200px;height: 500px">
->>>>>>> afb89449d9eaf9708ab8fc185a0dc6e7539589c6
     <div class="row" >
         <div class="col-md-4" >
         <div id="nav" class="nav hidden-xs hidden-sm affix" data-spy="affix" >
@@ -115,7 +111,13 @@ $this->registerCssFile('/css/discussion/changLike.css');
                 document.getElementById("li_postId_"+<?=$need_show?>).dispatchEvent(e);
                 //window.location.hash="li_postId_"+<?=$need_show?>;
             }
+<<<<<<< HEAD
         }, 500); 
    }        
 
     </script>
+=======
+        }, 100); 
+   }        
+</script>
+>>>>>>> 40a8901edcbfe64b02e2cc41a049d8e9d8df56d8

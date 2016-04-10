@@ -123,12 +123,11 @@ class DiscussionController extends Controller
         $model = new NewPostForm;
         if($model->load(Yii::$app->request->post()))    {
             $model->content = ArrayHelper::getValue(Yii::$app->request->post(),'content');
-            if($model->addPost())   {
+            if(($postId=$model->addPost()) !== false)   {
                 $this->render('say', ['message' => $model]);
                 sleep(1);
-                $postId=post::getMaxPostId();
                 $session = Yii::$app->session;
-                $session->open();
+                $session->open(); 
                 $session['need_show'] = $postId;
                 $this->redirect(array('course/discussion/discussion'));
                 return;
@@ -161,8 +160,7 @@ class DiscussionController extends Controller
             Remind::deleteRemindedData($RemindedManId,$RemindPostId);
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
-            //Yii::warning($replyPosts);
-            //Post::addReadList($postId);
+            Post::addReadList($postId);
             return $this->renderPartial('showWholePost.php',[
                 'RemindPostId'=>$RemindPostId,
                 'selectedPost' => $selectedPost,
@@ -181,8 +179,7 @@ class DiscussionController extends Controller
             Remind::deleteAData($ReplyedManId,$ReplyPostId);
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
-            //Yii::warning($replyPosts);
-            //Post::addReadList($postId);
+            Post::addReadList($postId);
            
             return $this->renderPartial('showWholePost.php',[
                 'selectedPost' => $selectedPost,
@@ -201,8 +198,7 @@ class DiscussionController extends Controller
             Remind::deleteBData($ReplyedManId,$TalkPostId);
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
-            //Yii::warning($replyPosts);
-            //Post::addReadList($postId);
+            Post::addReadList($postId);
             return $this->renderPartial('showWholePost.php',[
                 'selectedPost' => $selectedPost,
                 'replyPosts' => $replyPosts,

@@ -20,6 +20,7 @@ var hostname = 'http://'+location.host;
 
 function showWholePost(postId)
 {
+    //alert(postId)
     var load = '<div class="container_p">\
                     <div class="progress">\
                         <div class="progress-bar">\
