@@ -113,6 +113,7 @@ $this->registerCssFile('/css/discussion/changLike.css');
                 var e = document.createEvent("MouseEvents");
                 e.initEvent("click", true, true);
                 document.getElementById("li_postId_"+<?=$need_show?>).dispatchEvent(e);
+                //window.location.hash="li_postId_"+<?=$need_show?>;
             }
         }, 500); 
    }        
