@@ -33,6 +33,7 @@ class DiscussionController extends Controller
     //讨论区的主页面
     public function actionDiscussion()
     {
+
         $allUsername = User::getAllUsername();
         $simplePosts = Post::getSimplePosts();
         $RemindDatas = Remind::getRemindedData(User::getAppUserID());
@@ -71,6 +72,13 @@ class DiscussionController extends Controller
             }
             $talkNum+=count($TalkedData);
         }
+        $need_show = -1;
+        $session = Yii::$app->session;
+        $session->open();
+        if($session['need_show'] != null) {
+            $need_show = $session['need_show'];
+        }
+        $session['need_show']=-1;
         return $this->render('discussion.php',[
             'simplePosts' => $simplePosts,
             'allUsername' => $allUsername,
@@ -80,6 +88,7 @@ class DiscussionController extends Controller
             'remindedNum' =>$remindedNum,
             'replyNum'=>$replyNum,
             'talkNum'=>$talkNum,
+            'need_show'=>$need_show,
         ]);
     }
     //用来显示页面右侧的帖子的完整信息
@@ -92,12 +101,15 @@ class DiscussionController extends Controller
             $replyPosts=null;
             if($selectedPost!=null) $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
+
             Post::addReadList($postId);
             Remind::deleteRemindedData(User::getAppUserID(),$postId['postId']);
-             return $this->renderPartial('showWholePost.php',[
-                 'selectedPost' => $selectedPost,
-                 'replyPosts' => $replyPosts,
-             ],false,true);
+            $selectedPost = Post::getPostByPostId($postId);
+            $replyPosts = Post::getnextPosts($selectedPost);
+            return $this->renderPartial('showWholePost.php',[
+                'selectedPost' => $selectedPost,
+                'replyPosts' => $replyPosts,
+            ],false,true);
         }
     }
 
@@ -110,19 +122,6 @@ class DiscussionController extends Controller
         }
     }
 
-    //展示全部的提醒的帖子
-   /* public function actionShowWholeRemind(){
-        if(Yii::$app->request->isAjax){
-            $data='';
-            $reminded=Yii::$app->request->post();
-            foreach($reminded as $remind){
-                foreach($remind as $x=>$y){
-                    $data.=User::getUsernameById($x)."在";
-                }
-            }
-
-        }
-    }*/
     //发新帖子
     public function actionEditNewPost()
     {
@@ -130,12 +129,14 @@ class DiscussionController extends Controller
         $model = new NewPostForm;
         if($model->load(Yii::$app->request->post()))    {
             $model->content = ArrayHelper::getValue(Yii::$app->request->post(),'content');
-            //return $this->render('say', ['message' => $msg]);
-
-            if($model->addPost())   {
+            if(($postId=$model->addPost()) !== false)   {
+                $this->render('say', ['message' => $model]);
                 sleep(1);
-                return $this->redirect(array('course/discussion/discussion'));
-                //return $this->sleep();
+                $session = Yii::$app->session;
+                $session->open(); 
+                $session['need_show'] = $postId;
+                $this->redirect(array('course/discussion/discussion'));
+                return;
             }
             else return $this->render('say', ['message' => '发帖失败']);
         }
@@ -165,7 +166,6 @@ class DiscussionController extends Controller
             Remind::deleteRemindedData($RemindedManId,$RemindPostId);
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
-            //Yii::warning($replyPosts);
             Post::addReadList($postId);
             return $this->renderPartial('showWholePost.php',[
                 'RemindPostId'=>$RemindPostId,
@@ -185,7 +185,6 @@ class DiscussionController extends Controller
             Remind::deleteAData($ReplyedManId,$ReplyPostId);
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
-            //Yii::warning($replyPosts);
             Post::addReadList($postId);
            
             return $this->renderPartial('showWholePost.php',[
@@ -205,7 +204,6 @@ class DiscussionController extends Controller
             Remind::deleteBData($ReplyedManId,$TalkPostId);
             $selectedPost = Post::getPostByPostId($postId);
             $replyPosts = Post::getnextPosts($selectedPost);
-            //Yii::warning($replyPosts);
             Post::addReadList($postId);
             return $this->renderPartial('showWholePost.php',[
                 'selectedPost' => $selectedPost,
@@ -222,15 +220,18 @@ class DiscussionController extends Controller
             $session['fatherPostAId'] = ArrayHelper::getValue(Yii::$app->request->post(), 'fatherPostAId');
             $session['fatherPostBId'] = ArrayHelper::getValue(Yii::$app->request->post(), 'fatherPostBId');
             $session['postType'] = ArrayHelper::getValue(Yii::$app->request->post(),'postType');
+             //Post::alert($session['fatherPostBId']);
             //return (Yii::$app->session->get('postType'));
         }
         $model = new ReplyPostForm();
         if($model->load(Yii::$app->request->post()))    {
             $session = Yii::$app->session;
-            if($model->addReplyPost($session->get('fatherPostAId'),$session->get('postType'),$session->get('fatherPostBId')))   $msg = "发帖成功";
-            else    $msg = "发帖失败,";
+            $session['need_show']=$session['fatherPostAId'];
+            Post::alert($session['need_show']);
+            $model->addReplyPost($session->get('fatherPostAId'),$session->get('postType'),$session->get('fatherPostBId'));
             $session->close();
-            return $this->render('say', ['message' => $msg]);
+            $this->redirect(array('course/discussion/discussion'));
+                return;
         }
         return $this->renderAjax('replyPost.php', [
             'model' => $model,
@@ -260,9 +261,6 @@ class DiscussionController extends Controller
 
             $msg = call_user_func(array("app\models\course\Post", $orderRule));
 
-
-            $simplePosts = Post::getSimplePosts();
-            Yii::warning($simplePosts);
             return $this->renderPartial('simplePostList.php',[
                 'simplePosts' => $msg,
             ]);

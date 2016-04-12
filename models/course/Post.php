@@ -22,28 +22,40 @@ class Post extends ActiveRecord
     //得到页面左侧渲染的帖子列表的精简信息
     public static function getSimplePosts($pageNumber = 0)
     {
-        $pageCount = 5;
+        $pageCount = 20;
         $lastestPosts = static::find()->where(['isPost' => 0])->asArray()->all();
         $lastestPosts = array_reverse($lastestPosts);
-        $lastestPosts = array_slice($lastestPosts,$pageNumber*$pageCount,$pageCount);
+        if($pageNumber > -1)
+            $lastestPosts = array_slice($lastestPosts,$pageNumber*$pageCount,$pageCount);
         $lastestPosts = array_map("static::parseSimpleInfo", $lastestPosts);
         return $lastestPosts;
     }
-
+    public static function getMaxPostId(){
+        return static::find()->select('PostId')->max('PostId');
+    }
     //帖子被看的时候，改变帖子的readMenList
     public static function addReadList($postId)
     {
+        //Post::alert($postId);
+        if(is_array($postId))
+            $postId = implode(" ",$postId);
         $session = Yii::$app->session;
         $session->open();
         $timeKey = $postId.'_readTime';
         if($session[$timeKey] == null)  {
             $session[$timeKey] = time();
+            //static::alert("now is null,new time is ".$session[$timeKey]);
         }else   {
             $lastTime = $session[$timeKey];
             $session[$timeKey] = time();
             $timeInterval = time() -$lastTime;
             $session->close();
-            //if($timeInterval < 60) return;
+            //static::alert("timeInterval is ".$timeInterval);
+            if($timeInterval < 60) { 
+                //static::alert("timeInterval is ".$timeInterval).",will return"; 
+                return;
+            }
+            //static::alert("timeInterval is ".$timeInterval.",>60");
         }
         $selectedPost = Post::findOne($postId);
         if (User::getAppUserID() == $selectedPost->postManId)
@@ -151,16 +163,13 @@ class Post extends ActiveRecord
 
 
     public static function orderByTime()
-    {
-        $wholePostList = static::find()->where(['isPost' => 0])->asArray()->all();
-        ArrayHelper::multisort($wholePostList, 'time', SORT_DESC);
-        return array_map("static::parseSimpleInfo", $wholePostList);
-        return $lastestPosts;
+    {      
+        return Post::getSimplePosts(-1);
     }
 
     public static function orderByHot()
     {
-        $simplePostList = Post::getSimplePosts();
+        $simplePostList = Post::getSimplePosts(-1);
         ArrayHelper::multisort($simplePostList, 'likeMenCount', SORT_DESC);
         return $simplePostList;
     }
@@ -302,5 +311,10 @@ class Post extends ActiveRecord
         }
         return $Talks;
     }
-
+    public static function alert($str="")
+    {
+        if(is_array($str))
+            $str = "ARRAY:".implode(" ",$str);
+        echo "<script type='text/javascript'>alert('$str');</script>";
+    }
 }

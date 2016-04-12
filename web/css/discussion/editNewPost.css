@@ -1,0 +1,32 @@
+.atList    {
+    font-family: "Microsoft YaHei", 'Georgia', Times, Times New Roman, serif;
+    font-size: 20px;
+}
+.atList div {
+    margin: 10px 10px;
+}
+.atList div:hover, .atList div:focus, .atList div:active {
+    color:#5cb85c;
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+}
+.atList div label input{
+    width: 18px;
+    height: 18px;
+}
+
+/*发帖成功的提示*/
+#hintPostSuccess{
+    position:fixed;
+    /*top:300px;
+    right:35px;*/
+    z-index:10000;
+    width:1px;
+    height:52px;
+    line-height:52px;
+    font-size:20px;
+    text-align:center;
+    color:#fff;
+    background:#360;
+    display:none
+}

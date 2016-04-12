@@ -6,33 +6,27 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 $this->title = 'Discussion';
-$this->params['breadcrumbs'] = [
-    ['label'=>'course','url'=>'/course/index'],
-    ['label'=>'discussion','url'=>'/course/discussion/index'],
-    $this->title
-];
-$this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
 
+$this->registerJsFile('/js/bootstrap-hover-dropdown.min.js');
 $this->registerJsFile('/js/course/discussion/discussion.js');
 $this->registerJsFile('/js/course/discussion/simplePostList.js');
 $this->registerJsFile('/js/course/discussion/prefixfree.min.js');
 $this->registerJsFile('/js/course/discussion/jquery.fly.min.js');
 $this->registerJsFile('/js/course/discussion/requestAnimationFrame.js');
+
 $this->registerCssFile('/css/discussion/discussion.css');
-$this->registerCssFile('/css/discussion/discussionSimpleList.css');
-$this->registerCssFile('/css/discussion/discussionShowWholePost.css');
-$this->registerCssFile('/css/discussion/prefixfree.css');
+$this->registerCssFile('/css/discussion/simplePostList.css');
+$this->registerCssFile('/css/discussion/showWholePost.css');
+$this->registerCssFile('/css/discussion/editNewPost.css');
 $this->registerCssFile('/css/discussion/css_load.css');
-$this->registerCssFile('/css/discussion/discussionEditPost.css');
+$this->registerCssFile('/css/discussion/prefixfree.css');
 $this->registerCssFile('/css/discussion/changLike.css');
 
 ?>
-
-
-<div class="container-fluid" style="background-image:url(/img/discussion/4.jpg); background-attachment:fixed">
+<div class="container-fluid" style="background-image:url(/img/discussion/!4.jpg); background-attachment:fixed">
     <div class="row" >
-        <div class="col-md-4">
-
+        <div class="col-md-4" >
+        <div id="nav" class="nav hidden-xs hidden-sm affix" data-spy="affix" >
             <i id="end"></i>
             <div id="hintPostSuccess">发帖成功！</div>
 
@@ -77,13 +71,14 @@ $this->registerCssFile('/css/discussion/changLike.css');
                 </div>
             </div><br/>
 
-            <div id = "simplePostList" style="height:480px; overflow:auto;border:#A0A0A0 solid thin;">
+            <div id = "simplePostList" style="height:480px; overflow:auto;border:#A0A0A0 solid thin;">               
                 <ul id="simplePostUl">
                     <?php echo \Yii::$app->view->renderFile('@app/views/course/discussion/simplePostList.php', [
                         'simplePosts' => $simplePosts,
                     ]); ?>
-                </ul>
+                </ul>        
             </div>
+        </div>
         </div>
 
         <div id="areaShowInfo" class="col-md-8" >
@@ -101,3 +96,20 @@ $this->registerCssFile('/css/discussion/changLike.css');
         </div>
     </div>
 </div>
+
+
+
+<script type="text/javascript">
+    if(<?=$need_show?>!=-1){
+       setTimeout(function() {
+            if(document.all) {
+                document.getElementById("li_postId_"+<?=$need_show?>).click();
+            }
+            else {
+                var e = document.createEvent("MouseEvents");
+                e.initEvent("click", true, true);
+                document.getElementById("li_postId_"+<?=$need_show?>).dispatchEvent(e);
+            }
+        }, 100); 
+   }        
+</script>

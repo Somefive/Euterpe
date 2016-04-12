@@ -1,0 +1,36 @@
+.panel-title{
+    font-size: x-large;
+}
+
+.panel-body{
+    font-size: large;
+    font-weight: 700;
+}
+
+span.tag{
+    margin: 5px;
+    padding: 5px;
+    background-color: #9acfea;
+    border-radius: 3px;
+    font-size: medium;
+}
+
+span.tag:hover{
+    cursor: pointer;
+}
+
+.editbar{
+    color: black;
+    margin: 5px;
+    font-size: large;
+    float: right;
+}
+
+.editbar:hover{
+    color: #00aa00;
+    cursor: pointer;
+}
+
+.glyphicon-heart{
+    color: crimson;
+}

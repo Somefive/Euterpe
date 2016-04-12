@@ -20,6 +20,7 @@ var hostname = 'http://'+location.host;
 
 function showWholePost(postId)
 {
+    //alert(postId)
     var load = '<div class="container_p">\
                     <div class="progress">\
                         <div class="progress-bar">\
@@ -487,10 +488,6 @@ function deletePost(postType,fatherPostId,postId)
     }
 }
 
-function say()
-{
-    alert("hello");
-}
 
 //回到顶部
 (function() {
@@ -506,10 +503,26 @@ function say()
             $backToTopEle.css("top", st + winh - 166);
         }
     };
-    $(".backToTop").hover(                  function()
+    $(".backToTop").hover(function()
     {$(this).css("background","red");},function(){
         $(this).css("background","#000");
     });
     $(window).bind("scroll", $backToTopFun);
     $(function() { $backToTopFun(); });
 })();
+
+function say()
+{    
+    $.ajax({
+        type: "POST",
+        url:  hostname+'/course/discussion/say',
+        data: {nullData:"nullData"},
+        dataType : 'text',
+        success: function (data) {
+            alert(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.statusText);
+        }
+    });
+}

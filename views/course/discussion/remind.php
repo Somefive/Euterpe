@@ -30,7 +30,7 @@ use app\models\account\User;
             <div class="panel-body">
                 <table class="table table-striped table-bordered" style="text-align: center;">
                     <thead>
-                    <tr><td width="200px">@你的小伙伴 </td><td> 被@的帖子 </td></tr>
+                    <tr><td >@你的小伙伴 </td><td> 被@的帖子 </td></tr>
                     </thead>
                     <tbody>
                     <?php foreach($Remind as $RemindOne){ echo('<tr class="tr-enter-course" data-toggle="tooltip" title="enter the post 进入该帖子" style="cursor:pointer;" remindpostid="'.$RemindOne['RemindPostId'].'" onclick="deleteRemindedData('.User::getAppUserID().','.$RemindOne['RemindPostId'].','.$RemindOne['RemindedPostId'].')'.'"><td>'.$RemindOne['RemindManName'].'</td><td>'.$RemindOne['simpleInfo'].'</td></tr>'); } ?>
@@ -53,7 +53,7 @@ use app\models\account\User;
             <div class="panel-body">
                 <table class="table table-striped table-bordered" style="text-align: center;">
                     <thead>
-                    <tr><td width="200px">回复你的小伙伴 </td><td> 回复你的帖子 </td></tr>
+                    <tr><td >回复你的小伙伴 </td><td> 回复你的帖子 </td></tr>
                     </thead>
                     <tbody>
                     <?php foreach($Reply as $ReplyOne){ echo('<tr class="tr-enter-course" data-toggle="tooltip" title="enter the post 进入该帖子" style="cursor:pointer;" replypostid="'.$ReplyOne['ReplyPostId'].'" onclick="deleteReplyedData('.User::getAppUserID().','.$ReplyOne['ReplyPostId'].','.$ReplyOne['ReplyedPostId'].')'.'"><td>'.$ReplyOne['ReplyManName'].'</td><td>'.$ReplyOne['simpleInfo'].'</td></tr>'); } ?>
@@ -76,7 +76,7 @@ use app\models\account\User;
             <div class="panel-body">
                 <table class="table table-striped table-bordered" style="text-align: center;">
                     <thead>
-                    <tr><td width="200px">讨论发帖的小伙伴 </td><td> 讨论的帖子 </td></tr>
+                    <tr><td >讨论发帖的小伙伴 </td><td> 讨论的帖子 </td></tr>
                     </thead>
                     <tbody>
                     <?php foreach($Talk as $TalkOne){ echo('<tr class="tr-enter-course" data-toggle="tooltip" title="enter the post 进入该帖子" style="cursor:pointer;" replypostid="'.$TalkOne['TalkPostId'].'" onclick="deleteTalkData('.User::getAppUserID().','.$TalkOne['TalkPostId'].','.$TalkOne['ReplyedPostId'].')'.'"><td>'.$TalkOne['TalkManName'].'</td><td>'.$TalkOne['simpleInfo'].'</td></tr>'); } ?>

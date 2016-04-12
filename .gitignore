@@ -28,4 +28,5 @@ phpunit.phar
 /web/.htaccess
 /web/assets
 /web/uploads
- mytips.md
+mytips.md
+#web/work.bat
