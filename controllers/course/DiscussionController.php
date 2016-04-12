@@ -88,7 +88,9 @@ class DiscussionController extends Controller
         if (Yii::$app->request->isAjax) {
             $postId = Yii::$app->request->post();
             $selectedPost = Post::getPostByPostId($postId);
-            $replyPosts = Post::getnextPosts($selectedPost);
+            if($selectedPost==null) return "您访问的帖子已被删除";
+            $replyPosts=null;
+            if($selectedPost!=null) $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
             Post::addReadList($postId);
             Remind::deleteRemindedData(User::getAppUserID(),$postId['postId']);

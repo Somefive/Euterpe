@@ -34,6 +34,7 @@ function showWholePost(postId)
         data: {postId:postId},
         dataType : 'text',
         success: function (data) {
+            if(data=="您访问的帖子已被删除")alert(data)
             $("#areaShowInfo").html(data);
             $("#unreadDot_"+postId).hide();
             $("#li_postId_"+postId).removeClass("unread").addClass("hasread");
