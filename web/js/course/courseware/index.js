@@ -1,0 +1,11 @@
+$(".cw-article").hover(
+	function(){
+		$(".cw-article").addClass('article-blur')
+		$(this).removeClass('article-blur')
+		$(this).addClass('article-active')
+	},
+	function(){
+        $(".cw-article").removeClass('article-blur')
+        $(".cw-article").removeClass('article-active')
+    }
+); 

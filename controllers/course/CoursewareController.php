@@ -23,6 +23,12 @@ class CoursewareController extends Controller
         ];
     }
 
+    public function actionIndex()
+    {
+        $coursewares = array(0,1,2,3,4,5);
+        return $this->render('index',['coursewares' => $coursewares]);
+    }
+
     public function actionUploadCourseware()
     {
     	//UploadForm::alert(phpinfo());
@@ -42,8 +48,8 @@ class CoursewareController extends Controller
 		return $this->render('uploadCourseware', ['model' => $model]);
     }
 
-    public function actionTest()
+    public function actionCourseware()
     {
-	    return $this->render("test");
+	    return $this->render("courseware");
     }
 }
