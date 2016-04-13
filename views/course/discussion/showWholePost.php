@@ -4,6 +4,7 @@
  */
 use yii\helpers\ArrayHelper;
 use app\models\account\User;
+$this->registerJsFile('/js/course/discussion/showWholePost.js');
 ?>
 <?php echo($userId);echo($postId)?>
 <div class="post_region_box question_note_view dashboard_element">
