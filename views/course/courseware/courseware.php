@@ -10,4 +10,4 @@ $this->title = 'Courseware';
 $this->registerJsFile('/js/course/courseware/pdfobject.js');
 $this->registerJsFile('/js/course/courseware/courseware.js');
 ?> 
-123
+<div id="pdf"></div>

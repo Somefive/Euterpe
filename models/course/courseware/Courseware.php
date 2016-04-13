@@ -12,5 +12,9 @@ use app\models\account\User;
  */
 class Courseware extends ActiveRecord
 {
-
+	public function getAllCoursewares()
+	{	
+		$coursewares = Courseware::find()->asArray()->all();
+		return $coursewares;
+	}
 }

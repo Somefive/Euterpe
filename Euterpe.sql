@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2016-04-12 18:54:09
+Date: 2016-04-13 23:06:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -87,30 +87,18 @@ CREATE TABLE `courseware` (
   `title` text COLLATE utf8_unicode_ci,
   `readTime` text COLLATE utf8_unicode_ci,
   `quizzId` int(11) DEFAULT NULL,
+  `uploadTime` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of courseware
 -- ----------------------------
-INSERT INTO `courseware` VALUES ('13', 'slide01_924605689.pdf', null, null);
-INSERT INTO `courseware` VALUES ('14', 'slide01_924605689.pdf', null, null);
-INSERT INTO `courseware` VALUES ('15', 'slide01_924605689.pdf', null, null);
-INSERT INTO `courseware` VALUES ('16', 'slide01_924605689.pdf', null, null);
-INSERT INTO `courseware` VALUES ('17', 'slide05_623203882.pdf', null, null);
-INSERT INTO `courseware` VALUES ('18', 'Solutions02_463101679.pdf', null, null);
-INSERT INTO `courseware` VALUES ('19', 'Solutions02_463101679.pdf', null, null);
-INSERT INTO `courseware` VALUES ('20', 'slide01_924605689.pdf', null, null);
-INSERT INTO `courseware` VALUES ('21', 'slide05_623203882.pdf', null, null);
-INSERT INTO `courseware` VALUES ('22', 'slide01_924605689.pdf', null, null);
-INSERT INTO `courseware` VALUES ('23', 'slide04_538809525.pdf', null, null);
-INSERT INTO `courseware` VALUES ('24', 'slide04_538809525.pdf', null, null);
-INSERT INTO `courseware` VALUES ('25', 'slide01_924605689.pdf', null, null);
-INSERT INTO `courseware` VALUES ('26', 'slide05_623203882.pdf', null, null);
-INSERT INTO `courseware` VALUES ('27', 'slide05_623203882.pdf', null, null);
-INSERT INTO `courseware` VALUES ('28', 'slide05_623203882.pdf', null, null);
-INSERT INTO `courseware` VALUES ('29', 'slide03_330709078.pdf', null, null);
-INSERT INTO `courseware` VALUES ('30', 'slide01_924605689.pdf', null, null);
+INSERT INTO `courseware` VALUES ('1', 'slide04_5385', null, null, 'April 13,2016');
+INSERT INTO `courseware` VALUES ('2', 'slide04_53885', null, null, 'April 13,2016');
+INSERT INTO `courseware` VALUES ('3', 'Solutions for Q3', null, null, 'April 13,2016');
+INSERT INTO `courseware` VALUES ('7', 'Chapter 11', null, null, 'April 13,2016');
+INSERT INTO `courseware` VALUES ('8', 'Chapter 12', null, null, 'April 13,2016');
 
 -- ----------------------------
 -- Table structure for `discussion`
@@ -148,17 +136,17 @@ CREATE TABLE `post` (
   `isPost` int(1) DEFAULT NULL,
   PRIMARY KEY (`postId`),
   KEY `postId` (`postId`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of post
 -- ----------------------------
 INSERT INTO `post` VALUES ('22', '5', '2016-03-08 21:09:43', '', '<p>会不会递增呀好伤心。</p><p>下面是乱写的。。。</p><p>123456</p>', '5', '9', '吴行行', '0', '0', '49|50|59', '1');
-INSERT INTO `post` VALUES ('24', '9', '2016-03-08 21:20:30', '第4个帖子', '<p>为啥写这个帖子，不知道</p>', '9|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|6|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|10|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5', '1|5', '9|ykd|第4个帖子|<p>为啥写这个帖子，不知道</p>|2016-03-08|1|2', '1', '2', '22|43|44|45|70', '0');
+INSERT INTO `post` VALUES ('24', '9', '2016-03-08 21:20:30', '第4个帖子', '<p>为啥写这个帖子，不知道</p>', '9|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|6|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|10|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5', '1|5', '9|ykd|第4个帖子|<p>为啥写这个帖子，不知道</p>|2016-03-08|1|2', '1', '2', '22|43|44|45|70', '0');
 INSERT INTO `post` VALUES ('33', '5', '2016-03-10 20:53:32', '123', '<p>测试发帖！好紧张！！！！</p>', '5', null, '5|吴行行|das|<p>呵呵呵呵</p>|2016-03-09|1|2', '1', '2', null, '1');
-INSERT INTO `post` VALUES ('37', '9', '2016-03-11 10:12:11', '╭(╯^╰)╮', '<p>╭(╯^╰)╮</p>', '9|5|5|5|5', '9', '9|ykd|╭(╯^╰)╮|<p>╭(╯^╰)╮</p>|2016-03-11|1|0', '1', '0', null, '0');
+INSERT INTO `post` VALUES ('37', '9', '2016-03-11 10:12:11', '╭(╯^╰)╮', '<p>╭(╯^╰)╮</p>', '9|5|5|5|5|5|5', '9', '9|ykd|╭(╯^╰)╮|<p>╭(╯^╰)╮</p>|2016-03-11|1|0', '1', '0', null, '0');
 INSERT INTO `post` VALUES ('38', '9', '2016-03-11 13:06:36', '对自己匿名？', '<p style=\"margin-left: 20px;\">RT</p>', '9|5|5|5|5|2', null, '9|ykd|对自己匿名？|<p style=\"margin-left: 20px;\">RT</p>|2016-03-11|1|0', '1', '0', null, '0');
-INSERT INTO `post` VALUES ('39', '9', '2016-03-11 16:02:46', '屏蔽能实现吗？', '<p>RT测试</p>', '9|5|5|5|5|5|5|5|2', null, '9|ykd|屏蔽能实现吗？|<p>RT测试</p>|2016-03-11|0|0', '0', '0', null, '0');
+INSERT INTO `post` VALUES ('39', '9', '2016-03-11 16:02:46', '屏蔽能实现吗？', '<p>RT测试</p>', '9|5|5|5|5|5|5|5|2|5', null, '9|ykd|屏蔽能实现吗？|<p>RT测试</p>|2016-03-11|0|0', '0', '0', null, '0');
 INSERT INTO `post` VALUES ('40', '9', '2016-03-11 16:03:58', '重新测试', '<p>╭(╯^╰)╮</p>', '9|5|5|2', null, '9|ykd|重新测试|<p>╭(╯^╰)╮</p>|2016-03-11|0|0', '0', '0', null, '0');
 INSERT INTO `post` VALUES ('42', '9', '2016-03-11 16:05:57', '重新测试', '<p>╭(╯^╰)╮</p>', '9|5|5|5|5', null, '9|ykd|重新测试|<p>╭(╯^╰)╮</p>|2016-03-11|0|2', '0', '2', null, '0');
 INSERT INTO `post` VALUES ('43', '9', '2016-03-11 16:16:18', '', '<p>回复的帖子咋看不到呢？？</p>', null, null, 'ykd', '0', '0', null, '1');
@@ -177,11 +165,12 @@ INSERT INTO `post` VALUES ('70', '5', '2016-03-25 23:11:01', '', '<p>新排版�
 INSERT INTO `post` VALUES ('71', '5', '2016-03-26 12:55:57', '@自己能不能行', '<p>​<a>@吴行行&nbsp;</a><a>@吴行行1&nbsp;</a>&nbsp;</end></p>', '5', '5', '5|吴行行|@自己能不能行|<p>​@<!--<start--> 吴行行@ 吴行行1<end>&nbsp;</end></p>|2016-03-26|0|0', '0', '0', '72', '0');
 INSERT INTO `post` VALUES ('72', '5', '2016-03-26 12:56:29', '', '<p>回复自己能不能行</p>', null, null, '吴行行', '0', '0', null, '1');
 INSERT INTO `post` VALUES ('74', '5', '2016-03-26 21:11:18', '新功能', '<p>​<a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;新功能耶！</end></p>', '5', null, '5|吴行行|新功能|<p>​@<!--<start--> test@ ykd<end>&nbsp;新功能耶！</end></p>|2016-03-26|0|0', '0', '0', null, '0');
-INSERT INTO `post` VALUES ('75', '5', '2016-03-26 22:05:27', '规整', '<p>​1344<a>@ykd&nbsp;</a>&nbsp;<a>@ykd&nbsp;</a><a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;</end></p>', '5', null, '5|吴行行|规整|<p>​1344@<!--<start--> ykd<end>&nbsp;@</end><!--<start--> ykd@ test@ ykd<end>&nbsp;</end></p>|2016-03-26|0|0', '0', '0', null, '0');
 INSERT INTO `post` VALUES ('81', '5', '2016-03-27 00:27:42', '快来看发帖动画', '<p>​<a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;快试试动画效果</end></p>', '5|9|2', null, '5|吴行行|快来看发帖动画|<p>​@<!--<start--> test@ ykd<end>&nbsp;快试试动画效果</end></p>|2016-03-27|0|0', '0', '0', '82', '0');
 INSERT INTO `post` VALUES ('82', '9', '2016-03-27 20:25:08', '', '<p>我看到啦！！！！！</p>', null, null, 'ykd', '0', '0', null, '1');
-INSERT INTO `post` VALUES ('83', '9', '2016-03-27 20:25:37', '测试@提醒', '<p><a>@吴行行&nbsp;</a>&nbsp;能收到吗</end></p>', '9|5|5', null, '9|ykd|测试@提醒|<p>@<!--<start--> 吴行行<end>&nbsp;能收到吗</end></p>|2016-03-27|0|0', '0', '0', null, '0');
 INSERT INTO `post` VALUES ('84', '9', '2016-03-27 20:27:40', '', '<p>排版不错!</p>', null, null, 'ykd', '0', '0', null, '2');
+INSERT INTO `post` VALUES ('85', '5', '2016-04-12 20:04:15', '31232131', '<p>​412421421</p>', '5', null, '5|吴行行|31232131|<p>​412421421</p>|2016-04-12|0|0', '0', '0', null, '0');
+INSERT INTO `post` VALUES ('86', '5', '2016-04-12 20:04:59', '412421', '<p>​412412421</p>', '5', null, '5|吴行行|412421|<p>​412412421</p>|2016-04-12|0|0', '0', '0', '87', '0');
+INSERT INTO `post` VALUES ('87', '5', '2016-04-12 20:05:19', '', '<p>321321213</p>', null, null, '吴行行', '0', '0', null, '1');
 
 -- ----------------------------
 -- Table structure for `remind`
