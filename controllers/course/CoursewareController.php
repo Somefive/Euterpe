@@ -35,8 +35,6 @@ class CoursewareController extends Controller
         //这里没有使用load
 		if (Yii::$app->request->isPost) {
 			$model->title = Yii::$app->request->post()['UploadForm']['title'];
-			Yii::warning(Yii::$app->request->post());
-			Yii::warning($model->title);
 			$model->coursewareFile = UploadedFile::getInstance($model, 'coursewareFile');
 			if ($model->save()) {
 				return $this->render('say',['message'=>'上传成功']);

@@ -15,7 +15,7 @@ $this->registerJsFile('/js/course/courseware/index.js');
 </header>
 <section class="cws-container" style="">
 	<?php foreach ($coursewares as $courseware): ?>
-	<a href="/course/courseware/courseware?fileID=<?=ArrayHelper::getValue($courseware,'id')?>" target="_Blank">
+	<a href="/course/courseware/courseware?fileID=<?=ArrayHelper::getValue($courseware,'id')?>" target="_blank">
 	<article class="cw-article">
 		<header>
 			<h3 class="cw-title"><b><?=ArrayHelper::getValue($courseware,'id')?>.&nbsp;<?=ArrayHelper::getValue($courseware,'title')?></b></h3>
