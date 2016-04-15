@@ -21,6 +21,7 @@ class UploadForm extends Model
         if ($this->validate()) {
             $courseware = new Courseware();
             $courseware->title = $this->title;
+            $courseware->uploadTime = date("F j,Y", time());
             $courseware->save();
             $PDF = 'courseware/' . $courseware->id . '.' . $this->coursewareFile->extension;
             $this->coursewareFile->saveAs($PDF);
@@ -29,7 +30,7 @@ class UploadForm extends Model
             return false;
         }
     }
-    public static function alert($str="")
+    public function alert($str="")
     {
         if(is_array($str))
             $str = "ARRAY:".implode(" ",$str);

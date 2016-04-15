@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use kartik\mpdf\Pdf;
 use yii\web\UploadedFile;
 use app\models\course\courseware\UploadForm;
+use app\models\course\courseware\Courseware;
 
 class CoursewareController extends Controller
 {
@@ -21,6 +22,14 @@ class CoursewareController extends Controller
                 'class' => 'yii\web\ErrorAction',
             ],
         ];
+    }
+
+    public function actionIndex()
+    {
+        $courseware = new Courseware();
+        $coursewares = $courseware->getAllCoursewares();
+        //Yii::warning($coursewares);
+        return $this->render('index',['coursewares' => $coursewares]);
     }
 
     public function actionUploadCourseware()
@@ -42,8 +51,15 @@ class CoursewareController extends Controller
 		return $this->render('uploadCourseware', ['model' => $model]);
     }
 
-    public function actionTest()
+    public function actionCourseware()
     {
-	    return $this->render("test");
+        //Yii::warning(Yii::$app->request->get());
+	    return $this->render("courseware");
+    }
+    public function alert($str="")
+    {
+        if(is_array($str))
+            $str = "ARRAY:".implode(" ",$str);
+        echo "<script type='text/javascript'>alert('$str');</script>";
     }
 }

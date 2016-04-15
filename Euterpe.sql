@@ -1,13 +1,5 @@
-<<<<<<< HEAD
 /*
 Navicat MySQL Data Transfer
-=======
--- MySQL dump 10.13  Distrib 5.6.27, for Win64 (x86_64)
---
--- Host: localhost    Database: Euterpe
--- ------------------------------------------------------
--- Server version	5.6.27
->>>>>>> 454db6e40e88415158af1086396055700c9d2a47
 
 Source Server         : localhost_3306
 Source Server Version : 50628
@@ -18,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2016-04-07 01:17:26
+Date: 2016-04-13 23:06:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -87,6 +79,45 @@ INSERT INTO `courseenrollment` VALUES ('3', '6', null);
 INSERT INTO `courseenrollment` VALUES ('1', '10', null);
 
 -- ----------------------------
+-- Table structure for `courseware`
+-- ----------------------------
+DROP TABLE IF EXISTS `courseware`;
+CREATE TABLE `courseware` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` text COLLATE utf8_unicode_ci,
+  `readTime` text COLLATE utf8_unicode_ci,
+  `quizzId` int(11) DEFAULT NULL,
+  `uploadTime` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of courseware
+-- ----------------------------
+INSERT INTO `courseware` VALUES ('1', 'slide04_5385', null, null, 'April 13,2016');
+INSERT INTO `courseware` VALUES ('2', 'slide04_53885', null, null, 'April 13,2016');
+INSERT INTO `courseware` VALUES ('3', 'Solutions for Q3', null, null, 'April 13,2016');
+INSERT INTO `courseware` VALUES ('7', 'Chapter 11', null, null, 'April 13,2016');
+INSERT INTO `courseware` VALUES ('8', 'Chapter 12', null, null, 'April 13,2016');
+
+-- ----------------------------
+-- Table structure for `discussion`
+-- ----------------------------
+DROP TABLE IF EXISTS `discussion`;
+CREATE TABLE `discussion` (
+  `stuname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `topic` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of discussion
+-- ----------------------------
+INSERT INTO `discussion` VALUES ('未嫁父', 'question', 'hahahaah', null);
+INSERT INTO `discussion` VALUES ('未嫁父', 'question', '哈哈哈', '哈哈哈哈哈哈哈哈哈哈哈哈');
+
+-- ----------------------------
 -- Table structure for `post`
 -- ----------------------------
 DROP TABLE IF EXISTS `post`;
@@ -105,35 +136,17 @@ CREATE TABLE `post` (
   `isPost` int(1) DEFAULT NULL,
   PRIMARY KEY (`postId`),
   KEY `postId` (`postId`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-<<<<<<< HEAD
-=======
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `post`
---
-
-LOCK TABLES `post` WRITE;
-/*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (22,5,'2016-03-08 21:09:43','','<p>会不会递增呀好伤心。</p><p>下面是乱写的。。。</p><p>123456</p>','5','9','吴行行',0,0,'49|50|59',1),(24,9,'2016-03-08 21:20:30','第4个帖子','<p>为啥写这个帖子，不知道</p>','9|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|6|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|10|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5','1|5','9|ykd|第4个帖子|<p>为啥写这个帖子，不知道</p>|2016-03-08|1|2',1,2,'22|43|44|45|70',0),(26,5,'2016-03-08 22:49:17','再来一个帖子','<ul><li>能够看到滚动条的效果了！好开心好开心！<a href=\"http://localhost:8080/course/discussion/discussion\">我的地址！</a></li></ul>','5|9|9|9|9|9|9|9|9|9|9|9|9|9|9|9','1|2|9','5|吴行行|再来一个帖子|<ul><li>能够看到滚动条的效果了！好开心好开心！<a href=\"http://localhost:8080/course/discussion/discussion\">我的地址！</a></li></ul>|2016-03-08|0|2',0,2,'46',0),(33,5,'2016-03-10 20:53:32','123','<p>测试发帖！好紧张！！！！</p>','5',NULL,'5|吴行行|das|<p>呵呵呵呵</p>|2016-03-09|1|2',1,2,NULL,1),(37,9,'2016-03-11 10:12:11','╭(╯^╰)╮','<p>╭(╯^╰)╮</p>','9|5|5|5|5','9','9|ykd|╭(╯^╰)╮|<p>╭(╯^╰)╮</p>|2016-03-11|1|0',1,0,NULL,0),(38,9,'2016-03-11 13:06:36','对自己匿名？','<p style=\"margin-left: 20px;\">RT</p>','9|5|5|5|5|2',NULL,'9|ykd|对自己匿名？|<p style=\"margin-left: 20px;\">RT</p>|2016-03-11|1|0',1,0,NULL,0),(39,9,'2016-03-11 16:02:46','屏蔽能实现吗？','<p>RT测试</p>','9|5|5|5|5|5|5|5|2',NULL,'9|ykd|屏蔽能实现吗？|<p>RT测试</p>|2016-03-11|0|0',0,0,NULL,0),(40,9,'2016-03-11 16:03:58','重新测试','<p>╭(╯^╰)╮</p>','9|5|5|2',NULL,'9|ykd|重新测试|<p>╭(╯^╰)╮</p>|2016-03-11|0|0',0,0,NULL,0),(42,9,'2016-03-11 16:05:57','重新测试','<p>╭(╯^╰)╮</p>','9|5|5|5|5',NULL,'9|ykd|重新测试|<p>╭(╯^╰)╮</p>|2016-03-11|0|2',0,2,NULL,0),(43,9,'2016-03-11 16:16:18','','<p>回复的帖子咋看不到呢？？</p>',NULL,NULL,'ykd',0,0,NULL,1),(44,5,'2016-03-12 17:02:42','','<p>回复第四个帖子！</p>',NULL,NULL,'吴行行',0,0,NULL,1),(45,5,'2016-03-13 00:09:53','','<p>我要回帖！能不能显示呀！我在测试回帖的显示!</p>',NULL,NULL,'吴行行',0,0,NULL,1),(46,5,'2016-03-13 00:16:53','','<p>要保证每个帖子都有回帖！我瞎说的...</p>',NULL,NULL,'吴行行',0,0,NULL,1),(49,5,'2016-03-17 23:07:18','','<p>测试气泡,测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\">测试气泡,<span class=\"redactor-invisible-space\"></span></span></span></span></span></span></span></p>',NULL,NULL,'吴行行',0,0,NULL,2),(50,5,'2016-03-17 23:18:04','','<p>接下来还要测试气泡！测试气泡！怎么选一个好的颜色呀！</p>',NULL,NULL,'吴行行',0,0,NULL,2),(52,5,'2016-03-21 13:10:16','测试@','<p>hello！@<!--<strong data-verified=\'redactor\' data-redactor-tag=\'strong\'--> 吴行行</p>','5',NULL,'5|吴行行|测试@|<p>hello！@<!--<strong data-verified=\'redactor\' data-redactor-tag=\'strong\'--> 吴行行</p>|2016-03-21|0|0',0,0,NULL,0),(57,9,'2016-03-21 15:13:56','dad','<p>sadds@@<!--<strong data-verified=\'redactor\' data-redactor-tag=\'strong\'--> ykddsada</p>','9|5|5',NULL,'9|ykd|dad|<p>sadds@@<!--<strong data-verified=\'redactor\' data-redactor-tag=\'strong\'--> ykddsada</p>|2016-03-21|0|0',0,0,NULL,0),(58,10,'2016-03-21 23:36:38','测试发帖','<p>我是王俊杰</p>','10|5|5',NULL,'10|王俊杰|测试发帖|<p>我是王俊杰</p>|2016-03-21|0|0',0,0,NULL,0),(59,10,'2016-03-21 23:37:12','','<p>123</p>',NULL,NULL,'王俊杰',0,0,NULL,2),(66,10,'2016-03-21 23:42:08','测试发帖','<p>@</p>','10|5|5',NULL,'10|王俊杰|测试发帖|<p>@</p>|2016-03-21|0|0',0,0,NULL,0),(68,5,'2016-03-25 22:15:50','@功能越来越完善了','<p>​<a>@ykd&nbsp;</a>&nbsp;佳夫凯迪你们快看</end></p>','5',NULL,'5|吴行行|@功能越来越完善了|<p>​@<!--<start--> ykd<end>&nbsp;佳夫凯迪你们快看</end></p>|2016-03-25|0|0',0,0,NULL,0),(69,5,'2016-03-25 22:18:52','eqw','<p>​qweqw@</p>','5',NULL,'5|吴行行|eqw|<p>​qweqw@</p>|2016-03-25|0|0',0,0,NULL,0),(70,5,'2016-03-25 23:11:01','','<p>新排版之后测试回帖</p>',NULL,NULL,'吴行行',0,0,'84',1),(71,5,'2016-03-26 12:55:57','@自己能不能行','<p>​<a>@吴行行&nbsp;</a><a>@吴行行1&nbsp;</a>&nbsp;</end></p>','5','5','5|吴行行|@自己能不能行|<p>​@<!--<start--> 吴行行@ 吴行行1<end>&nbsp;</end></p>|2016-03-26|0|0',0,0,'72',0),(72,5,'2016-03-26 12:56:29','','<p>回复自己能不能行</p>',NULL,NULL,'吴行行',0,0,NULL,1),(74,5,'2016-03-26 21:11:18','新功能','<p>​<a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;新功能耶！</end></p>','5',NULL,'5|吴行行|新功能|<p>​@<!--<start--> test@ ykd<end>&nbsp;新功能耶！</end></p>|2016-03-26|0|0',0,0,NULL,0),(75,5,'2016-03-26 22:05:27','规整','<p>​1344<a>@ykd&nbsp;</a>&nbsp;<a>@ykd&nbsp;</a><a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;</end></p>','5',NULL,'5|吴行行|规整|<p>​1344@<!--<start--> ykd<end>&nbsp;@</end><!--<start--> ykd@ test@ ykd<end>&nbsp;</end></p>|2016-03-26|0|0',0,0,NULL,0),(81,5,'2016-03-27 00:27:42','快来看发帖动画','<p>​<a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;快试试动画效果</end></p>','5|9|2',NULL,'5|吴行行|快来看发帖动画|<p>​@<!--<start--> test@ ykd<end>&nbsp;快试试动画效果</end></p>|2016-03-27|0|0',0,0,'82',0),(82,9,'2016-03-27 20:25:08','','<p>我看到啦！！！！！</p>',NULL,NULL,'ykd',0,0,NULL,1),(83,9,'2016-03-27 20:25:37','测试@提醒','<p><a>@吴行行&nbsp;</a>&nbsp;能收到吗</end></p>','9|5|5|2',NULL,'9|ykd|测试@提醒|<p>@<!--<start--> 吴行行<end>&nbsp;能收到吗</end></p>|2016-03-27|0|0',0,0,NULL,0),(84,9,'2016-03-27 20:27:40','','<p>排版不错!</p>',NULL,NULL,'ykd',0,0,NULL,2);
-/*!40000 ALTER TABLE `post` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `remind`
---
->>>>>>> 454db6e40e88415158af1086396055700c9d2a47
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of post
 -- ----------------------------
 INSERT INTO `post` VALUES ('22', '5', '2016-03-08 21:09:43', '', '<p>会不会递增呀好伤心。</p><p>下面是乱写的。。。</p><p>123456</p>', '5', '9', '吴行行', '0', '0', '49|50|59', '1');
-INSERT INTO `post` VALUES ('24', '9', '2016-03-08 21:20:30', '第4个帖子', '<p>为啥写这个帖子，不知道</p>', '9|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|6|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|10|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5', '1|5', '9|ykd|第4个帖子|<p>为啥写这个帖子，不知道</p>|2016-03-08|1|2', '1', '2', '22|43|44|45|70', '0');
+INSERT INTO `post` VALUES ('24', '9', '2016-03-08 21:20:30', '第4个帖子', '<p>为啥写这个帖子，不知道</p>', '9|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|6|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|10|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5|5', '1|5', '9|ykd|第4个帖子|<p>为啥写这个帖子，不知道</p>|2016-03-08|1|2', '1', '2', '22|43|44|45|70', '0');
 INSERT INTO `post` VALUES ('33', '5', '2016-03-10 20:53:32', '123', '<p>测试发帖！好紧张！！！！</p>', '5', null, '5|吴行行|das|<p>呵呵呵呵</p>|2016-03-09|1|2', '1', '2', null, '1');
-INSERT INTO `post` VALUES ('37', '9', '2016-03-11 10:12:11', '╭(╯^╰)╮', '<p>╭(╯^╰)╮</p>', '9|5|5|5|5', '9', '9|ykd|╭(╯^╰)╮|<p>╭(╯^╰)╮</p>|2016-03-11|1|0', '1', '0', null, '0');
+INSERT INTO `post` VALUES ('37', '9', '2016-03-11 10:12:11', '╭(╯^╰)╮', '<p>╭(╯^╰)╮</p>', '9|5|5|5|5|5|5', '9', '9|ykd|╭(╯^╰)╮|<p>╭(╯^╰)╮</p>|2016-03-11|1|0', '1', '0', null, '0');
 INSERT INTO `post` VALUES ('38', '9', '2016-03-11 13:06:36', '对自己匿名？', '<p style=\"margin-left: 20px;\">RT</p>', '9|5|5|5|5|2', null, '9|ykd|对自己匿名？|<p style=\"margin-left: 20px;\">RT</p>|2016-03-11|1|0', '1', '0', null, '0');
-INSERT INTO `post` VALUES ('39', '9', '2016-03-11 16:02:46', '屏蔽能实现吗？', '<p>RT测试</p>', '9|5|5|5|5|5|5|5|2', null, '9|ykd|屏蔽能实现吗？|<p>RT测试</p>|2016-03-11|0|0', '0', '0', null, '0');
+INSERT INTO `post` VALUES ('39', '9', '2016-03-11 16:02:46', '屏蔽能实现吗？', '<p>RT测试</p>', '9|5|5|5|5|5|5|5|2|5', null, '9|ykd|屏蔽能实现吗？|<p>RT测试</p>|2016-03-11|0|0', '0', '0', null, '0');
 INSERT INTO `post` VALUES ('40', '9', '2016-03-11 16:03:58', '重新测试', '<p>╭(╯^╰)╮</p>', '9|5|5|2', null, '9|ykd|重新测试|<p>╭(╯^╰)╮</p>|2016-03-11|0|0', '0', '0', null, '0');
 INSERT INTO `post` VALUES ('42', '9', '2016-03-11 16:05:57', '重新测试', '<p>╭(╯^╰)╮</p>', '9|5|5|5|5', null, '9|ykd|重新测试|<p>╭(╯^╰)╮</p>|2016-03-11|0|2', '0', '2', null, '0');
 INSERT INTO `post` VALUES ('43', '9', '2016-03-11 16:16:18', '', '<p>回复的帖子咋看不到呢？？</p>', null, null, 'ykd', '0', '0', null, '1');
@@ -152,11 +165,12 @@ INSERT INTO `post` VALUES ('70', '5', '2016-03-25 23:11:01', '', '<p>新排版�
 INSERT INTO `post` VALUES ('71', '5', '2016-03-26 12:55:57', '@自己能不能行', '<p>​<a>@吴行行&nbsp;</a><a>@吴行行1&nbsp;</a>&nbsp;</end></p>', '5', '5', '5|吴行行|@自己能不能行|<p>​@<!--<start--> 吴行行@ 吴行行1<end>&nbsp;</end></p>|2016-03-26|0|0', '0', '0', '72', '0');
 INSERT INTO `post` VALUES ('72', '5', '2016-03-26 12:56:29', '', '<p>回复自己能不能行</p>', null, null, '吴行行', '0', '0', null, '1');
 INSERT INTO `post` VALUES ('74', '5', '2016-03-26 21:11:18', '新功能', '<p>​<a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;新功能耶！</end></p>', '5', null, '5|吴行行|新功能|<p>​@<!--<start--> test@ ykd<end>&nbsp;新功能耶！</end></p>|2016-03-26|0|0', '0', '0', null, '0');
-INSERT INTO `post` VALUES ('75', '5', '2016-03-26 22:05:27', '规整', '<p>​1344<a>@ykd&nbsp;</a>&nbsp;<a>@ykd&nbsp;</a><a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;</end></p>', '5', null, '5|吴行行|规整|<p>​1344@<!--<start--> ykd<end>&nbsp;@</end><!--<start--> ykd@ test@ ykd<end>&nbsp;</end></p>|2016-03-26|0|0', '0', '0', null, '0');
 INSERT INTO `post` VALUES ('81', '5', '2016-03-27 00:27:42', '快来看发帖动画', '<p>​<a>@test&nbsp;</a><a>@ykd&nbsp;</a>&nbsp;快试试动画效果</end></p>', '5|9|2', null, '5|吴行行|快来看发帖动画|<p>​@<!--<start--> test@ ykd<end>&nbsp;快试试动画效果</end></p>|2016-03-27|0|0', '0', '0', '82', '0');
 INSERT INTO `post` VALUES ('82', '9', '2016-03-27 20:25:08', '', '<p>我看到啦！！！！！</p>', null, null, 'ykd', '0', '0', null, '1');
-INSERT INTO `post` VALUES ('83', '9', '2016-03-27 20:25:37', '测试@提醒', '<p><a>@吴行行&nbsp;</a>&nbsp;能收到吗</end></p>', '9|5|5', null, '9|ykd|测试@提醒|<p>@<!--<start--> 吴行行<end>&nbsp;能收到吗</end></p>|2016-03-27|0|0', '0', '0', null, '0');
 INSERT INTO `post` VALUES ('84', '9', '2016-03-27 20:27:40', '', '<p>排版不错!</p>', null, null, 'ykd', '0', '0', null, '2');
+INSERT INTO `post` VALUES ('85', '5', '2016-04-12 20:04:15', '31232131', '<p>​412421421</p>', '5', null, '5|吴行行|31232131|<p>​412421421</p>|2016-04-12|0|0', '0', '0', null, '0');
+INSERT INTO `post` VALUES ('86', '5', '2016-04-12 20:04:59', '412421', '<p>​412412421</p>', '5', null, '5|吴行行|412421|<p>​412412421</p>|2016-04-12|0|0', '0', '0', '87', '0');
+INSERT INTO `post` VALUES ('87', '5', '2016-04-12 20:05:19', '', '<p>321321213</p>', null, null, '吴行行', '0', '0', null, '1');
 
 -- ----------------------------
 -- Table structure for `remind`
@@ -241,11 +255,9 @@ CREATE TABLE `wiki` (
   `title` varchar(45) NOT NULL,
   `tag` varchar(255) DEFAULT NULL,
   `detail` text,
-  `favor` int(11) DEFAULT '0',
   PRIMARY KEY (`id`,`title`),
   UNIQUE KEY `title_UNIQUE` (`title`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
-<<<<<<< HEAD
 
 -- ----------------------------
 -- Records of wiki
@@ -253,27 +265,3 @@ CREATE TABLE `wiki` (
 INSERT INTO `wiki` VALUES ('4', '2', 'Euterpe', '希腊神话;女神', '司音乐及抒情诗的女神');
 INSERT INTO `wiki` VALUES ('5', '2', 'Hestia', '希腊神话;女神', '<希神>赫斯提; （女灶神，罗马神话中称为Vesta）');
 INSERT INTO `wiki` VALUES ('18', '2', 'Test', 'test;    debug;', 'tst');
-=======
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `wiki`
---
-
-LOCK TABLES `wiki` WRITE;
-/*!40000 ALTER TABLE `wiki` DISABLE KEYS */;
-INSERT INTO `wiki` VALUES (4,'2','Euterpe','希腊神话;女神','司音乐及抒情诗的女神',0),(5,'2','Hestia','希腊神话;女神','<希神>赫斯提; （女灶神，罗马神话中称为Vesta）',8),(18,'2','Test','test;    debug;','tst',4);
-/*!40000 ALTER TABLE `wiki` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2016-04-07 23:13:20
->>>>>>> 454db6e40e88415158af1086396055700c9d2a47
