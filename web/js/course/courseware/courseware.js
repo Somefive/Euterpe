@@ -1,3 +1,4 @@
+var hostname = 'http://'+location.host;
 window.onload = function (){
 	fileID = getQueryContent()
 	if(fileID == null)	{
@@ -5,8 +6,8 @@ window.onload = function (){
 		return
 	}
 	filename = "/courseware/"+fileID+".pdf"
-	var pdf = new PDFObject({ url: filename }).embed("pdf");
-};
+	var pdf = new PDFObject({ url: filename }).embed("pdf")
+}
 function getQueryContent(name = "fileID")
 {
 	var url = location.href;
@@ -18,3 +19,15 @@ function getQueryContent(name = "fileID")
 	} 
 	return null
 }
+window.onbeforeunload = function(){
+	$.ajax({
+	    type: "POST",
+	    url:  hostname+'/course/courseware/exit-courseware',
+	    success: function (data) {
+	        alert("goodbye")
+	    },
+	    error: function(XMLHttpRequest, textStatus, errorThrown) {
+	        alert(XMLHttpRequest.statusText);
+	    }
+	});
+};

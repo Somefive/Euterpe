@@ -63,6 +63,12 @@ class CoursewareController extends Controller
         }
 	    return $this->render("courseware");
     }
+
+    public function actionExitCourseware()
+    {
+        
+    }
+
     private function getQueryValue($key = "fileID")
     {
         $query = $_SERVER["QUERY_STRING"];
