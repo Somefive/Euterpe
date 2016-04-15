@@ -1,10 +1,6 @@
 var hostname = 'http://'+location.host;
 window.onload = function (){
 	fileID = getQueryContent()
-	if(fileID == null)	{
-		alert("请指定具体要访问的文件")
-		return
-	}
 	filename = "/courseware/"+fileID+".pdf"
 	var pdf = new PDFObject({ url: filename }).embed("pdf")
 }
@@ -24,7 +20,7 @@ window.onbeforeunload = function(){
 	    type: "POST",
 	    url:  hostname+'/course/courseware/exit-courseware',
 	    success: function (data) {
-	        alert("goodbye")
+	        //alert("goodbye")
 	    },
 	    error: function(XMLHttpRequest, textStatus, errorThrown) {
 	        alert(XMLHttpRequest.statusText);
