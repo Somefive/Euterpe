@@ -1,14 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- */
 
 namespace app\controllers\course;
 
 use yii\web\Controller;
 use Yii;
 use yii\helpers\ArrayHelper;
-use kartik\mpdf\Pdf;
 use yii\web\UploadedFile;
 use app\models\course\courseware\UploadForm;
 use app\models\course\courseware\Courseware;
@@ -36,6 +32,7 @@ class CoursewareController extends Controller
     {
     	//UploadForm::alert(phpinfo());
     	$model = new UploadForm();
+        //这里没有使用load
 		if (Yii::$app->request->isPost) {
 			$model->title = Yii::$app->request->post()['UploadForm']['title'];
 			Yii::warning(Yii::$app->request->post());
@@ -54,6 +51,7 @@ class CoursewareController extends Controller
     public function actionCourseware()
     {
         $fileID = $this->getQueryValue();
+        //处理极端情况
         if($fileID == null) {
             return $this->render('say',['message' => "您访问的网址不正确"]);
         }
@@ -63,12 +61,19 @@ class CoursewareController extends Controller
         }
 	    return $this->render("courseware");
     }
-
+    /**
+     * [离开课件页面时调用函数，用来统计在线时间等]
+     * @return null
+     */
     public function actionExitCourseware()
     {
-        
-    }
 
+    }
+    /**
+     * 得到url中指定的参数值
+     * @param  string $key [指定的参数]
+     * @return [string,这里暂定为整数]      [指定参数的值]
+     */
     private function getQueryValue($key = "fileID")
     {
         $query = $_SERVER["QUERY_STRING"];

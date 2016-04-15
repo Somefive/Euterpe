@@ -4,6 +4,11 @@ window.onload = function (){
 	filename = "/courseware/"+fileID+".pdf"
 	var pdf = new PDFObject({ url: filename }).embed("pdf")
 }
+/**
+ * 得到url中指定参数的值
+ * @param  {String} name [指定的参数]
+ * @return {[String or null]}      [参数的值]
+ */
 function getQueryContent(name = "fileID")
 {
 	var url = location.href;
