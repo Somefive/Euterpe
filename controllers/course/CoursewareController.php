@@ -53,10 +53,24 @@ class CoursewareController extends Controller
 
     public function actionCourseware()
     {
-        //Yii::warning(Yii::$app->request->get());
+        $fileID = $this->getQueryValue();
+        if($fileID == null) {
+            return $this->render('say',['message' => "您访问的网址不正确"]);
+        }
+        $fileName = Yii::getAlias('@webroot')."/courseware/$fileID.pdf";
+        if( !file_exists($fileName) )   {
+            return $this->render('say',['message' => "您访问的文件不存在"]);
+        }
 	    return $this->render("courseware");
     }
-    public function alert($str="")
+    private function getQueryValue($key = "fileID")
+    {
+        $query = $_SERVER["QUERY_STRING"];
+        $reg = "|$key=(\d+)&?.*|";
+        preg_match($reg, $query, $value);
+        return $value[1];
+    }
+    private function alert($str="")
     {
         if(is_array($str))
             $str = "ARRAY:".implode(" ",$str);
