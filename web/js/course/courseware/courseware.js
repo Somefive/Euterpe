@@ -1,12 +1,14 @@
+var hostname = 'http://'+location.host;
 window.onload = function (){
 	fileID = getQueryContent()
-	if(fileID == null)	{
-		alert("请指定具体要访问的文件")
-		return
-	}
 	filename = "/courseware/"+fileID+".pdf"
-	var pdf = new PDFObject({ url: filename }).embed("pdf");
-};
+	var pdf = new PDFObject({ url: filename }).embed("pdf")
+}
+/**
+ * 得到url中指定参数的值
+ * @param  {String} name [指定的参数]
+ * @return {[String or null]}      [参数的值]
+ */
 function getQueryContent(name = "fileID")
 {
 	var url = location.href;
@@ -18,3 +20,15 @@ function getQueryContent(name = "fileID")
 	} 
 	return null
 }
+window.onbeforeunload = function(){
+	$.ajax({
+	    type: "POST",
+	    url:  hostname+'/course/courseware/exit-courseware',
+	    success: function (data) {
+	        //alert("goodbye")
+	    },
+	    error: function(XMLHttpRequest, textStatus, errorThrown) {
+	        alert(XMLHttpRequest.statusText);
+	    }
+	});
+};
