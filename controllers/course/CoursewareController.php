@@ -8,7 +8,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 use app\models\course\courseware\UploadForm;
 use app\models\course\courseware\Courseware;
-
+use app\models\course\courseware\UploadQuiz;
 class CoursewareController extends Controller
 {
     public function actions()
@@ -67,6 +67,28 @@ class CoursewareController extends Controller
     {
 
     }
+
+    //提交并解析quiz文件
+    public function actionUploadQuiz(){
+        $model = new UploadQuiz();
+        if (Yii::$app->request->isPost) {
+            $model->quizFile = UploadedFile::getInstance($model, 'quizFile');
+            $model->name = $_FILES["UploadQuiz"]["name"]["quizFile"];
+            //return $this->render('say',['message'=>fread($myfile,filesize($model->quizFile))]);
+            if ($model->save()) {
+                //$message = $model->analyze();
+                //return $this->render('say',['message'=> $message ]);
+                return $this->render('editQuiz');
+            }
+            else
+                return $this->render('say',['message'=>'上传失败']);
+        }
+        return $this->render("uploadQuiz",['model' => $model]);
+    }
+
+
+
+
     /**
      * 得到url中指定的参数值
      * @param  string $key [指定的参数]
