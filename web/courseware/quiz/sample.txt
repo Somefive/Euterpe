@@ -1,4 +1,4 @@
-O:
+O:1
 1. Who is the best singer?
 A. Jay Chou
 B. Taylor Swift
@@ -9,12 +9,12 @@ ANSWER:
 CD
 
 
-S:
+S:2
 2. Decribe the future you imagine.
 
 ANSWER:
 
-O:
+O:3
 3. Which are the right methods ?
 A. AAA
 B. BBB

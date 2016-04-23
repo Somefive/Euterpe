@@ -9,6 +9,7 @@ use yii\web\UploadedFile;
 use app\models\course\courseware\UploadForm;
 use app\models\course\courseware\Courseware;
 use app\models\course\courseware\UploadQuiz;
+use app\models\course\courseware\Edit;
 class CoursewareController extends Controller
 {
     public function actions()
@@ -76,16 +77,26 @@ class CoursewareController extends Controller
             $model->name = $_FILES["UploadQuiz"]["name"]["quizFile"];
             //return $this->render('say',['message'=>fread($myfile,filesize($model->quizFile))]);
             if ($model->save()) {
-                //$message = $model->analyze();
-                //return $this->render('say',['message'=> $message ]);
-                return $this->render('editQuiz');
+                $id = $model->analyze();
+                $Quizs = UploadQuiz::getQuiz($id);
+               // return $this->render('say',['message'=> $Quizs ]);
+                return $this->editQuiz($Quizs);
             }
             else
                 return $this->render('say',['message'=>'上传失败']);
         }
         return $this->render("uploadQuiz",['model' => $model]);
     }
-
+    //在线编辑
+    public function editQuiz($Quizs){
+        /*$model = new Edit();
+        if (Yii::$app->request->isPost) {
+            return $this->render('say',['message'=> $model ]);
+        }*/
+        return $this->render('editQuiz',[
+            'Quizs' => $Quizs,
+        ]);
+    }
 
 
 

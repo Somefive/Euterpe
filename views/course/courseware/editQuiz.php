@@ -8,8 +8,20 @@
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 ?>
 
 <?php
-    echo "already upload the quiz!";
+    foreach ($Quizs as $quiz){
+        echo($quiz['content'].'</br>');
+        if($quiz['type']=='Objective'){
+            foreach ($quiz['options'] as $option=>$options){
+                echo('&nbsp&nbsp&nbsp&nbsp'.$option.'. '.$options).'</br>';
+            }
+        }
+        echo('Answer: '.$quiz['answer'].'</br>');
+        echo('</br>');
+    }
 ?>
+
+
