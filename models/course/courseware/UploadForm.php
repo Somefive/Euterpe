@@ -30,6 +30,7 @@ class UploadForm extends Model
             return false;
         }
     }
+
     public function alert($str="")
     {
         if(is_array($str))

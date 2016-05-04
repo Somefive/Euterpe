@@ -9,30 +9,11 @@ use yii\base\Model;
 use yii\web\UploadedFile;
 
 
-/**
- * 和数据表quiz进行交互
- */
-class Quiz extends ActiveRecord
-{
-    public function getAllQuizs(){
-        $quizs = Uploadquiz::find()->asArray()->all();
-        return $quizs;
-    }
-}
-
-
-class Subjectivequiz extends ActiveRecord{
-
-}
-
-
-class Objectivequiz extends ActiveRecord{
-
-}
 class UploadQuiz extends Model
 {
     public $quizFile;
     public $name;
+    public $id;
     public function rules()
     {
         return [
@@ -49,6 +30,7 @@ class UploadQuiz extends Model
             $txt = 'courseware/quiz/' . $quiz->name;
             $this->quizFile->saveAs($txt);
             $quiz->save();
+            $this->id = $quiz->id;
             return true;
         } else {
             return false;
@@ -96,13 +78,13 @@ class UploadQuiz extends Model
         //$mess = fread($quizfile, filesize($_FILES["UploadQuiz"]["tmp_name"]["quizFile"]));
         while(!feof($quizfile)){
             $mess = fgets($quizfile);
-            //return substr($mess,0,7);
+           // return $this->id;
             if(substr($mess, 0, 2)=="O:"){
                 $obj = new Objectivequiz();
+                $obj->id = $this->id;
+                $obj->order = substr($mess,2,strlen($mess)-4);
                 $str = fgets($quizfile);
                 while(strlen($str)<7||substr($str,0,7) != "ANSWER:"){
-                   // return $str;
-                    //UploadQuiz::alert($str);
                     if($str[1]=="."&&($str[0]=="A"||$str[0]=="B"||$str[0]=="C"||$str[0]=="D")){
                         $obj->options = $obj->options.substr($str,0,strlen($str)-2).";";
                     }
@@ -113,16 +95,14 @@ class UploadQuiz extends Model
                 $answer = fgets($quizfile);
                 $pattern = "|[a-zA-Z]+|";
                 preg_match($pattern,$answer,$matches);
-                //var_dump($answer);
-                //var_dump($matches);
-                //$this->alert("pause");
-                //return $matches[0];
                 $obj->answer = $matches[0];
                 $obj->save();
             }
             if(substr($mess, 0, 2)=="S:"){
                 //return "主观题";
                 $sub = new Subjectivequiz();
+                $sub->id = $this->id;
+                $sub->order = substr($mess,2,strlen($mess)-4);
                 $str = fgets($quizfile);
                 while(strlen($str)<7||substr($str,0,7) != "ANSWER:"){
                     $sub->content .= substr($str,0,strlen($str)-2);
@@ -131,6 +111,13 @@ class UploadQuiz extends Model
                 $sub->save();
             }
         }
+        return $this->id;
+    }
+
+    public static function getQuiz($id){
+        $Quiz = new Quiz();
+        $allquiz = $Quiz->getAllQuizsById($id);
+        return $allquiz;
     }
 
 
