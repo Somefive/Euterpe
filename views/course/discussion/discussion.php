@@ -34,7 +34,7 @@ $this->registerCssFile('/css/discussion/changLike.css');
                 <!--只看unread或者all的下拉框-->
                 <div class="btn-group">
                     <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10" aria-expanded="false">
-                        Unread<span class="caret"></span></button>
+                        Unread<span class="badge">4</span><span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li onclick="getAllNorUnreadList()"><a>ALL POST</a></li>
                         <li onclick="getUnreadList()"><a>unread</a></li>
