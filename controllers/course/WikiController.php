@@ -66,14 +66,19 @@ class WikiController extends Controller
         }
         $focuswiki->studentid = User::getAppUser()->id;
         if($query=Yii::$app->request->get('query')){
-            $wikis = Wiki::find()->where(['or',['like','tag',$query],['like','title',$query]])->orderBy(['favor'=>SORT_DESC])->all();
+            $wikis = Wiki::find()->where(['or',['like','tag',$query],['like','title',$query]])->orderBy(['favor'=>SORT_DESC,'id'=>SORT_DESC])->all();
         }
         else {
-            $wikis = Wiki::find()->orderBy(['favor'=>SORT_DESC])->all();
+            $wikis = Wiki::find()->orderBy(['favor'=>SORT_DESC,'id'=>SORT_DESC])->all();
         }
+        $page = Yii::$app->request->get('page');
+        if(!$page)
+            $page = 1;
         return $this->render('index',[
             'wikis' => $wikis,
             'focuswiki' => $focuswiki,
+            'page' => $page,
+            'query' => $query,
         ]);
     }
 //    public function actionCreatewiki()
