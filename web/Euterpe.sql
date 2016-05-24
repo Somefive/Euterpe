@@ -31,9 +31,10 @@ CREATE TABLE `composition` (
   `status` varchar(45) DEFAULT 'Unfinished',
   `score` int(11) DEFAULT '0',
   `remark` longtext,
-  `date` date DEFAULT NULL,
+  `date` timestamp NULL DEFAULT NULL,
+  `model` varchar(20) DEFAULT 'None',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +43,7 @@ CREATE TABLE `composition` (
 
 LOCK TABLES `composition` WRITE;
 /*!40000 ALTER TABLE `composition` DISABLE KEYS */;
+INSERT INTO `composition` VALUES (9,2,1,'NewComposition','\n<!--            <span class=\"composer-normal\">Normal</span>-->\n<!--            <span class=\"composer-history\" title=\"history\"></span>-->\n<!--            <span class=\"composer-note\" title=\"note\"></span>-->\n<!--            <span class=\"composer-comment\" title=\"comment\"></span>-->\n            \n            <span class=\"composer-normal\">Normal</span>\n            <span class=\"composer-history glyphicon glyphicon-time\" title=\"\" contenteditable=\"false\" data-toggle=\"tooltip\" data-placement=\"top\" style=\"display: none;\" data-original-title=\"history\"></span>\n            <span class=\"composer-note glyphicon glyphicon-edit\" title=\"\" contenteditable=\"false\" data-toggle=\"tooltip\" data-placement=\"top\" style=\"display: none;\" data-original-title=\"note\"></span>\n            <span class=\"composer-comment glyphicon glyphicon-list-alt\" title=\"\" contenteditable=\"false\" data-toggle=\"tooltip\" data-placement=\"top\" style=\"display: none;\" data-original-title=\"comment\"></span>\n                ','Completed',0,'nothing','2016-05-24 02:53:03','None'),(10,2,1,'Weekly Journal of Learning 11','<div>This week on class we mainly talked about film music. Film music is one kind of music that often appears with images so some famous music can always easily construct some scene in the audience mind and remind audience of the film plot which actually extends the power of a simple piece of music.</div><div>As an important part of a film, the functions of music can diversify from rendering atmosphere to characterizing some figures. In the class, we listened to the main theme music of the famous adventurous movie - Raiders of the Lost Ark - The Raiders March. This music is obviously able to ignite audience\'s desire to follow the main character\'s footstep and start their adventure in their own inner world. However, while the opening part plays an important role to lead the audience into the plot, the middle part helps construct the film scene. It expands the audience\'s imagination and locate it in the specific place where the story takes place.</div><div>What is interesting is that when film music firstly developed at early 19th century, it functions only as a background to silent film. At first, it is said that the image and the music cannot conform to each other. Later, musicians improved it because they found it\'s important to make the background music and the front image coordinate with each other. Today, music means more. Few great works can work without excellent music.</div>','Completed',0,'very very very good essay. You shouldn\'t miss it!!!!!','2016-05-24 02:59:01','True');
 /*!40000 ALTER TABLE `composition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,4 +307,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-23 20:48:06
+-- Dump completed on 2016-05-24 11:47:39

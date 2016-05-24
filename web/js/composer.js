@@ -46,6 +46,12 @@
             }
         );
 
+        $(this).find(".composition-info").each(
+            function(){
+                $(this).attr('title',$(this).attr('title')+$(this).attr('value'));
+            }
+        );
+
         $(this).find('.btn-reset').click(function(){
             var composer = $(this).parents('.composer');
             composer.find('.composer-textedit').html(backup);
@@ -56,11 +62,57 @@
             x = $(this);
         });
 
-        $(this).find('.btn-cancel').click(function(){
+        $(this).find('.btn-clear').click(function(){
             var composer = $(this).parents('.composer');
             composer.find('.composer-textedit').html('');
             composer.find('.switch[status="on"]').click();
         });
+
+        $(this).find('.btn-save').click(function(){
+            $.post('/course/composer/save-composition',
+                {
+                    'compositionid': $.cookie('compositionid'),
+                    '_csrf':$('#YII_CSRF_TOKEN').val(),
+                    'studentid':$('#UserID').val(),
+                    'courseid': $.cookie('courseid'),
+                    'title':$('#composer-titlebox').val(),
+                    'content':$('.composer-textedit').html(),
+                    'status':'Todo',
+                    'score':$('.composition-info.score').attr('value'),
+                    'remark':$('.composition-info.remark').attr('value')
+                },
+                function(data){
+                    var message = JSON.parse(data);
+                    alert(message.status);
+                    if(message.status=='Success')
+                        $.cookie('compositionid',message.detail);
+                }
+            );
+        });
+
+        $(this).find('.btn-submit').click(function(){
+            $.post('/course/composer/save-composition',
+                {
+                    'compositionid': $.cookie('compositionid'),
+                    '_csrf':$('#YII_CSRF_TOKEN').val(),
+                    'studentid':$('#UserID').val(),
+                    'courseid': $.cookie('courseid'),
+                    'title':$('#composer-titlebox').val(),
+                    'content':$('.composer-textedit').html(),
+                    'status':'Completed',
+                    'score':$('.composition-info.score').attr('value'),
+                    'remark':$('.composition-info.remark').attr('value')
+                },
+                function(data){
+                    var message = JSON.parse(data);
+                    alert(message.status);
+                    if(message.status=='Success'){
+                        $.cookie('compositionid',message.detail);
+                        window.location.href = '/course/composer/index';
+                    }
+                }
+            );
+        })
 
         var backup = $(this).find(".composer-textedit").html();
         //$(this).children("span.emphasis").click(function(){
