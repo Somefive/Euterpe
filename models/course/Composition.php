@@ -5,7 +5,7 @@
  * Date: 2016/2/7
  * Time: 20:04
  */
-namespace app\models\course\composer;
+namespace app\models\course;
 
 use yii\db\ActiveRecord;
 
