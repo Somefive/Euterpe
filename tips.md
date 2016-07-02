@@ -21,6 +21,7 @@ tags: TODO,Question
 * <font color=blue>N:进入具体的帖子跳转到具体位置</font>
 * <font color=blue>N:showWholeRemind的折叠问题</font>
 * <font color=blue>提醒还有bug，点击失效，ABC帖子不能分开</font>
+* 将每个学生对应的每个题目的答题信息存储起来
 
 ### wjf
 * ***发帖模型存在一些字符串处理的漏洞***
