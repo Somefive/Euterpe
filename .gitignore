@@ -30,3 +30,4 @@ phpunit.phar
 /web/uploads
 mytips.md
 #web/work.bat
+/vendor

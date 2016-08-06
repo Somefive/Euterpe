@@ -13,7 +13,7 @@ use app\models\account\User;
 <!-- This is a comment <div>
 </div>-->
 
-<div style="">
+
 <div class="panel-group" id="reminderList" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default" >
         <div class="panel-heading" role="tab" id="headingOne">
@@ -86,5 +86,5 @@ use app\models\account\User;
         </div>
     </div>
 </div>
-</div>
+
 

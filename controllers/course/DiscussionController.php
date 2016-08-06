@@ -73,7 +73,7 @@ class DiscussionController extends Controller
             $talkNum+=count($TalkedData);
         }
         $need_show = -1;
-        $session = Yii::$app->session;
+        $session = \Yii::$app->session;
         $session->open();
         if($session['need_show'] != null) {
             $need_show = $session['need_show'];
@@ -95,13 +95,13 @@ class DiscussionController extends Controller
     public function actionShowWholePost()
     {
         if (Yii::$app->request->isAjax) {
+
             $postId = Yii::$app->request->post();
             $selectedPost = Post::getPostByPostId($postId);
             if($selectedPost==null) return "您访问的帖子已被删除";
             $replyPosts=null;
             if($selectedPost!=null) $replyPosts = Post::getnextPosts($selectedPost);
             //Yii::warning($replyPosts);
-
             Post::addReadList($postId);
             Remind::deleteRemindedData(User::getAppUserID(),$postId['postId']);
             $selectedPost = Post::getPostByPostId($postId);

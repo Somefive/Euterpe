@@ -7,30 +7,31 @@ use Yii;
 use app\models\account\User;
 use yii\base\Model;
 use yii\web\UploadedFile;
-
+use app\models\course\courseware\Courseware;
 
 class UploadQuiz extends Model
 {
     public $quizFile;
     public $name;
     public $id;
+    public $date;
     public function rules()
     {
         return [
             [['quizFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'txt'],
         ];
     }
-    
+    //保存文件
     public function save()
     {
         if ($this->validate()) {
-            $quiz = new Quiz();
-            $quiz->name = $_FILES["UploadQuiz"]["name"]["quizFile"];
-            $quiz->uploadtime = date("F j,Y", time());
-            $txt = 'courseware/quiz/' . $quiz->name;
+            $courseware = Courseware::getCoursewareByID($this->id);
+            $courseware->quizFilename = $this->name;
+            $courseware->quizUploadTime = date("F j,Y", time());
+            $courseware->save();
+            $this->date = $courseware->quizUploadTime;
+            $txt = 'courseware/quiz/' .$this->date . $this->name;
             $this->quizFile->saveAs($txt);
-            $quiz->save();
-            $this->id = $quiz->id;
             return true;
         } else {
             return false;
@@ -73,22 +74,26 @@ class UploadQuiz extends Model
         ANSWER:
         B
      * */
+
+    //8/5已修改
     public function analyze(){
-        $quizfile = fopen(Yii::getAlias('@webroot')."/courseware/quiz/".$this->name,'r') or die("Unable to open file!");
-        //$mess = fread($quizfile, filesize($_FILES["UploadQuiz"]["tmp_name"]["quizFile"]));
+        $quizfile = fopen(Yii::getAlias('@webroot')."/courseware/quiz/".$this->date.$this->name,'r') or die("Unable to open file!");
         while(!feof($quizfile)){
             $mess = fgets($quizfile);
-           // return $this->id;
-            if(substr($mess, 0, 2)=="O:"){
+            if(substr($mess, 0, 2)=="O:" and strlen($mess)==4){
                 $obj = new Objectivequiz();
-                $obj->id = $this->id;
-                $obj->order = substr($mess,2,strlen($mess)-4);
+                $obj->quizId = $this->id;
                 $str = fgets($quizfile);
                 while(strlen($str)<7||substr($str,0,7) != "ANSWER:"){
-                    if($str[1]=="."&&($str[0]=="A"||$str[0]=="B"||$str[0]=="C"||$str[0]=="D")){
+                    $pattern1 = "/^[0-9]\. .*/";
+                    $pattern2 = "/^[A-Z]\. .*/";
+                    if(preg_match($pattern1,$str)){
+                        $obj->order = $str[0];
+                        $obj->content.=substr($str,0,strlen($str)-2);
+                    }
+                    else if(preg_match($pattern2,$str)){
                         $obj->options = $obj->options.substr($str,0,strlen($str)-2).";";
                     }
-                    else $obj->content.=substr($str,0,strlen($str)-2);
                     $str = fgets($quizfile);
                    // return $str;
                 }
@@ -98,11 +103,17 @@ class UploadQuiz extends Model
                 $obj->answer = $matches[0];
                 $obj->save();
             }
-            if(substr($mess, 0, 2)=="S:"){
+            else if(substr($mess, 0, 2)=="S:" and strlen($mess)==4){
                 //return "主观题";
                 $sub = new Subjectivequiz();
-                $sub->id = $this->id;
-                $sub->order = substr($mess,2,strlen($mess)-4);
+                $sub->quizId = $this->id;
+                //return $sub->quizId;
+                $str = fgets($quizfile);
+                $pattern1 = "/^[0-9]\. .*/";
+                if(preg_match($pattern1,$str)){
+                    $sub->order = $str[0];
+                    $sub->content .= substr($str,0,strlen($str)-2);
+                }
                 $str = fgets($quizfile);
                 while(strlen($str)<7||substr($str,0,7) != "ANSWER:"){
                     $sub->content .= substr($str,0,strlen($str)-2);

@@ -6,8 +6,7 @@ use yii\helpers\ArrayHelper;
 use app\models\account\User;
 $this->registerJsFile('/js/course/discussion/showWholePost.js');
 ?>
-<?php echo($userId);echo($postId)?>
-<div class="post_region_box question_note_view dashboard_element">
+<div class="post_region_box question_note_view dashboard_element ">
     <div class="post_region_header clearFix">
         <div class="post_title">note</div>
         <div class="post_view_count"><span class="count"><?php echo(ArrayHelper::getValue($selectedPost,'readMenCount'));?></span> views</div>

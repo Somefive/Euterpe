@@ -13,9 +13,9 @@ $this->registerJsFile('/js/course/courseware/index.js');
 <header>
 	<h1>COURSEWARE</h1>
 </header>
-<div>
-	<a href="/course/courseware/upload-quiz">Upload Quiz</a>
-</div>
+<body>
+
+
 <section class="cws-container" style="">
 	<?php foreach ($coursewares as $courseware): ?>
 	<a href="/course/courseware/courseware?fileID=<?=ArrayHelper::getValue($courseware,'id')?>" target="_blank">
@@ -29,3 +29,4 @@ $this->registerJsFile('/js/course/courseware/index.js');
 	</a>
 	<?php endforeach; ?>
 </section>
+</body>

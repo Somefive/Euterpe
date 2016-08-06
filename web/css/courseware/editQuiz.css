@@ -1,0 +1,38 @@
+.showText{
+    padding:0px 0px 0px 4px;
+    margin:0px 10px 0px 40px;
+    display: inline-block;
+    background-color: #eea8a2;
+    font-size: 24px;
+    line-height: 150%;
+    font-family: '"Big Caslon", "Book Antiqua", "Palatino Linotype", Georgia, serif';
+    font-style: oblique;
+    font-weight: bold;
+    max-width: 500px;
+}
+.content{
+    padding: 0px 0px;
+    margin: 0px 0px;
+    width:500px;
+    height:auto;
+    font-size: 16px;
+    line-height: 100%;
+    font-family: '"Times New Roman","Arial","Microsoft YaHei","黑体","宋体",sans-serif;';
+}
+.option{
+    margin-left: -38px;
+}
+.answer , .answer2{
+    font-weight: bolder;
+    font-size: 16px;
+
+}
+.answer{
+    margin-left: -66px;
+}
+
+.order{
+    display: inline-block;
+    margin-top:-5px;
+    font-weight: bolder;
+}

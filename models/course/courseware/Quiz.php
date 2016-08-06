@@ -17,11 +17,12 @@ use yii\web\UploadedFile;
 
 
 /**
- * 和数据表quiz进行交互
+ * 和不同类型的quiz数据进行交互
  */
-class Quiz extends ActiveRecord
+class Quiz
 {
     public function getAllQuizsById($id){
+
         $subquizs = Subjectivequiz::getQuizsById($id);
         $obquizs = Objectivequiz::getQuizsById($id);
         $quizs = array_merge($obquizs,$subquizs);
@@ -34,26 +35,35 @@ class Quiz extends ActiveRecord
                 }
             }
         }
-        for($i = 0;$i<count($quizs);++$i){
+        /*for($i = 0;$i<count($quizs);++$i){
             if(!$quizs[$i]['options'])$quizs[$i]['type'] = "Subjective";
             else $quizs[$i]['type'] = "Objective";
-        }
+        }*/
         return $quizs;
     }
+
+    public static function deleteByID($id){
+        Subjectivequiz::deleteByID($id);
+        Objectivequiz::deleteByID($id);
+    }
+
 }
 
 
 class Subjectivequiz extends ActiveRecord{
-    public static function getQuizsById($id){
-        $query = static::find()->where(['id' => $id])->asArray()->all();
+    public  function getQuizsById($id){
+        $query = Subjectivequiz::find()->where(['quizId' => $id])->asArray()->all();
         return $query;
+    }
+    public static function deleteByID($quizID){
+       Subjectivequiz::deleteAll('quizId=:id',array(':id'=>$quizID));
     }
 }
 
 
 class Objectivequiz extends ActiveRecord{
     public static function getQuizsById($id){
-        $query = static::find()->where(['id' => $id])->asArray()->all();
+        $query = static::find()->where(['quizId' => $id])->asArray()->all();
         for($i = 0; $i<count($query);++$i){
             $options = $query[$i]['options'];
             $query[$i]['options'] = array();
@@ -73,5 +83,8 @@ class Objectivequiz extends ActiveRecord{
             }
         }
         return $query;
+    }
+    public static function deleteByID($quizID){
+        Objectivequiz::deleteAll('quizId=:id',array(':id'=>$quizID));
     }
 }

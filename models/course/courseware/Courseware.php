@@ -17,4 +17,8 @@ class Courseware extends ActiveRecord
 		$coursewares = Courseware::find()->asArray()->all();
 		return $coursewares;
 	}
+
+	public static function getCoursewareByID($id){
+	    return Courseware::find()->where(['id'=>$id])->one();
+    }
 }

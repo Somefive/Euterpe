@@ -33,12 +33,12 @@ class ReplyPostForm extends Model
             $post->content = $this->content;
             $post->time = date("Y-m-d H:i:s", time());
             $post->isPost=$postType;
-
-            if($_POST['NewPostForm']['option']['0']==1) $post->anoymous=1;
-            else $post->anoymous=0;
-            if($_POST['NewPostForm']['option']['0']==2 or$_POST['NewPostForm']['option']['1']==2) $post->shieldteacher=2;
-            else $post->shieldteacher=0;
-
+            if($_POST['ReplyPostForm']['option']!=""){
+                if($_POST['ReplyPostForm']['option']['0']==1) $post->anoymous=1;
+                else $post->anoymous=0;
+                if($_POST['ReplyPostForm']['option']['0']==2 or$_POST['ReplyPostForm']['option']['1']==2) $post->shieldteacher=2;
+                else $post->shieldteacher=0;
+            }
             $postManName = User::getAppUser()->getUserName();
             $post->simpleInfo = $postManName;
 /*

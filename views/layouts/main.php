@@ -38,10 +38,10 @@ AppAsset::register($this);
         '<li class="dropdown-header">General</li>',
         ['label' => 'Courses List', 'url' => '/course/list'],
     ];
-    //if($_COOKIE['courseid']){
-	//if(in_array("courseid",$_COOKIE)){
+    if(array_key_exists('courseid',$_COOKIE)){
+	// if(in_array("courseid",$_COOKIE)){
         $course = \app\models\course\Course::findOne(['id'=>$_COOKIE['courseid']]);
-     //   if($course){
+        // if($course){
             array_push($Nav_courseitem,'<li class="divider"></li>');
             array_push($Nav_courseitem,'<li class="dropdown-header">'.$course->name.'</li>');
             array_push($Nav_courseitem,['label' => 'Class', 'url' => '/course/class']);
@@ -50,8 +50,8 @@ AppAsset::register($this);
             array_push($Nav_courseitem,['label' => 'Courseware', 'url' => '/course/courseware/index']);
             array_push($Nav_courseitem,['label' => 'Wiki', 'url' => '/course/wiki/index']);
             array_push($Nav_courseitem,['label' => 'Share', 'url' => '/course/share/index']);
-   //     }
-   // }
+       // }
+     }
 
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
