@@ -1,22 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Somefive
- * Date: 2016/2/3
- * Time: 15:40
- */
 
 namespace app\models\account;
 
-use Yii;
-use yii\base\Model;
+use yii\db\ActiveRecord;
 
-class StudentBasicInformationForm extends StudentBasicInformation
+class BasicInformation extends ActiveRecord
 {
     public function rules()
     {
         return [
-            [['tel','schoolid'],'match','pattern'=>'/^[0-9]{0,15}$/','message'=>'Tel Format Incorrect!'],
+            [['tel','schoolid'],'match','pattern'=>'/^[0-9]{0,15}$/','message'=>'Format Incorrect!'],
             ['school','default','value'=>'None'],
             [['chname','enname','gender'],'default','value'=>'']
         ];

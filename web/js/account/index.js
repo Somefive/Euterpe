@@ -31,4 +31,42 @@ $(function(){
         location.href = '/course/entercourse?courseid='+$(this).attr('courseid');
     });
     $('[data-toggle="tooltip"]').tooltip();
+
+    $('#input-basic-information-submit').click(function(){
+        $.post(
+            'basic-information-modify',
+            {
+                school: $('#input-basic-information-school').val(),
+                schoolid: $('#input-basic-information-schoolid').val(),
+                chname: $('#input-basic-information-chname').val(),
+                enname: $('#input-basic-information-enname').val(),
+                gender: $('#input-basic-information-gender').val(),
+                tel: $('#input-basic-information-tel').val()
+            },
+            function (data, status) {
+                if(status=='success'){
+                    obj = JSON.parse(data);
+                    alert(obj.message);
+                }
+            }
+        )
+    });
+
+    $('#input-account-submit').click(function(){
+        $.post(
+            'account-modify',
+            {
+                password: hex_md5($('#input-password').val()),
+                repassword: hex_md5($('#input-repassword').val()),
+                email: $('#input-email').val()
+            },
+            function (data, status) {
+                if(status=='success'){
+                    obj = JSON.parse(data);
+                    alert(obj.message);
+                }
+            }
+        )
+    });
+
 });

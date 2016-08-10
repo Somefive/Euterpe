@@ -27,24 +27,11 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return static::findOne(['accessToken' => $token]);
     }
-    public static function getAllUsername()
-    {
-        $allUser = static::find()->asArray()->all();
-        return ArrayHelper::getColumn($allUser,'username');
-    }
 
     public static function getUsernameById($id)
     {
         $user = User::findIdentity($id);
-        if($user != null)
-            return $user->getUserName();
-    }
-
-    public static function getUserIdByName($name)
-    {
-        $user = static::find()->where(['username' => $name])->asArray()->one();
-        \Yii::warning($user);
-        return ArrayHelper::getValue($user,'id');
+        return $user?$user->getUserName():"";
     }
 
     public function getId()
@@ -72,29 +59,19 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->password === $password;
     }
 
-    public function isStudent()
-    {
-        return $this->type == 'Student';
-    }
-
-    public function isTeacher()
-    {
-        return $this->type == 'Teacher';
-    }
-
     public static function getAppUser(){
         return \Yii::$app->user->identity;
     }
 
     public static function getAppUserID(){
-        return \Yii::$app->user->identity->id;
+        return \Yii::$app->user->identity->getId();
     }
 
-    public static function IsAppUserTeacher(){
-        return \Yii::$app->user->identity->isTeacher();
+    public static function isTeacher(){
+        return \Yii::$app->user->can("teacher");
     }
 
-    public static function IsAppUserStudent(){
-        return \Yii::$app->user->identity->isStudent();
+    public function getInfo(){
+        return BasicInformation::findOne($this->getId());
     }
 }

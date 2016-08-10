@@ -12,7 +12,9 @@ $this->title = '账户中心 Account Index';
 ?>
 <div class="account-index">
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <style type="text/css">
+        .row {margin: 10px;}
+    </style>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingOne">
@@ -45,36 +47,57 @@ $this->title = '账户中心 Account Index';
             </div>
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
-                    <p>Please fill out the following fields to modify:</p>
-
-                    <?php $form = ActiveForm::begin([
-                        'id' => 'studentbasicinformation-form',
-                        'action' => '/account/studentbasicinformationmodify/',
-                        'options' => ['class' => 'form-horizontal'],
-                        'fieldConfig' => [
-                            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-                            'labelOptions' => ['class' => 'col-lg-1 control-label'],
-                        ],
-                    ]); ?>
-
-                    <?= $form->field($studentbasicinformationform, 'school')->dropDownList(['Tsinghua'=>'Tsinghua University 清华大学','Other'=>'Other 其他']); ?>
-
-                    <?= $form->field($studentbasicinformationform, 'schoolid') ?>
-
-                    <?= $form->field($studentbasicinformationform, 'chname') ?>
-
-                    <?= $form->field($studentbasicinformationform, 'enname') ?>
-
-                    <?= $form->field($studentbasicinformationform, 'gender')->dropDownList(['male'=>'male 男','female'=>'female 女','robot'=>'robot 机器人']); ?>
-
-                    <?= $form->field($studentbasicinformationform, 'tel') ?>
-
-                    <div class="form-group">
-                        <div class="col-lg-offset-1 col-lg-11">
-                            <?= Html::Submitbutton('Modify', ['class' => 'btn btn-primary E-studentbasicinformationmodify', 'name' => 'studentbasicinformationmodify-button']) ?>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">School</span>
+                                <select class="form-control" id="input-basic-information-school">
+                                    <option value="Tsinghua" <?=$basicInformation->school=="Tsinghua"?"selected":""?>>Tsinghua University</option>
+                                    <option value="Other" <?=$basicInformation->school!="Tsinghua"?"selected":""?>>Other University</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">SchoolID</span>
+                                <input type="text" class="form-control" id="input-basic-information-schoolid" value="<?=$basicInformation->schoolid?>">
+                            </div>
                         </div>
                     </div>
-                    <?php ActiveForm::end(); ?>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="description-chinese-name">Chinese Name</span>
+                                <input type="text" class="form-control" aria-describedby="description-chinese-name" id="input-basic-information-chname" value="<?=$basicInformation->chname?>">
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="description-english-name">English Name</span>
+                                <input type="text" class="form-control" aria-describedby="description-english-name" id="input-basic-information-enname" value="<?=$basicInformation->enname?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">Gender</span>
+                                <select class="form-control" id="input-basic-information-gender">
+                                    <option value="male" <?=$basicInformation->gender=="male"?"selected":""?>>Male</option>
+                                    <option value="female" <?=$basicInformation->gender!="male"?"selected":""?>>Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="description-tel">Tel</span>
+                                <input type="text" class="form-control" aria-describedby="description-tel" id="input-basic-information-tel" value="<?=$basicInformation->tel?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="btn btn-success" id="input-basic-information-submit">Modify</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,36 +111,27 @@ $this->title = '账户中心 Account Index';
             </div>
             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                 <div class="panel-body">
-
-                    <p>Please fill out the following fields to modify:</p>
-
-                    <?php $form = ActiveForm::begin([
-                        'id' => 'account-form',
-                        'action' => '/account/accountmodify/',
-                        'options' => ['class' => 'form-horizontal'],
-                        'fieldConfig' => [
-                            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-                            'labelOptions' => ['class' => 'col-lg-1 control-label'],
-                        ],
-                    ]); ?>
-
-                    <?= $form->field($accountform, 'username')->textInput(['disabled'=>'true']) ?>
-
-                    <?= $form->field($accountform, 'password')->passwordInput() ?>
-
-                    <?= $form->field($accountform, 'repassword')->passwordInput() ?>
-
-                    <?= $form->field($accountform, 'email')->textInput() ?>
-
-                    <?= $form->field($accountform, 'oldemail')->hiddenInput() ?>
-
-                    <div class="form-group">
-                        <div class="col-lg-offset-1 col-lg-11">
-                            <?= Html::Button('Modify', ['class' => 'btn btn-primary E-accountmodify', 'name' => 'accountmodify-button']) ?>
-                            <?= Html::Button('Reset', ['class' => 'btn btn-primary E-accountreset', 'name' => 'accountreset-button']) ?>
+                    <div class="row">
+                        <div class="input-group">
+                            <span class="input-group-addon">New Password</span>
+                            <input type="password" class="form-control" id="input-password">
                         </div>
                     </div>
-                    <?php ActiveForm::end(); ?>
+                    <div class="row">
+                        <div class="input-group">
+                            <span class="input-group-addon">Repeat Password</span>
+                            <input type="password" class="form-control" id="input-repassword">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <span class="input-group-addon">Email</span>
+                            <input type="email" class="form-control" id="input-email" value="<?=\Yii::$app->user->identity->email?>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="btn btn-success" id="input-account-submit">Modify</div>
+                    </div>
                 </div>
             </div>
         </div>

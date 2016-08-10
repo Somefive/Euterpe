@@ -9,16 +9,19 @@
 namespace app\controllers;
 
 use app\models\account\AccountForm;
-use app\models\account\StudentBasicInformationForm;
+use app\models\account\BasicInformation;
 use app\models\account\LoginForm;
 use app\models\account\RegisterForm;
 use app\models\account\User;
 use app\models\course\Course;
 use Yii;
 use yii\web\Controller;
+use yii\filters\AccessControl;
 
 class AccountController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     public function actions()
     {
         return [
@@ -32,59 +35,82 @@ class AccountController extends Controller
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'except' => [],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index','account-modify','basic-information-modify','logout'],
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['login','register'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['verify'],
+                        'roles' => ['teacher'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
-        if (\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
         $accountform = new AccountForm();
-        $accountform->username = \Yii::$app->user->identity->username;
-        $accountform->oldemail = \Yii::$app->user->identity->email;
-        $accountform->email = \Yii::$app->user->identity->email;
-        $studentbasicinformationform = StudentBasicInformationForm::findOne(User::getAppUser()->id);
-        if(!$studentbasicinformationform) $studentbasicinformationform = new StudentBasicInformationForm();
-
-        $studentcourses = Course::getCourses(User::getAppUser()->id);
+        $accountform->username = Yii::$app->user->identity->username;
+        $accountform->oldemail = Yii::$app->user->identity->email;
+        $accountform->email = Yii::$app->user->identity->email;
+        $basicInformation = BasicInformation::findOne(Yii::$app->user->id);
+        if(!$basicInformation) $basicInformation = new BasicInformation();
+        file_put_contents("../workspace/da.txt",$basicInformation->chname);
+        $studentcourses = Course::getCourses(Yii::$app->user->id);
 
         return $this->render('index',[
             'accountform' => $accountform,
-            'studentbasicinformationform' => $studentbasicinformationform,
+            'basicInformation' => $basicInformation,
             'studentcourses' => $studentcourses,
         ]);
     }
 
-    public function actionAccountmodify()
-    {
-        if (\Yii::$app->user->isGuest) {
-            return $this->render('say',['message'=>'请先登录！']);
-        }
-        $accountform = new AccountForm();
-        if($accountform->load(Yii::$app->request->post()))
-        {
-            $accountform->id = \Yii::$app->user->identity->id;
-            $accountform->username = \Yii::$app->user->identity->username;
-            if(!$accountform->validate())
-                return $this->render('say',['message'=>'格式有误！']);
-            return $accountform->Modify()?$this->render('say',['message'=>'修改成功！']):$this->render('say',['message'=>'修改失败...']);
-        }
-        return $this->render('say',['message'=>'修改失败……']);
+    public function actionAccountModify() {
+        $user = User::findOne(Yii::$app->user->id);
+        $pwd = Yii::$app->request->post("password");
+        $repwd = Yii::$app->request->post("repassword");
+        if($pwd != $repwd) return json_encode(["status"=>false,"message"=>"repassword error"]);
+        $user->password = Yii::$app->request->post("password");
+        $user->email = Yii::$app->request->post("email");
+        if(!$user->validate()) return json_encode(["status"=>false,"message"=>"input error"]);
+        if(!$user->save()) return json_encode(["status"=>false,"message"=>"db error"]);
+        return json_encode(["status"=>true,"message"=>"success!"]);
     }
 
-    public function actionStudentbasicinformationmodify()
-    {
-        if (\Yii::$app->user->isGuest) {
-            return $this->render('say',['message'=>'请先登录！']);
-        }
-        $studentbasicinformationform = new StudentBasicInformationForm();
-        if($studentbasicinformationform->load(Yii::$app->request->post()))
-        {
-            $studentbasicinformationform->id = User::getAppUser()->id;
-            if(!$studentbasicinformationform->validate())
-                return $this->render('say',['message'=>'格式有误！']);
-            StudentBasicInformationForm::deleteAll(['id'=>$studentbasicinformationform->id]);
-            return $studentbasicinformationform->save()?$this->render('say',['message'=>'修改成功！']):$this->render('say',['message'=>'修改失败...']);
-        }
-        return $this->render('say',['message'=>'修改失败……']);
+    public function actionBasicInformationModify() {
+        $info = BasicInformation::findOne(Yii::$app->user->id);
+        $info->school = Yii::$app->request->post("school");
+        $info->schoolid = Yii::$app->request->post("schoolid");
+        $info->chname = Yii::$app->request->post("chname");
+        $info->enname = Yii::$app->request->post("enname");
+        $info->gender = Yii::$app->request->post("gender");
+        $info->tel = Yii::$app->request->post("tel");
+        if(!$info->validate()) return json_encode(["status"=>false,"message"=>"input error"]);
+        if(!$info->save()) return json_encode(["status"=>false,"message"=>"db error"]);
+        return json_encode(["status"=>true,"message"=>"success!"]);
+    }
+
+    public function actionVerify() {
+        $toVerifyId = Yii::$app->request->post("verify-id");
+        $info = BasicInformation::findOne($toVerifyId);
+        if(!$info) return json_encode(["status"=>false,"message"=>"id not found"]);
+        else if($info->verify == 1) return json_encode(["status"=>false,"message"=>"id verified"]);
+        else return json_encode(["status"=>true,"message"=>"success"]);
     }
 
     public function actionRegister()
@@ -129,7 +155,6 @@ class AccountController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 }
