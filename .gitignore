@@ -31,3 +31,6 @@ phpunit.phar
 mytips.md
 #web/work.bat
 /vendor
+
+# 自己调试时所用的一些数据请放到该文件夹下 不要push到远端
+/workspace
