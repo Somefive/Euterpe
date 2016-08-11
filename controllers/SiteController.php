@@ -77,19 +77,8 @@ class SiteController extends Controller
 
     public function actionTest()
     {
-//        $mail = Yii::$app->mailer->compose();
-//        $mail->setTo('thu_euterpe@sina.com');
-//        $mail->setSubject("邮件测试");
-//        $mail->setTextBody('邮件内容');
-//        set_time_limit(120);
-//        if ($mail->send())
-//            $msg = 'Success!';
-//        else
-//            $msg = 'Fail...';
-//        return $this->render('test', ['status' => $msg]);
-
-        return var_dump(Course::getCourses(2));
-
+        $this->layout = "euterpe";
+        return $this->render('say');
     }
 
 }

@@ -1,0 +1,10 @@
+html,body,.wrap,.content{
+    height: 100%;
+}
+.content{
+    padding-top: 50px;
+}
+.render-content{
+    float: left;
+    height: 100%;
+}

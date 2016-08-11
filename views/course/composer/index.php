@@ -82,7 +82,7 @@ $this->registerJsFile('/js/course/composer-index.js');
                         <?php foreach($ModelEssays as $essay):?>
                             <tr class="viewer" viewer-id="<?=$essay->id?>" style="cursor: pointer">
                                 <td><?php
-                                    $info = \app\models\account\StudentBasicInformation::findOne(['id'=>$essay->studentid]);
+                                    $info = \app\models\account\BasicInformation::findOne(['id'=>$essay->studentid]);
                                     echo $info->enname.' / '.$info->chname;
                                     ?></td>
                                 <td><?=$essay->title?></td>

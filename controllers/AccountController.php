@@ -22,6 +22,8 @@ class AccountController extends Controller
 {
     public $enableCsrfValidation = false;
 
+    public $layout = "euterpe";
+
     public function actions()
     {
         return [

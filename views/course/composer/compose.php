@@ -26,7 +26,7 @@ $this->params['breadcrumbs'] = [
         <div class="composer-topbar">
             <span class="composition-fulltitle"> Title: <input type="text" id="composer-titlebox" maxlength="60" class="composition-title" contenteditable="true" value="<?=$composition->title?>"></span>
             <div class="btn-group" role="group" style="float:right">
-                <?php if(\app\models\account\User::IsAppUserTeacher()): ?>
+                <?php if(\app\models\account\User::isTeacher()): ?>
                 <button type="button" class="btn btn-default op op-note" op-type="note">Note</button>
                 <button type="button" class="btn btn-default op op-comment" op-type="comment">Comment</button>
                 <button type="button" class="btn btn-default">Remark</button>
@@ -35,10 +35,6 @@ $this->params['breadcrumbs'] = [
             </div>
         </div>
         <div class="composer-textedit" contenteditable="plaintext-only">
-<!--            <span class="composer-normal">Normal</span>-->
-<!--            <span class="composer-history" title="history"></span>-->
-<!--            <span class="composer-note" title="note"></span>-->
-<!--            <span class="composer-comment" title="comment"></span>-->
             <?=$composition->content?>
         </div>
         <div class="composer-bottombar">

@@ -74,4 +74,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function getInfo(){
         return BasicInformation::findOne($this->getId());
     }
+
+    public static function getAppGender(){
+        $info = BasicInformation::findOne(\Yii::$app->user->id);
+        if(!$info || $info->gender !="female") return "male";
+        return $info->gender;
+    }
 }

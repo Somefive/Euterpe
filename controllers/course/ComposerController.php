@@ -8,12 +8,13 @@
 
 namespace app\controllers\course;
 
-use app\models\account\StudentBasicInformation;
+use app\models\account\BasicInformation;
 use app\models\account\User;
 use app\models\course\Composition;
 use app\models\course\Courseenrollment;
 use yii\web\Controller;
 use Yii;
+use yii\filters\AccessControl;
 
 class ComposerController extends Controller
 {
@@ -93,7 +94,7 @@ class ComposerController extends Controller
 
         $message = ['status'=>'Success','detail'=>''];
 
-        if(!(User::IsAppUserTeacher() or User::getAppUserID()==$composition->studentid))
+        if(!(User::isTeacher() or User::getAppUserID()==$composition->studentid))
             $message['status'] = 'Forbidden';
         if(!$composition->validate())
             $message['status'] = 'Invalid Data';
@@ -111,7 +112,7 @@ class ComposerController extends Controller
         if(!$composition)
             return json_encode(['stutus'=>'fail','detail'=>'no such composition']);
         else {
-            $writer = StudentBasicInformation::findOne(['id'=>$composition->studentid]);
+            $writer = BasicInformation::findOne(['id'=>$composition->studentid]);
             return json_encode(['status' => 'success', 'data' => [
                 'title' => $composition->title,
                 'writer' => $writer->enname.' / '.$writer->chname,

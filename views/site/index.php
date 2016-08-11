@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 $this->title = 'Euterpe Index';
+\app\assets\EuterpeAsset::register($this);
 ?>
 <div class="site-index">
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
