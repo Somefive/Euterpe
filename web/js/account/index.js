@@ -34,7 +34,7 @@ $(function(){
 
     $('#input-basic-information-submit').click(function(){
         $.post(
-            'basic-information-modify',
+            '/account/basic-information-modify',
             {
                 school: $('#input-basic-information-school').val(),
                 schoolid: $('#input-basic-information-schoolid').val(),
@@ -54,7 +54,7 @@ $(function(){
 
     $('#input-account-submit').click(function(){
         $.post(
-            'account-modify',
+            '/account/account-modify',
             {
                 password: hex_md5($('#input-password').val()),
                 repassword: hex_md5($('#input-repassword').val()),
