@@ -70,7 +70,6 @@ class AccountController extends Controller
         $accountform->email = Yii::$app->user->identity->email;
         $basicInformation = BasicInformation::findOne(Yii::$app->user->id);
         if(!$basicInformation) $basicInformation = new BasicInformation();
-        file_put_contents("../workspace/da.txt",$basicInformation->chname);
         $studentcourses = Course::getCourses(Yii::$app->user->id);
 
         return $this->render('index',[
@@ -94,6 +93,7 @@ class AccountController extends Controller
 
     public function actionBasicInformationModify() {
         $info = BasicInformation::findOne(Yii::$app->user->id);
+        if(!$info) $info = new BasicInformation();
         $info->school = Yii::$app->request->post("school");
         $info->schoolid = Yii::$app->request->post("schoolid");
         $info->chname = Yii::$app->request->post("chname");
