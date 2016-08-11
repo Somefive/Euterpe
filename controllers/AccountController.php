@@ -93,7 +93,10 @@ class AccountController extends Controller
 
     public function actionBasicInformationModify() {
         $info = BasicInformation::findOne(Yii::$app->user->id);
-        if(!$info) $info = new BasicInformation();
+        if(!$info) {
+            $info = new BasicInformation();
+            $info->id = Yii::$app->user->id;
+        }
         $info->school = Yii::$app->request->post("school");
         $info->schoolid = Yii::$app->request->post("schoolid");
         $info->chname = Yii::$app->request->post("chname");
