@@ -11,7 +11,7 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Register';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-register">
+<div class="site-register main-content-middle">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Please fill out the following fields to register:</p>
@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'id' => 'register-form',
         'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
+            'template' => "{label}\n<div>{input}</div>\n<div>{error}</div>",
+            'labelOptions' => ['class' => 'control-label'],
         ],
     ]); ?>
 

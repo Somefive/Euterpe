@@ -22,13 +22,13 @@ use yii\helpers\Html;
 
 <div class="wrap">
     <?=\app\components\Navbar::widget()?>
-    <div class="content">
-        <?php if(!Yii::$app->user->isGuest): ?>
+
+    <?php if(!Yii::$app->user->isGuest): ?>
         <?=\app\components\SideBar::widget()?>
-        <div class="render-content">
-            <?=$content?>
-        </div>
-        <?php endif?>
+    <?php endif?>
+
+    <div class="main-content">
+        <?=$content?>
     </div>
 </div>
 

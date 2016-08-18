@@ -1,10 +1,13 @@
-html,body,.wrap,.content{
+html,body,.wrap,.main-content{
     height: 100%;
 }
-.content{
+.main-content{
     padding-top: 50px;
 }
-.render-content{
-    float: left;
+.main-content-middle{
+    width: 100%;
+    padding-left: 30%;
+    padding-right: 30%;
     height: 100%;
+    padding-top: 5%;
 }

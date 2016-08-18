@@ -11,7 +11,7 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
+<div class="site-login main-content-middle">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Please fill out the following fields to login:</p>
@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'id' => 'login-form',
         'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
+            'template' => "{label}\n<div>{input}</div>\n<div>{error}</div>",
+            'labelOptions' => ['class' => 'control-label'],
         ],
     ]); ?>
 
@@ -39,6 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <?php ActiveForm::end(); ?>
-    <?=Html::jsFile('@web/js/jquery-2.2.0.min.js')?>
+    <?=Html::jsFile('@web/js/md5.js')?>
     <?=Html::jsFile('@web/js/login.js')?>
 </div>

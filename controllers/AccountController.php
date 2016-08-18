@@ -121,7 +121,7 @@ class AccountController extends Controller
     public function actionRegister()
     {
         if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect("/account/login");
         }
 
         $model = new RegisterForm();
@@ -144,13 +144,13 @@ class AccountController extends Controller
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect("/account/");
         }
 
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->goBack("/account/");
         }
         return $this->render('login', [
             'model' => $model,
@@ -160,6 +160,6 @@ class AccountController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-        return $this->goHome();
+        return $this->redirect("/account/login");
     }
 }

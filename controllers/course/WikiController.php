@@ -15,6 +15,8 @@ use Yii;
 
 class WikiController extends Controller
 {
+    public $layout = "euterpe";
+
     public function behaviors()
     {
         return [

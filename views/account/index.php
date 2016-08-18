@@ -11,9 +11,9 @@ use yii\bootstrap\ActiveForm;
 $this->title = '账户中心 Account Index';
 ?>
 <div class="account-index">
-    <h1><?= Html::encode($this->title) ?></h1>
     <style type="text/css">
-        .row {margin: 10px;}
+        .row {margin: 20px;}
+        .account-index {padding: 20px;}
     </style>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
@@ -48,51 +48,45 @@ $this->title = '账户中心 Account Index';
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-5">
-                            <div class="input-group">
-                                <span class="input-group-addon">School</span>
-                                <select class="form-control" id="input-basic-information-school">
-                                    <option value="Tsinghua" <?=$basicInformation->school=="Tsinghua"?"selected":""?>>Tsinghua University</option>
-                                    <option value="Other" <?=$basicInformation->school!="Tsinghua"?"selected":""?>>Other University</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="input-group">
-                                <span class="input-group-addon">SchoolID</span>
-                                <input type="text" class="form-control" id="input-basic-information-schoolid" value="<?=$basicInformation->schoolid?>">
-                            </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">School</span>
+                            <select class="form-control" id="input-basic-information-school">
+                                <option value="Tsinghua" <?=$basicInformation->school=="Tsinghua"?"selected":""?>>Tsinghua University</option>
+                                <option value="Other" <?=$basicInformation->school!="Tsinghua"?"selected":""?>>Other University</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-5">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="description-chinese-name">Chinese Name</span>
-                                <input type="text" class="form-control" aria-describedby="description-chinese-name" id="input-basic-information-chname" value="<?=$basicInformation->chname?>">
-                            </div>
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="description-english-name">English Name</span>
-                                <input type="text" class="form-control" aria-describedby="description-english-name" id="input-basic-information-enname" value="<?=$basicInformation->enname?>">
-                            </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">SchoolID</span>
+                            <input type="text" class="form-control" id="input-basic-information-schoolid" value="<?=$basicInformation->schoolid?>">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-5">
-                            <div class="input-group">
-                                <span class="input-group-addon">Gender</span>
-                                <select class="form-control" id="input-basic-information-gender">
-                                    <option value="male" <?=$basicInformation->gender=="male"?"selected":""?>>Male</option>
-                                    <option value="female" <?=$basicInformation->gender!="male"?"selected":""?>>Female</option>
-                                </select>
-                            </div>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="description-chinese-name">Chinese Name</span>
+                            <input type="text" class="form-control" aria-describedby="description-chinese-name" id="input-basic-information-chname" value="<?=$basicInformation->chname?>">
                         </div>
-                        <div class="col-lg-5">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="description-tel">Tel</span>
-                                <input type="text" class="form-control" aria-describedby="description-tel" id="input-basic-information-tel" value="<?=$basicInformation->tel?>">
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="description-english-name">English Name</span>
+                            <input type="text" class="form-control" aria-describedby="description-english-name" id="input-basic-information-enname" value="<?=$basicInformation->enname?>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <span class="input-group-addon">Gender</span>
+                            <select class="form-control" id="input-basic-information-gender">
+                                <option value="male" <?=$basicInformation->gender=="male"?"selected":""?>>Male</option>
+                                <option value="female" <?=$basicInformation->gender!="male"?"selected":""?>>Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="description-tel">Tel</span>
+                            <input type="text" class="form-control" aria-describedby="description-tel" id="input-basic-information-tel" value="<?=$basicInformation->tel?>">
                         </div>
                     </div>
                     <div class="row">
@@ -111,6 +105,18 @@ $this->title = '账户中心 Account Index';
             </div>
             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                 <div class="panel-body">
+                    <div class="row">
+                        <div class="input-group">
+                            <span class="input-group-addon">UserName</span>
+                            <input disabled class="form-control" value="<?=\Yii::$app->user->identity->username?>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <span class="input-group-addon">Verification</span>
+                            <input disabled class="form-control" value="<?=($basicInformation->verify==0)?'Not verified':'Verified'?>">
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="input-group">
                             <span class="input-group-addon">New Password</span>

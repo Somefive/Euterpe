@@ -1,36 +1,39 @@
+.wiki-card{
+    box-shadow: 3px 3px 2px 3px rgba(0, 0, 0, 0.7);
+    border-radius: 6px;
+    width: 320px;
+    margin: 10px;
+    float: left;
+}
 .panel-title{
     font-size: x-large;
 }
-
 .panel-body{
     font-size: large;
     font-weight: 700;
+    overflow: hidden;
 }
-
 span.tag{
     margin: 5px;
     padding: 5px;
     background-color: #9acfea;
     border-radius: 3px;
     font-size: medium;
+    overflow: hidden;
 }
-
 span.tag:hover{
     cursor: pointer;
 }
-
 .editbar{
     color: black;
     margin: 5px;
     font-size: large;
     float: right;
 }
-
 .editbar:hover{
     color: #00aa00;
     cursor: pointer;
 }
-
 .glyphicon-heart{
     color: crimson;
 }
