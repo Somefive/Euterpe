@@ -2,14 +2,14 @@ $(function(){
     $('.editbar.foldbtn').click(function(){
         if($(this).attr('folded')=="false"){
             $(this).attr('folded','true');
-            $(this).removeClass('glyphicon-resize-full');
-            $(this).addClass('glyphicon-resize-small');
+            $(this).removeClass('glyphicon-resize-small');
+            $(this).addClass('glyphicon-resize-full');
             $(this).parent().siblings("div").hide();
         }
         else{
             $(this).attr('folded','false');
-            $(this).removeClass('glyphicon-resize-small');
-            $(this).addClass('glyphicon-resize-full');
+            $(this).removeClass('glyphicon-resize-full');
+            $(this).addClass('glyphicon-resize-small');
             $(this).parent().siblings("div").fadeIn();
         }
     });

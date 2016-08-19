@@ -12,15 +12,13 @@ $this->title = 'Wiki';
 $this->params['breadcrumbs'][] = 'Index';
 $wikis;
 ?>
-<div class="wiki-index">
+<div class="wiki-index" style="padding:20px;">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <span style="float:right;">
+    <div style="width:100%;padding:20px">
         <form method="get">
             <div class="input-group">
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-success newwiki">New Wiki <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span></button>
+                    <button type="button" class="btn btn-success wiki-create">New Wiki <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span></button>
                 </span>
                 <input type="text" name="query" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
@@ -28,9 +26,8 @@ $wikis;
                 </span>
             </div>
         </form>
-    </span>
+    </div>
 
-    <br/><br/>
 
     <?php for($i=10*$page-10;$i<count($wikis) && $i<10*$page;$i++):?>
         <?= \app\components\wiki\WikiCard::widget(["wiki"=>$wikis[$i]]) ?>
@@ -38,8 +35,10 @@ $wikis;
 
     <?= \app\components\LinkPager::widget(["total"=>ceil(count($wikis)/10),"current"=>$page,"url"=>"/course/wiki/index?query=".$query]); ?>
 
-    <?=Html::cssFile('/css/wiki/wiki-card.css');?>
-    <?=Html::jsFile('/js/course/wiki/wiki-card.js')?>
-    <?=Html::jsFile('@web/js/course/wikiindex.js')?>
+    <?= \app\components\wiki\WikiEditor::widget() ?>
+    <?=Html::jsFile('@web/js/course/wiki/wikiindex.js')?>
+
+    <?=\yii\helpers\Html::cssFile('/css/wiki/wiki-card.css');?>
+    <?=\yii\helpers\Html::jsFile('/js/course/wiki/wiki-card.js')?>
 
 </div>

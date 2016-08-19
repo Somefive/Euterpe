@@ -111,32 +111,23 @@ class WikiController extends Controller
         }
     }
 
-    public function actionDeletewiki()
+    public function actionDeleteWiki()
     {
-        $wikiid = $_POST['wikiid'];
-        Wiki::deleteAll(['id'=>$wikiid]);
-        return $this->redirect('/site/say?message=删除成功');
-    }
-
-    public function actionDeleteTheWiki()
-    {
+        /* @var Wiki $wiki */
         $wikiid = $_POST['id'];
         $userid = User::getAppUser()->getId();
         $wiki = Wiki::findOne(['id'=>$wikiid]);
         if(!$wiki)
-            return json_encode([status => false ,"message" => "不存在该wiki词条"]);
+            return json_encode(['status' => false ,"message" => "id not found"]);
         if($userid == $wiki->studentid)
         {
             if($wiki->delete())
-                return json_encode([status => true ,"message" => "删除成功"]);
+                return json_encode(['status' => true ,"message" => "success"]);
             else
-                return json_encode([status => false ,"message" => "删除失败"]);
+                return json_encode(['status' => false ,"message" => "db fail"]);
         }
         else
-            return json_encode([status => false ,"message" => "删除失败"]);
-
-        //Wiki::deleteAll(['id'=>$wikiid]);
-
+            return json_encode(['status' => false ,"message" => "role incorrect"]);
     }
 
     public function actionCompilewiki()
@@ -168,17 +159,21 @@ class WikiController extends Controller
         $wikiid = $_POST['id'];
         $title = $_POST['title'];
         $detail = $_POST['detail'];
+        $tag = $_POST['tag'];
         $wiki = Wiki::findOne(['id'=>$wikiid]);
         if($title == null || $detail == null)
-            return json_encode([status => false ,"message" => "title或detail为空，提交失败"]);
+            return json_encode(['status' => false ,"message" => "input invalid"]);
         if(!$wiki)
             $wiki = new Wiki();
+        elseif($wiki->studentid != User::getAppUserID())
+            return json_encode(['status' => false ,"message" => "role incorrect"]);
         $wiki->title = $title;
         $wiki->detail = $detail;
-        $wiki->studentid = User::getAppUser()->getId();
+        $wiki->tag = $tag;
+        $wiki->studentid = User::getAppUserID();
         if($wiki->save())
-            return json_encode([status => true ,"message" => "修改成功"]);
+            return json_encode(['status' => true ,"message" => "success"]);
         else
-            return json_encode([status => false ,"message" => "修改失败"]);
+            return json_encode(['status' => false ,"message" => "db fail"]);
     }
 }

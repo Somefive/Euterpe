@@ -8,23 +8,23 @@
             <div class="modal-body">
                 <div class="input-group">
                     <span class="input-group-addon">Title</span>
-                    <input type="text" class="form-control" name="wiki-title">
+                    <input type="text" class="form-control wiki-title">
                 </div>
                 <br/>
                 <div class="input-group">
                     <span class="input-group-addon">Detail</span>
-                    <textarea class="form-control" name="wiki-detail" rows="6"></textarea>
+                    <textarea class="form-control wiki-detail" rows="6"></textarea>
                 </div>
                 <br/>
                 <div class="input-group">
                     <span class="input-group-addon">Tag</span>
-                    <input type="text" class="form-control" name="wiki-tag">
+                    <input type="text" class="form-control wiki-tag">
                 </div>
                 <br/>
                 <div class="alert alert-success" role="alert">
                     Use semicolon(;) to seperate different tags.
                 </div>
-                <input type="hidden" name="wiki-id">
+                <input type="hidden" class="wiki-id">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -34,6 +34,3 @@
     </div>
 </div>
 <?= \yii\helpers\Html::jsFile("/js/course/wiki/wiki-editor.js")?>
-<script>
-    $('.modal').modal('show');
-</script>
