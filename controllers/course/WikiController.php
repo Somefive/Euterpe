@@ -124,12 +124,17 @@ class WikiController extends Controller
         $userid = User::getAppUser()->getId();
         $wiki = Wiki::findOne(['id'=>$wikiid]);
         if(!$wiki)
-            return null;
+            return json_encode([status => false ,"message" => "不存在该wiki词条"]);
         if($userid == $wiki->studentid)
+        {
             if($wiki->delete())
                 return json_encode([status => true ,"message" => "删除成功"]);
             else
                 return json_encode([status => false ,"message" => "删除失败"]);
+        }
+        else
+            return json_encode([status => false ,"message" => "删除失败"]);
+
         //Wiki::deleteAll(['id'=>$wikiid]);
 
     }
