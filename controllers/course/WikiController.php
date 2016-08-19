@@ -16,6 +16,7 @@ use Yii;
 class WikiController extends Controller
 {
     public $layout = "euterpe";
+    public $enableCsrfValidation = false;
 
     public function behaviors()
     {
@@ -117,6 +118,22 @@ class WikiController extends Controller
         return $this->redirect('/site/say?message=删除成功');
     }
 
+    public function actionDeleteTheWiki()
+    {
+        $wikiid = $_POST['id'];
+        $userid = User::getAppUser()->getId();
+        $wiki = Wiki::findOne(['id'=>$wikiid]);
+        if(!$wiki)
+            return null;
+        if($userid == $wiki->studentid)
+            if($wiki->delete())
+                return json_encode([status => true ,"message" => "删除成功"]);
+            else
+                return json_encode([status => false ,"message" => "删除失败"]);
+        //Wiki::deleteAll(['id'=>$wikiid]);
+
+    }
+
     public function actionCompilewiki()
     {
         $wikiid = $_POST['wikiid'];
@@ -139,5 +156,24 @@ class WikiController extends Controller
         $wiki->favor++;
         $wiki->save();
         return json_encode(['wikiid'=>$wikiid,'favor'=>$wiki->favor]);
+    }
+
+    public function actionUpsertWiki()
+    {
+        $wikiid = $_POST['id'];
+        $title = $_POST['title'];
+        $detail = $_POST['detail'];
+        $wiki = Wiki::findOne(['id'=>$wikiid]);
+        if($title == null || $detail == null)
+            return json_encode([status => false ,"message" => "title或detail为空，提交失败"]);
+        if(!$wiki)
+            $wiki = new Wiki();
+        $wiki->title = $title;
+        $wiki->detail = $detail;
+        $wiki->studentid = User::getAppUser()->getId();
+        if($wiki->save())
+            return json_encode([status => true ,"message" => "修改成功"]);
+        else
+            return json_encode([status => false ,"message" => "修改失败"]);
     }
 }
