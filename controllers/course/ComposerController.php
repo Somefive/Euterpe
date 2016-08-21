@@ -12,17 +12,35 @@ use app\models\account\BasicInformation;
 use app\models\account\User;
 use app\models\course\Composition;
 use app\models\course\Courseenrollment;
+use Faker\Provider\zh_TW\DateTime;
 use yii\web\Controller;
 use Yii;
 use yii\filters\AccessControl;
 
 class ComposerController extends Controller
 {
+    public $layout = "euterpe";
+
     public function actions()
     {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
             ],
         ];
     }
@@ -59,68 +77,64 @@ class ComposerController extends Controller
         ]);
     }
 
-    public function beforeAction($action)
-    {
-        $message = '';
-        if(\Yii::$app->user->isGuest)
-            $message = 'Please Login First 请先登录';
-        else{
-            $courseid = $_COOKIE['courseid'];
-            $studentid = User::getAppUser()->id;
-            if(!$courseid || !Courseenrollment::findOne(['courseid'=>$courseid,'studentid'=>$studentid]))
-                $message = 'Please Enter Course First 请先进入课程';
-        }
-        if($message!='')
-            $this->redirect('/site/say?message='.urlencode($message));
-        return parent::beforeAction($action);
-    }
-
-    public function actionSaveComposition()
-    {
-        $compositionid = $_POST['compositionid'];
-        $composition = Composition::findOne(['id'=>$compositionid]);
-        if(!$composition)
+    public function actionUpsertComposition(){
+        $id = $_POST["id"];
+        $composition = Composition::findOne($id);
+        if($composition){
             $composition = new Composition();
-
-        $composition->studentid = $_POST['studentid'];
-        $composition->courseid = $_POST['courseid'];
-        $composition->title = $_POST['title'];
-        $composition->content = $_POST['content'];
-        $composition->status = $_POST['status'];
-        $composition->score = $_POST['score'];
-        $composition->remark = $_POST['remark'];
-        $composition->date = date('y-m-d h:i:s',time());
-        $date = $composition->date;
-
-        $message = ['status'=>'Success','detail'=>''];
-
-        if(!(User::isTeacher() or User::getAppUserID()==$composition->studentid))
-            $message['status'] = 'Forbidden';
-        if(!$composition->validate())
-            $message['status'] = 'Invalid Data';
-        if(!$composition->save())
-            $message['status'] = 'Operation Failed';
-        $composition = Composition::findOne(['date'=>$date]);
-        $message['detail'] = $composition->id;
-        return json_encode($message);
+            $composition->created_at = date("Y-m-d H:i:s");
+        }
+        else if($composition->id != Yii::$app->user->id)
+            return json_encode(['status' => false, 'data' => "user invalid"]);
+        /* @var Composition $composition*/
+        $composition->author_id = Yii::$app->user->id;
+        $composition->course_id = $_POST["course_id"];
+        $composition->work_id = $_POST["work_id"];
+        $composition->title = $_POST["title"];
+        $composition->content = $_POST["content"];
+        $composition->updated_at = date("Y-m-d H:i:s");
+        $composition->status = $_POST["status"];
+        if(Yii::$app->user->can("teacher")){
+            $composition->score = $_POST["score"];
+            $composition->remark = $_POST["remark"];
+            $composition->model = $_POST["model"];
+        }
+        if($composition->save()) return json_encode(['status' => true, 'message' => 'success']);
+        else return json_encode(['status' => false, 'message' => 'db error']);
     }
 
-    public function actionGetComposition()
-    {
-        $compositionid = $_GET['id'];
-        $composition = Composition::findOne(['id'=>$compositionid]);
-        if(!$composition)
-            return json_encode(['stutus'=>'fail','detail'=>'no such composition']);
-        else {
-            $writer = BasicInformation::findOne(['id'=>$composition->studentid]);
-            return json_encode(['status' => 'success', 'data' => [
-                'title' => $composition->title,
-                'writer' => $writer->enname.' / '.$writer->chname,
-                'score' => $composition->score,
-                'remark' => $composition->remark,
-                'content' => $composition->content,
-                'date' => $composition->date,
-            ]]);
+    public function actionGetComposition($id){
+        $composition = Composition::findOne($id);
+        /* @var Composition $composition */
+        if($composition) return json_encode(['status' => true, 'data' => $composition->oldAttributes]);
+        else return json_encode(['status' => false, 'message' => 'composition not found']);
+    }
+
+    public function actionGetMyCompositions($full = false){
+        $composition_records = Composition::findAll(['author_id'=>Yii::$app->user->id]);
+        $compositions = [];
+        foreach($composition_records as $record){
+            if($full) array_push($compositions,$record->oldAttributes);
+            else array_push($compositions,$record->getBrief());
         }
+        return json_encode(['status' => true, 'data' => $compositions]);
+    }
+
+    public function actionGetModelCompositions($course_id, $work_id){
+        $composition_records = Composition::findAll(['course_id'=>$course_id, 'work_id'=>$work_id, 'model'=>'True']);
+        $compositions = [];
+        foreach($composition_records as $record){
+            array_push($compositions,$record->getBrief());
+        }
+        return json_encode(['status' => true, 'data' => $compositions]);
+    }
+
+    public function actionGetCourseCompositions($course_id){
+        $composition_records = Composition::findAll(['course_id'=>$course_id]);
+        $compositions = [];
+        foreach($composition_records as $record){
+            array_push($compositions,$record->getBrief());
+        }
+        return json_encode(['status' => true, 'data' => $compositions]);
     }
 }

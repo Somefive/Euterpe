@@ -61,7 +61,7 @@ $gender = ($userinfo && $userinfo->gender == "female")? "female":"male";
         </div>
         <div class="sidebar-btn sidebar-text" href="/account/"><?=$username?><?php if($verified):?>&nbsp;<span class="glyphicon glyphicon-leaf verify-sign"></span><?php endif?></div>
         <div class="sidebar-btn sidebar-text">Notification&nbsp;<span class="glyphicon glyphicon-envelope"></span></div>
-        <div class="sidebar-btn sidebar-text">Composer&nbsp;<span class="glyphicon glyphicon-edit"></span></div>
+        <div class="sidebar-btn sidebar-text" href="/course/composer/index">Composer&nbsp;<span class="glyphicon glyphicon-edit"></span></div>
         <div class="sidebar-btn sidebar-text">Discussion&nbsp;<span class="glyphicon glyphicon-comment"></span></div>
         <div class="sidebar-btn sidebar-text">Materials&nbsp;<span class="glyphicon glyphicon-book"></span></div>
         <div class="sidebar-btn sidebar-text" href="/course/wiki/index">Wiki&nbsp;<span class="glyphicon glyphicon-tags"></span></div>

@@ -143,7 +143,6 @@ $this->title = '账户中心 Account Index';
         </div>
     </div>
 
-    <?=Html::jsFile('@web/js/jquery-2.2.0.min.js')?>
     <?=Html::jsFile('@web/js/account/index.js')?>
 
 </div>
