@@ -25,6 +25,7 @@ CREATE TABLE `composition` (
   `courseid` int(11) DEFAULT '0',
   `title` varchar(80) DEFAULT 'Title',
   `content` longtext,
+   `Contact` int(11) UNIQUE,
   `status` varchar(45) DEFAULT 'Unfinished',
   `score` int(11) DEFAULT '0',
   `remark` longtext,
